@@ -58,12 +58,14 @@ public class StupidBumpkin extends Gamer {
 
 	@Override
 	public int assignTrump() {
-		Card[] b = (Card[]) batchOnHand.toArray();
-		for (int i = 0; i < b.length; i++) {
-			if (!isSuperTrump(b[i])) {
-				setTrump(b[i].getSuit());
+		for (int i = 0; i < batchOnHand.size(); i++) {
+			if (!isSuperTrump(batchOnHand.get(i))) {
+				System.out.println("---");
+				System.out.println(batchOnHand.get(i).getFace());
+				System.out.println("---");
+				setTrump(batchOnHand.get(i).getSuit());
 				setTrumpSetterFlag(true);
-				return b[i].getSuit();
+				return batchOnHand.get(i).getSuit();
 			}
 		}
 		setTrump(CardsNames.DIAMONDS);
