@@ -51,15 +51,15 @@ public abstract class Gamer {
 	}
 
 	/**
-	 * //Проверка на масть(функцию нужно проверить)
+	 * Проверка на масть. Масть должна совпадать и масть не 
+	 * должна быть Дамой, Вальтом или шестеркой крестей(функцию нужно проверить)
 	 * 
 	 * @param card
 	 * @param suit
 	 * @return
 	 */
 	public static boolean suitTest(Card card, int suit) {
-		// масть должна совпадать и масть не должна быть Дамой и Вальтом или
-		// шестеркой крестей
+
 		if ((card.getSuit() == suit) & (!isSuperTrump(card))) {
 			return true;
 		} else {
@@ -76,15 +76,15 @@ public abstract class Gamer {
 	}
 
 	/**
-	 * Возвращает true если карта не Валет, не Дама и не шестерка крестей
+	 * Возвращает true если карта Валет, Дама или шестерка крестей
 	 */
 	public static boolean isSuperTrump(Card card) {
 		if ((card.getFaceId() == CardsNames.SIX_CROSSES)
 				| (card.getPicture() == CardsNames.JACK)
 				| (card.getPicture() == CardsNames.QUEEN)) {
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -104,5 +104,10 @@ public abstract class Gamer {
 	 */
 	public void setTrump(int trump) {
 		this.trump = trump;
+	}
+	
+	public CardBatch getbatchOnHand() {
+		return batchOnHand;
+		
 	}
 }
