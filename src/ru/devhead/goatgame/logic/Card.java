@@ -6,6 +6,8 @@ public class Card {
 	int suit;
 	String face;
 	int picture;
+	
+
 
 	Card(int value)
 	{

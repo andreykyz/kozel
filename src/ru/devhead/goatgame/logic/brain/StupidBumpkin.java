@@ -3,11 +3,13 @@ package ru.devhead.goatgame.logic.brain;
 import java.util.Iterator;
 
 import ru.devhead.goatgame.logic.Card;
+import ru.devhead.goatgame.logic.CardsNames;
 
 public class StupidBumpkin extends Gamer {
-	StupidBumpkin(){
+	
+//	StupidBumpkin(){
 		
-	}
+//	}
 	
 	@Override
 	public Card turn(Card[] table, int trump, int stepNum)
@@ -54,5 +56,18 @@ public class StupidBumpkin extends Gamer {
 
 }
 
-	
+	@Override
+	public int assignTrump() {
+		Card[] b = (Card[]) batchOnHand.toArray();
+		for (int i = 0; i < b.length; i++) {
+			if (!isSuperTrump(b[i])) {
+				setTrump(b[i].getSuit());
+				setTrumpSetterFlag(true);
+				return b[i].getSuit();
+			}
+		}
+		setTrump(CardsNames.DIAMONDS);
+		setTrumpSetterFlag(true);
+		return CardsNames.DIAMONDS;
 	}
+}
