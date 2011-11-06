@@ -28,7 +28,6 @@ public class Board {
 		Card[] batchForGameAr = (Card[]) batchForGame.toArray();
 		for (int i=0; i<batchForGameAr.length;i++) {
 			if (batchForGameAr[i].faceId == CardsNames.JACK_CROSSES){
-				
 			}
 			myBatch.add(batchForGameAr[i++]);
 			leftBrain.pushCard(batchForGameAr[i++]);
