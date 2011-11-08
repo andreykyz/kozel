@@ -12,7 +12,7 @@ public class Board {
 	public static void main(String[] args) {
 
 		Console display = new Console();
-
+		boolean trumpSetterFlag = false;
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
 
@@ -23,13 +23,20 @@ public class Board {
 		StupidBumpkin leftBrain = new StupidBumpkin();
 		StupidBumpkin rightBrain = new StupidBumpkin();
 
-		// Раздача колоды		
+		// Раздача колоды
 		for (int i=0; i<batchForGame.size();i++) {
+			if(batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES)
+			
 			myBatch.add(batchForGame.get(i++));
 			leftBrain.pushCard(batchForGame.get(i++));
 			friendBrain.pushCard(batchForGame.get(i++));
 			rightBrain.pushCard(batchForGame.get(i));
 		}
+		
+		display.print(batchForGame);
+		display.print("Start game!!!");
+		display.print(myBatch);
+		
 		
 	}
 

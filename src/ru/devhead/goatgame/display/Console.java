@@ -46,13 +46,17 @@ public class Console {
 		}
 	}
 	
-	public void print(CardBatch batch){
+	public void print(CardBatch batch) {
 		Iterator<Card> batchIter = batch.iterator();
 		int i = 0;
-		while(batchIter.hasNext()){
+		while (batchIter.hasNext()) {
 			System.out.println(i + " " + batchIter.next().getFace());
 			i++;
 		}
-		
 	}
+
+	public void print(String str) {
+		System.out.println(str);
+	}
+	
 }

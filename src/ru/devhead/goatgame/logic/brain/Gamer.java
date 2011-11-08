@@ -27,7 +27,7 @@ public abstract class Gamer {
 		batchOnHand.add(card);
 	}
 
-	public abstract Card turn(Card[] table, int trump, int stepNum);
+	public abstract Card turn(Card[] table, int stepNum);
 
 	/**
 	 * Is it a trump card? (Это козырь?)
@@ -40,10 +40,7 @@ public abstract class Gamer {
 	 */
 	public static boolean IsItTrump(Card card, int trump) {
 
-		if ((card.getSuit() == trump)
-				| ((card.getFaceId() >= CardsNames.JACK_DIAMONDS) & (card
-						.getFaceId() <= CardsNames.QUEEN_CROSSES))
-				| (card.getFaceId() == CardsNames.SIX_CROSSES)) {
+		if ((card.getSuit() == trump) | isSuperTrump(card)) {
 			return true;
 		} else {
 			return false;
