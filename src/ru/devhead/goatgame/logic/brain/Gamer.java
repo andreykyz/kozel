@@ -40,7 +40,7 @@ public abstract class Gamer {
 	 */
 	public static boolean IsItTrump(Card card, int trump) {
 
-		if ((card.getSuit() == trump) | isSuperTrump(card)) {
+		if ((card.getSuitId() == trump) | isSuperTrump(card)) {
 			return true;
 		} else {
 			return false;
@@ -57,7 +57,7 @@ public abstract class Gamer {
 	 */
 	public static boolean suitTest(Card card, int suit) {
 
-		if ((card.getSuit() == suit) & (!isSuperTrump(card))) {
+		if ((card.getSuitId() == suit) & (!isSuperTrump(card))) {
 			return true;
 		} else {
 			return false;

@@ -63,7 +63,7 @@ public class StupidBumpkin extends Gamer {
 				while (iterBatchOnHand.hasNext()) {
 					// масть нашлась?
 					card = iterBatchOnHand.next();
-					if (suitTest(card, table[0].getSuit())) {
+					if (suitTest(card, table[0].getSuitId())) {
 						// если да,ходим и ломаем цикл
 						batchOnHand.remove(card);
 						return card;
@@ -79,10 +79,10 @@ public class StupidBumpkin extends Gamer {
 	public int assignTrump() {
 		for (int i = 0; i < batchOnHand.size(); i++) {
 			if (!isSuperTrump(batchOnHand.get(i))) {
-				System.out.println("log - " + batchOnHand.get(i).getFace());
-				setTrump(batchOnHand.get(i).getSuit());
+				System.out.println("log - " + batchOnHand.get(i).getFaceName());
+				setTrump(batchOnHand.get(i).getSuitId());
 				setTrumpSetterFlag(true);
-				return batchOnHand.get(i).getSuit();
+				return batchOnHand.get(i).getSuitId();
 			}
 		}
 		setTrump(CardsNames.DIAMONDS);

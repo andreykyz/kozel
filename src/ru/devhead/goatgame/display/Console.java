@@ -22,19 +22,19 @@ public class Console {
 		switch (step) {
 		case 0:
 			step++;
-			System.out.print(card.getFace() + " ");
+			System.out.print(card.getFaceName() + " ");
 			break;
 		case 1:
 			step++;
-			System.out.println(card.getFace());
+			System.out.println(card.getFaceName());
 			break;
 		case 2:
 			step++;
-			System.out.print(card.getFace() + " ");
+			System.out.print(card.getFaceName() + " ");
 			break;
 		case 3:
 			step = 0;
-			System.out.println(card.getFace());
+			System.out.println(card.getFaceName());
 			System.out.println();
 			break;
 		}
@@ -46,11 +46,17 @@ public class Console {
 		}
 	}
 	
+	public void printSuit(Card card) {
+		System.out.println(card.getSuitName());
+
+	}
+	
+	
 	public void print(CardBatch batch) {
 		Iterator<Card> batchIter = batch.iterator();
 		int i = 0;
 		while (batchIter.hasNext()) {
-			System.out.println(i + " " + batchIter.next().getFace());
+			System.out.println(i + " " + batchIter.next().getFaceName());
 			i++;
 		}
 	}
