@@ -1,6 +1,9 @@
 package ru.devhead.goatgame.logic;
 
+import java.util.LinkedList;
+
 import ru.devhead.goatgame.display.Console;
+import ru.devhead.goatgame.logic.brain.ConsolePlayer;
 import ru.devhead.goatgame.logic.brain.StupidBumpkin;
 
 public class Board {
@@ -9,6 +12,9 @@ public class Board {
 	 * @param args
 	 */
 
+	int stepNum = 0;
+	static int trump = CardsNames.DIAMONDS;
+	
 	public static void main(String[] args) {
 
 		Console display = new Console();
@@ -16,11 +22,12 @@ public class Board {
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
 		display.print(batchForGame);
-		int stepNum = 0;
-		int trump = CardsNames.DIAMONDS;
+
+		LinkedList<Card> table;
+//		LinkedList
 
 		// Создание виртуальных игроков и колоды для пользователя
-		CardBatch myBatch = new CardBatch();
+		ConsolePlayer player = new ConsolePlayer(display);
 		StupidBumpkin friendBrain = new StupidBumpkin();
 		StupidBumpkin leftBrain = new StupidBumpkin();
 		StupidBumpkin rightBrain = new StupidBumpkin();
@@ -30,9 +37,9 @@ public class Board {
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
 				trumpSetterFlag = true;
 				friendBrain.setTrumpSetterFlag(true);
-				friendBrain.setTrump(trump);
+				trump = player.assignTrump();
 			}
-			myBatch.add(batchForGame.get(i++));
+			player.pushCard(batchForGame.get(i++));
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
 				leftBrain.setTrumpSetterFlag(true);
 				rightBrain.setTrumpSetterFlag(true);
@@ -62,7 +69,8 @@ public class Board {
 
 		display.print("Start game!!!");
 		for (int i = 0; i < 7; i++) {
-			display.print(myBatch);
+			//display.print(player.getbatchOnHand());
+			
 		}
 		
 		
