@@ -2,6 +2,8 @@ package ru.devhead.goatgame.logic.brain;
 
 import java.util.Iterator;
 
+import org.apache.log4j.Logger;
+
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardsNames;
 
@@ -13,9 +15,7 @@ import ru.devhead.goatgame.logic.CardsNames;
  */
 public class StupidBumpkin extends Gamer {
 
-	// StupidBumpkin(){
-
-	// }
+	private static Logger logger = Logger.getLogger(Gamer.class);
 
 	@Override
 	public Card turn(Card[] table, int stepNum) {
@@ -77,16 +77,20 @@ public class StupidBumpkin extends Gamer {
 
 	@Override
 	public int assignTrump() {
+		logger.debug("assignTrump()");
 		for (int i = 0; i < batchOnHand.size(); i++) {
 			if (!isSuperTrump(batchOnHand.get(i))) {
-				System.out.println("log - " + batchOnHand.get(i).getFaceName());
+				logger.debug(batchOnHand.get(i).getFaceName());
+				
 				setTrump(batchOnHand.get(i).getSuitId());
 				setTrumpSetterFlag(true);
+				logger.trace("return " + batchOnHand.get(i).getSuitName());
 				return batchOnHand.get(i).getSuitId();
 			}
 		}
 		setTrump(CardsNames.DIAMONDS);
 		setTrumpSetterFlag(true);
+		logger.trace("return DIAMOND");
 		return CardsNames.DIAMONDS;
 	}
 }

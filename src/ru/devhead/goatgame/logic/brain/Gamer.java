@@ -1,5 +1,7 @@
 package ru.devhead.goatgame.logic.brain;
 
+import org.apache.log4j.Logger;
+
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
 import ru.devhead.goatgame.logic.CardsNames;
@@ -9,7 +11,8 @@ public abstract class Gamer {
 	CardBatch batchOut;
 	boolean trumpSetterFlag = false;
 	int trump;
-
+	private static Logger logger = Logger.getLogger(Gamer.class);
+	
 	/**
 	 * 
 	 * @param batchOnHand
@@ -17,10 +20,12 @@ public abstract class Gamer {
 	 */
 	Gamer(CardBatch batchOnHand) {
 		this.batchOnHand = batchOnHand;
+
 	}
 
 	Gamer() {
 		this.batchOnHand = new CardBatch();
+
 	}
 
 	public void pushCard(Card card) {
@@ -39,10 +44,14 @@ public abstract class Gamer {
 	 * @return true Если козырь по масти либо шестерка крестей либо картинка
 	 */
 	public static boolean IsItTrump(Card card, int trump) {
+		logger.debug("Call IsItTrump(Card card, int trump");
+		logger.debug("Card = " + card.getFaceName() + "Trump = " + new Card(trump).getSuitName());
 
 		if ((card.getSuitId() == trump) | isSuperTrump(card)) {
+			logger.trace("Return true");
 			return true;
 		} else {
+			logger.trace("Return false");
 			return false;
 		}
 	}
@@ -56,11 +65,15 @@ public abstract class Gamer {
 	 * @return
 	 */
 	public static boolean suitTest(Card card, int suit) {
-
+		logger.debug("Call suitTest(Card card, int suit");
+		logger.debug("Card = " + card.getFaceName() + "Trump = " + new Card(suit).getSuitName());
+		
 		if ((card.getSuitId() == suit) & (!isSuperTrump(card))) {
+			logger.trace("Return true");
 			return true;
 		} else {
-			return false;
+			logger.trace("Return false");
+			return false;			
 		}
 	}
 
@@ -76,11 +89,16 @@ public abstract class Gamer {
 	 * Возвращает true если карта Валет, Дама или шестерка крестей
 	 */
 	public static boolean isSuperTrump(Card card) {
+		logger.debug("Call suitTest(Card card, int suit");
+		logger.debug("Card = " + card.getFaceName());
+		
 		if ((card.getFaceId() == CardsNames.SIX_CROSSES)
 				| (card.getPicture() == CardsNames.JACK)
 				| (card.getPicture() == CardsNames.QUEEN)) {
+			logger.trace("Return true");
 			return true;
 		} else {
+			logger.trace("Return false");
 			return false;
 		}
 	}

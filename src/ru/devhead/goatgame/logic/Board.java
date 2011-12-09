@@ -2,6 +2,8 @@ package ru.devhead.goatgame.logic;
 
 import java.util.LinkedList;
 
+import org.apache.log4j.BasicConfigurator;
+
 import ru.devhead.goatgame.display.Console;
 import ru.devhead.goatgame.logic.brain.ConsolePlayer;
 import ru.devhead.goatgame.logic.brain.StupidBumpkin;
@@ -17,6 +19,8 @@ public class Board {
 	
 	public static void main(String[] args) {
 
+		BasicConfigurator.configure();
+		
 		Console display = new Console();
 		boolean trumpSetterFlag = false;
 		CardBatch batchForGame = new CardBatch();

@@ -2,6 +2,8 @@ package ru.devhead.goatgame.logic.brain;
 
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import ru.devhead.goatgame.display.Console;
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
@@ -9,6 +11,7 @@ import ru.devhead.goatgame.logic.CardBatch;
 public class ConsolePlayer extends Gamer {
 
 	Console display;
+	private static Logger logger = Logger.getLogger(Gamer.class);
 	
 	public ConsolePlayer(Console display){
 		this.display = display; 

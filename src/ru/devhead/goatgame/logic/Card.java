@@ -10,7 +10,7 @@ public class Card {
 	
 
 
-	Card(int value)
+	public Card(int value)
 	{
 		faceId = value;
 		switch (value)
