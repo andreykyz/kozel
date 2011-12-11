@@ -11,8 +11,14 @@ public abstract class Gamer {
 	CardBatch batchOut;
 	boolean trumpSetterFlag = false;
 	int trump;
-	private static Logger logger = Logger.getLogger(Gamer.class);
+	int id;
 	
+	public int getId() {
+		return id;
+	}
+
+	private static Logger logger = Logger.getLogger(Gamer.class);
+		
 	/**
 	 * 
 	 * @param batchOnHand
@@ -23,9 +29,9 @@ public abstract class Gamer {
 
 	}
 
-	Gamer() {
+	Gamer(int id) {
 		this.batchOnHand = new CardBatch();
-
+		this.id = id;
 	}
 
 	public void pushCard(Card card) {

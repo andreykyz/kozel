@@ -15,6 +15,11 @@ import ru.devhead.goatgame.logic.CardsNames;
  */
 public class StupidBumpkin extends Gamer {
 
+	public StupidBumpkin(int id) {
+		super(id);
+		// TODO Auto-generated constructor stub
+	}
+
 	private static Logger logger = Logger.getLogger(Gamer.class);
 
 	@Override

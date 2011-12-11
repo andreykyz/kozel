@@ -13,9 +13,10 @@ public class ConsolePlayer extends Gamer {
 	Console display;
 	private static Logger logger = Logger.getLogger(Gamer.class);
 	
-	public ConsolePlayer(Console display){
+	public ConsolePlayer(Console display, int id){
+		super(id);
 		this.display = display; 
-		this.batchOnHand = new CardBatch();
+//		this.batchOnHand = new CardBatch();
 	}
 	
 	@Override
