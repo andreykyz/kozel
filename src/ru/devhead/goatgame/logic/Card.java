@@ -2,11 +2,11 @@ package ru.devhead.goatgame.logic;
 
 public class Card {
 	
-	int faceId;
-	int suitId;
-	String faceName;
+	private int faceId;
+	private int suitId;
+	private String faceName;
 //	String suitName;
-	int picture;
+	private int picture;
 	
 
 

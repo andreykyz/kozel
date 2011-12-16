@@ -16,10 +16,13 @@ public class Board {
 	 */
 
 	int stepNum = 0;
-	static int trump = CardsNames.DIAMONDS;
+	int trump = CardsNames.DIAMONDS;
 
 	Gamer firstGamer;
+	Gamer gamers[]; 
 	int gamersCounter;
+	
+	Card[] table;
 
 	Gamer player;
 	Gamer leftBrain;
@@ -34,7 +37,7 @@ public class Board {
 		batchForGame.fillCardBatch();
 		display.print(batchForGame);
 
-		LinkedList<Card> table;
+		table = new Card[4];
 		// LinkedList
 
 		// Создание виртуальных игроков и колоды для пользователя
@@ -43,6 +46,12 @@ public class Board {
 		friendBrain = new StupidBumpkin(2);
 		rightBrain = new StupidBumpkin(3);
 
+		gamers = new Gamer[4];
+		gamers[0] = player;
+		gamers[1] = leftBrain;
+		gamers[2] = friendBrain;
+		gamers[3] = rightBrain;
+		
 		// Первая раздача колоды
 		for (int i = 0; i < batchForGame.size(); i++) {
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
@@ -85,23 +94,95 @@ public class Board {
 
 		display.print("Start game!!!");
 		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 4; j++) {
+				
+			}
 			// display.print(player.getbatchOnHand());
 
 		}
 
 	}
 
+	/**
+	 * Устанавливает того кто ходит первый
+	 * @param gamer - who turn first
+	 */
 	void setFirstGamer(Gamer gamer) {
 		firstGamer = gamer;
 		gamersCounter = gamer.getId();
 	}
 
+	/**
+	 * Возвращает игрока у которого сейчас ход или null если все сделали ход
+	 * @return - next gamer
+	 */
 	Gamer getNextGamer() {
-		if (gamersCounter == 0) {
-
+		if (gamersCounter < 4) {
+//			gamersCounter++;
+			return gamers[(firstGamer.getId() + gamersCounter++) % 4];
+		} else {
+			return null;
+		}
+	}
+	
+	Gamer whoBeat(Card[] table) {
+		for(int i =0; i<4; i++){
+			
 		}
 		return null;
-
+	}
+	
+	/**
+	 * Why is card bigger?
+	 * @param card1
+	 * @param card2
+	 * @param firstCard - заходная карта
+	 * @return 
+	 */
+	Card cardsComparator(Card card1, Card card2, Card firstCard) {
+		if (Gamer.IsItTrump(card1, trump)) {
+			if (Gamer.IsItTrump(card2, trump)) {
+				if (Gamer.isSuperTrump(card1)) {
+					if (Gamer.isSuperTrump(card2)){
+						if(card1.getFaceId()>card2.getFaceId()) {
+							return card1;
+						} else {
+							return card2;
+						}
+					} else {
+						return card1;
+					}
+				} else {
+					if (Gamer.isSuperTrump(card2)){
+						return card2;
+					} else {
+						if(card1.getFaceId()>card2.getFaceId()){
+							return card1;
+						} else {
+							return card2;
+						}
+					}
+				}
+			} else {
+				return card1;
+			}
+		} else {
+			if (card1.getSuitId() == firstCard.getSuitId()) {
+				if (card2.getSuitId() == firstCard.getSuitId()) {
+					if (card1.getFaceId() > card2.getFaceId()) {
+						return card1;
+					} else {
+						return card2;
+					}
+				} else {
+					return card1;
+				}
+			} else {
+				//В случае, если обе карты не совпадают по масти с заходной 
+				return firstCard;
+			}
+			
+		}
 	}
 
 }
