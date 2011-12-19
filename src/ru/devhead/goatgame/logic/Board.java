@@ -19,9 +19,9 @@ public class Board {
 	int trump = CardsNames.DIAMONDS;
 
 	Gamer firstGamer;
-	Gamer gamers[]; 
+	Gamer gamers[];
 	int gamersCounter;
-	
+
 	Card[] table;
 
 	Gamer player;
@@ -51,7 +51,7 @@ public class Board {
 		gamers[1] = leftBrain;
 		gamers[2] = friendBrain;
 		gamers[3] = rightBrain;
-		
+
 		// Первая раздача колоды
 		for (int i = 0; i < batchForGame.size(); i++) {
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
@@ -66,7 +66,7 @@ public class Board {
 				rightBrain.setTrumpSetterFlag(true);
 				trump = leftBrain.assignTrump();
 				setFirstGamer(leftBrain);
-				
+
 			}
 			leftBrain.pushCard(batchForGame.get(i++));
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
@@ -93,58 +93,81 @@ public class Board {
 		display.println("-----");
 
 		display.print("Start game!!!");
+		//game loop
 		for (int i = 0; i < 7; i++) {
+			LinkedList<Gamer> gamersQueue = getGamersQueue(firstGamer);
 			for (int j = 0; j < 4; j++) {
-				
+				Gamer gamer = gamersQueue.getFirst();
+				if (gamer.equals(player)) {
+					display.print(player.getbatchOnHand());
+				}
+				table[j] = gamer.turn(table, j);
+				display.print(table[j]);
 			}
-			// display.print(player.getbatchOnHand());
-
+			//whoBeat
 		}
 
 	}
 
 	/**
 	 * Устанавливает того кто ходит первый
-	 * @param gamer - who turn first
+	 * 
+	 * @param gamer
+	 *            - who turn first
 	 */
 	void setFirstGamer(Gamer gamer) {
 		firstGamer = gamer;
 		gamersCounter = gamer.getId();
 	}
 
-	/**
-	 * Возвращает игрока у которого сейчас ход или null если все сделали ход
-	 * @return - next gamer
-	 */
-	Gamer getNextGamer() {
-		if (gamersCounter < 4) {
-//			gamersCounter++;
-			return gamers[(firstGamer.getId() + gamersCounter++) % 4];
-		} else {
-			return null;
+	LinkedList<Gamer> getGamersQueue(Gamer firstGamer) {
+		LinkedList<Gamer> gamersQueue = new LinkedList<Gamer>();
+		if (firstGamer.equals(player)) {
+			gamersQueue.addLast(player);
+			gamersQueue.addLast(leftBrain);
+			gamersQueue.addLast(friendBrain);
+			gamersQueue.addLast(rightBrain);
+		} else if (firstGamer.equals(leftBrain)) {
+			gamersQueue.addLast(leftBrain);
+			gamersQueue.addLast(friendBrain);
+			gamersQueue.addLast(rightBrain);
+			gamersQueue.addLast(player);
+		} else if (firstGamer.equals(friendBrain)) {
+			gamersQueue.addLast(friendBrain);
+			gamersQueue.addLast(rightBrain);
+			gamersQueue.addLast(player);
+			gamersQueue.addLast(leftBrain);
+		} else if (firstGamer.equals(rightBrain)) {
+			gamersQueue.addLast(rightBrain);
+			gamersQueue.addLast(player);
+			gamersQueue.addLast(leftBrain);
+			gamersQueue.addLast(friendBrain);
 		}
+		return gamersQueue;
 	}
-	
+
 	Gamer whoBeat(Card[] table) {
-		for(int i =0; i<4; i++){
-			
+		for (int i = 0; i < 4; i++) {
+
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Why is card bigger?
+	 * 
 	 * @param card1
 	 * @param card2
-	 * @param firstCard - заходная карта
-	 * @return 
+	 * @param firstCard
+	 *            - заходная карта
+	 * @return
 	 */
 	Card cardsComparator(Card card1, Card card2, Card firstCard) {
 		if (Gamer.IsItTrump(card1, trump)) {
 			if (Gamer.IsItTrump(card2, trump)) {
 				if (Gamer.isSuperTrump(card1)) {
-					if (Gamer.isSuperTrump(card2)){
-						if(card1.getFaceId()>card2.getFaceId()) {
+					if (Gamer.isSuperTrump(card2)) {
+						if (card1.getFaceId() > card2.getFaceId()) {
 							return card1;
 						} else {
 							return card2;
@@ -153,10 +176,10 @@ public class Board {
 						return card1;
 					}
 				} else {
-					if (Gamer.isSuperTrump(card2)){
+					if (Gamer.isSuperTrump(card2)) {
 						return card2;
 					} else {
-						if(card1.getFaceId()>card2.getFaceId()){
+						if (card1.getFaceId() > card2.getFaceId()) {
 							return card1;
 						} else {
 							return card2;
@@ -178,10 +201,10 @@ public class Board {
 					return card1;
 				}
 			} else {
-				//В случае, если обе карты не совпадают по масти с заходной 
+				// В случае, если обе карты не совпадают по масти с заходной
 				return firstCard;
 			}
-			
+
 		}
 	}
 
