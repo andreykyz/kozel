@@ -5,6 +5,7 @@ public class Card {
 	private int faceId;
 	private int suitId;
 	private String faceName;
+	private int cost = 0;
 //	String suitName;
 	private int picture;
 	
@@ -132,6 +133,7 @@ public class Card {
 				faceName = "TEN_CROSSES";
 				suitId = CardsNames.CROSSES;
 				picture = CardsNames.TEN;
+				cost = 10;
 				break;
 			}
 			case CardsNames.TEN_PINOCHELE:
@@ -139,6 +141,7 @@ public class Card {
 				faceName = "TEN_PINOCHELE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.TEN;
+				cost = 10;
 				break;
 			}
 			case CardsNames.TEN_HEARTS:
@@ -146,6 +149,7 @@ public class Card {
 				faceName = "TEN_HEARTS";
 				suitId = CardsNames.HEARTS;
 				picture = CardsNames.TEN;
+				cost = 10;
 				break;
 			}
 			case CardsNames.TEN_DIAMONDS:
@@ -153,6 +157,7 @@ public class Card {
 				faceName = "TEN_DIAMONDS";
 				suitId = CardsNames.DIAMONDS;
 				picture = CardsNames.TEN;
+				cost = 10;
 				break;
 			}
 			case CardsNames.JACK_CROSSES:
@@ -160,6 +165,7 @@ public class Card {
 				faceName = "JACK_CROSSES";
 				suitId = CardsNames.CROSSES;
 				picture = CardsNames.JACK;
+				cost = 2;
 				break;
 			}
 			case CardsNames.JACK_PINOCHELE:
@@ -167,6 +173,7 @@ public class Card {
 				faceName = "JACK_PINOCHELE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.JACK;
+				cost = 2;
 				break;
 			}
 			case CardsNames.JACK_HEARTS:
@@ -174,6 +181,7 @@ public class Card {
 				faceName = "JACK_HEARTS";
 				suitId = CardsNames.HEARTS;
 				picture = CardsNames.JACK;
+				cost = 2;
 				break;
 			}
 			case CardsNames.JACK_DIAMONDS:
@@ -181,6 +189,7 @@ public class Card {
 				faceName = "JACK_DIAMONDS";
 				suitId = CardsNames.DIAMONDS;
 				picture = CardsNames.JACK;
+				cost = 2;
 				break;
 			}
 			case CardsNames.QUEEN_CROSSES:
@@ -188,6 +197,7 @@ public class Card {
 				faceName = "QUEEN_CROSSES";
 				suitId = CardsNames.CROSSES;
 				picture = CardsNames.QUEEN;
+				cost = 3;
 				break;
 			}
 			case CardsNames.QUEEN_PINOCHELE:
@@ -195,6 +205,7 @@ public class Card {
 				faceName = "QUEEN_PINOCHELE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.QUEEN;
+				cost = 3;
 				break;
 			}
 			case CardsNames.QUEEN_HEARTS:
@@ -202,6 +213,7 @@ public class Card {
 				faceName = "QUEEN_HEARTS";
 				suitId = CardsNames.HEARTS;
 				picture = CardsNames.QUEEN;
+				cost = 3;
 				break;
 			}
 			case CardsNames.QUEEN_DIAMONDS:
@@ -209,6 +221,7 @@ public class Card {
 				faceName = "QUEEN_DIAMONDS";
 				suitId = CardsNames.DIAMONDS;
 				picture = CardsNames.QUEEN;
+				cost = 3;
 				break;
 			}
 			case CardsNames.KING_CROSSES:
@@ -216,6 +229,7 @@ public class Card {
 				faceName = "KING_CROSSES";
 				suitId = CardsNames.CROSSES;
 				picture = CardsNames.KING;
+				cost = 4;
 				break;
 			}
 			case CardsNames.KING_PINOCHELE:
@@ -223,6 +237,7 @@ public class Card {
 				faceName = "KING_PINOCHELE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.KING;
+				cost = 4;
 				break;
 			}
 			case CardsNames.KING_HEARTS:
@@ -230,6 +245,7 @@ public class Card {
 				faceName = "KING_HEARTS";
 				suitId = CardsNames.HEARTS;
 				picture = CardsNames.KING;
+				cost = 4;
 				break;
 			}
 			case CardsNames.KING_DIAMONDS:
@@ -237,6 +253,7 @@ public class Card {
 				faceName = "KING_DIAMONDS";
 				suitId = CardsNames.DIAMONDS;
 				picture = CardsNames.KING;
+				cost = 4;
 				break;
 			}
 			case CardsNames.ACE_CROSSES:
@@ -244,6 +261,7 @@ public class Card {
 				faceName = "ACE_CROSSES";
 				suitId = CardsNames.CROSSES;
 				picture = CardsNames.ACE;
+				cost = 11;
 				break;
 			}
 			case CardsNames.ACE_PINOCHELE:
@@ -251,6 +269,7 @@ public class Card {
 				faceName = "ACE_PINOCHELE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.ACE;
+				cost = 11;
 				break;
 			}
 			case CardsNames.ACE_HEARTS:
@@ -258,6 +277,7 @@ public class Card {
 				faceName = "ACE_HEARTS";
 				suitId = CardsNames.HEARTS;
 				picture = CardsNames.ACE;
+				cost = 11;
 				break;
 			}
 			case CardsNames.ACE_DIAMONDS:
@@ -265,6 +285,7 @@ public class Card {
 				faceName = "ACE_DIAMONDS";
 				suitId = CardsNames.DIAMONDS;
 				picture = CardsNames.ACE;
+				cost = 11;
 				break;
 			}
 		}
@@ -299,7 +320,10 @@ public class Card {
 			return "DIAMONDS";
 		}
 		return faceName;
-
+	}
+	
+	public int getCost(){
+		return cost;
 	}
 	
 }

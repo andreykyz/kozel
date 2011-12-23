@@ -97,6 +97,7 @@ public class Board {
 		for (int i = 0; i < 7; i++) {
 			LinkedList<Gamer> gamersQueue = getGamersQueue(firstGamer);
 			for (int j = 0; j < 4; j++) {
+				//Get next gamer from Queue
 				Gamer gamer = gamersQueue.getFirst();
 				if (gamer.equals(player)) {
 					display.print(player.getbatchOnHand());
@@ -147,9 +148,11 @@ public class Board {
 	}
 
 	Gamer whoBeat(Card[] table) {
-		for (int i = 0; i < 4; i++) {
-
+		Card vinCard = table[0];
+		for (int i = 1; i < 4; i++) {
+			vinCard = cardsComparator(vinCard, table[i], table[0]);
 		}
+		LinkedList<Gamer> gamerQueue = getGamersQueue(firstGamer);
 		return null;
 	}
 
