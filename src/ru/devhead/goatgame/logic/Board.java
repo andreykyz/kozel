@@ -23,6 +23,7 @@ public class Board {
 	int gamersCounter;
 
 	Card[] table;
+	CardGamerPair[] cardGamerPairs;
 
 	Gamer player;
 	Gamer leftBrain;
@@ -38,6 +39,7 @@ public class Board {
 		display.print(batchForGame);
 
 		table = new Card[4];
+		cardGamerPairs = new CardGamerPair[4];
 		// LinkedList
 
 		// Создание виртуальных игроков и колоды для пользователя
@@ -103,6 +105,7 @@ public class Board {
 					display.print(player.getbatchOnHand());
 				}
 				table[j] = gamer.turn(table, j);
+				cardGamerPairs[j] = new CardGamerPair(gamer, table[j]);
 				display.print(table[j]);
 			}
 			//whoBeat
@@ -147,13 +150,18 @@ public class Board {
 		return gamersQueue;
 	}
 
-	Gamer whoBeat(Card[] table) {
-		Card vinCard = table[0];
+	Gamer whoBeat(CardGamerPair[] cgPairs) {
+		Card vinCard = cgPairs[0].getCard();
 		for (int i = 1; i < 4; i++) {
-			vinCard = cardsComparator(vinCard, table[i], table[0]);
+			vinCard = cardsComparator(vinCard, cgPairs[i].getCard(), cgPairs[0].getCard());
 		}
-		LinkedList<Gamer> gamerQueue = getGamersQueue(firstGamer);
-		return null;
+		Gamer vinGamer = null;
+		for (int i = 0; i < 4; i++) {
+			if(cgPairs[i].getCard().equals(vinCard)) {
+				vinGamer = cgPairs[i].getGamer();
+			}
+		}
+		return vinGamer;
 	}
 
 	/**
