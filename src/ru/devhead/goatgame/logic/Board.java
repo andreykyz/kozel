@@ -7,8 +7,13 @@ import org.apache.log4j.BasicConfigurator;
 import ru.devhead.goatgame.display.Console;
 import ru.devhead.goatgame.logic.brain.ConsolePlayer;
 import ru.devhead.goatgame.logic.brain.Gamer;
+import ru.devhead.goatgame.logic.brain.GamersTeam;
 import ru.devhead.goatgame.logic.brain.StupidBumpkin;
 
+/**
+ * @author kyznecov
+ *
+ */
 public class Board {
 
 	/**
@@ -29,11 +34,12 @@ public class Board {
 	Gamer leftBrain;
 	Gamer friendBrain;
 	Gamer rightBrain;
+	GamersTeam team1;
+	GamersTeam team2;
 
 	public Board() {
 
 		Console display = new Console();
-		boolean trumpSetterFlag = false;
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
 		display.print(batchForGame);
@@ -53,11 +59,14 @@ public class Board {
 		gamers[1] = leftBrain;
 		gamers[2] = friendBrain;
 		gamers[3] = rightBrain;
+		
+		team1 = new GamersTeam(player, friendBrain);
+		team2 = new GamersTeam(leftBrain, rightBrain);
 
 		// Первая раздача колоды
 		for (int i = 0; i < batchForGame.size(); i++) {
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
-				trumpSetterFlag = true;
+				player.setTrumpSetterFlag(true);
 				friendBrain.setTrumpSetterFlag(true);
 				trump = player.assignTrump();
 				setFirstGamer(player);
@@ -72,7 +81,7 @@ public class Board {
 			}
 			leftBrain.pushCard(batchForGame.get(i++));
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
-				trumpSetterFlag = true;
+				player.setTrumpSetterFlag(true);
 				friendBrain.setTrumpSetterFlag(true);
 				trump = friendBrain.assignTrump();
 				setFirstGamer(friendBrain);
@@ -95,11 +104,13 @@ public class Board {
 		display.println("-----");
 
 		display.print("Start game!!!");
-		//game loop
+		// game loop
+
+
 		for (int i = 0; i < 7; i++) {
 			LinkedList<Gamer> gamersQueue = getGamersQueue(firstGamer);
 			for (int j = 0; j < 4; j++) {
-				//Get next gamer from Queue
+				// Get next gamer from Queue
 				Gamer gamer = gamersQueue.getFirst();
 				if (gamer.equals(player)) {
 					display.print(player.getbatchOnHand());
@@ -108,7 +119,13 @@ public class Board {
 				cardGamerPairs[j] = new CardGamerPair(gamer, table[j]);
 				display.print(table[j]);
 			}
-			//whoBeat
+			firstGamer = whoBeat(cardGamerPairs);
+			if(team1.haveGamer(firstGamer)) {
+				team1.addBeatCards(table);
+			} else {
+				team2.addBeatCards(table);
+			}
+			
 		}
 
 	}
@@ -119,12 +136,12 @@ public class Board {
 	 * @param gamer
 	 *            - who turn first
 	 */
-	void setFirstGamer(Gamer gamer) {
+	private void setFirstGamer(Gamer gamer) {
 		firstGamer = gamer;
 		gamersCounter = gamer.getId();
 	}
 
-	LinkedList<Gamer> getGamersQueue(Gamer firstGamer) {
+	private LinkedList<Gamer> getGamersQueue(Gamer firstGamer) {
 		LinkedList<Gamer> gamersQueue = new LinkedList<Gamer>();
 		if (firstGamer.equals(player)) {
 			gamersQueue.addLast(player);
@@ -150,14 +167,15 @@ public class Board {
 		return gamersQueue;
 	}
 
-	Gamer whoBeat(CardGamerPair[] cgPairs) {
+	private Gamer whoBeat(CardGamerPair[] cgPairs) {
 		Card vinCard = cgPairs[0].getCard();
 		for (int i = 1; i < 4; i++) {
-			vinCard = cardsComparator(vinCard, cgPairs[i].getCard(), cgPairs[0].getCard());
+			vinCard = cardsComparator(vinCard, cgPairs[i].getCard(),
+					cgPairs[0].getCard());
 		}
 		Gamer vinGamer = null;
 		for (int i = 0; i < 4; i++) {
-			if(cgPairs[i].getCard().equals(vinCard)) {
+			if (cgPairs[i].getCard().equals(vinCard)) {
 				vinGamer = cgPairs[i].getGamer();
 			}
 		}
@@ -173,7 +191,7 @@ public class Board {
 	 *            - заходная карта
 	 * @return
 	 */
-	Card cardsComparator(Card card1, Card card2, Card firstCard) {
+	private Card cardsComparator(Card card1, Card card2, Card firstCard) {
 		if (Gamer.IsItTrump(card1, trump)) {
 			if (Gamer.IsItTrump(card2, trump)) {
 				if (Gamer.isSuperTrump(card1)) {
@@ -217,6 +235,31 @@ public class Board {
 			}
 
 		}
+	}
+	
+	/**
+	 * 
+	 * @author kyznecov
+	 *
+	 */
+	private class CardGamerPair {
+
+		private Gamer gamer;
+		private Card card;
+
+		public CardGamerPair(Gamer gamer, Card card) {
+			this.gamer = gamer;
+			this.card = card;
+		}
+
+		public Gamer getGamer() {
+			return gamer;
+		}
+
+		public Card getCard() {
+			return card;
+		}
+
 	}
 
 }
