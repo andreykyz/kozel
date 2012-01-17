@@ -2,8 +2,6 @@ package ru.devhead.goatgame.logic;
 
 import java.util.LinkedList;
 
-import org.apache.log4j.BasicConfigurator;
-
 import ru.devhead.goatgame.display.Console;
 import ru.devhead.goatgame.logic.brain.ConsolePlayer;
 import ru.devhead.goatgame.logic.brain.Gamer;
@@ -104,6 +102,7 @@ public class Board {
 		display.println("-----");
 
 		display.print("Start game!!!");
+		display.println("-----");
 		// game loop
 
 
@@ -111,10 +110,7 @@ public class Board {
 			LinkedList<Gamer> gamersQueue = getGamersQueue(firstGamer);
 			for (int j = 0; j < 4; j++) {
 				// Get next gamer from Queue
-				Gamer gamer = gamersQueue.getFirst();
-				if (gamer.equals(player)) {
-					display.print(player.getbatchOnHand());
-				}
+				Gamer gamer = gamersQueue.removeFirst();
 				table[j] = gamer.turn(table, j);
 				cardGamerPairs[j] = new CardGamerPair(gamer, table[j]);
 				display.print(table[j]);
