@@ -3,6 +3,7 @@ package ru.devhead.goatgame.logic;
 import java.util.LinkedList;
 
 import ru.devhead.goatgame.display.Console;
+import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.brain.ConsolePlayer;
 import ru.devhead.goatgame.logic.brain.Gamer;
 import ru.devhead.goatgame.logic.brain.GamersTeam;
@@ -39,7 +40,7 @@ public class Board {
 
 	public Board() {
 
-		Console display = new Console();
+		Display display = new Console();
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
 		display.print(batchForGame);

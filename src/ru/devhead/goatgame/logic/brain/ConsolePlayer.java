@@ -4,16 +4,16 @@ import java.util.Scanner;
 
 import org.apache.log4j.Logger;
 
-import ru.devhead.goatgame.display.Console;
+import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.Card;
-import ru.devhead.goatgame.logic.CardBatch;
+
 
 public class ConsolePlayer extends Gamer {
 
-	Console display;
+	Display display;
 	private static Logger logger = Logger.getLogger(Gamer.class);
 	
-	public ConsolePlayer(Console display, int id){
+	public ConsolePlayer(Display display, int id){
 		super(id);
 		this.display = display; 
 //		this.batchOnHand = new CardBatch();

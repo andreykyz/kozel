@@ -5,7 +5,7 @@ import java.util.Iterator;
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
 
-public class Console {
+public class Console implements Display {
 
 	boolean[] steps;
 	int step;
