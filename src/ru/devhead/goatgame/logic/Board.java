@@ -10,7 +10,7 @@ import ru.devhead.goatgame.logic.brain.StupidBumpkin;
 
 /**
  * @author kyznecov
- *
+ * 
  */
 public class Board {
 
@@ -20,6 +20,8 @@ public class Board {
 
 	int stepNum = 0;
 	int trump = CardsNames.DIAMONDS;
+	boolean dublePoint = false;
+	int tempPoints = 0;
 
 	Gamer firstGamer;
 	Gamer gamers[];
@@ -48,16 +50,20 @@ public class Board {
 
 		// Создание виртуальных игроков и колоды для пользователя
 		player = new ConsolePlayer(display, 0);
+		player.setName("Player");
 		leftBrain = new StupidBumpkin(1);
+		leftBrain.setName("Left Brain");
 		friendBrain = new StupidBumpkin(2);
+		friendBrain.setName("Friend Brain");
 		rightBrain = new StupidBumpkin(3);
+		rightBrain.setName("Right Brain");
 
 		gamers = new Gamer[4];
 		gamers[0] = player;
 		gamers[1] = leftBrain;
 		gamers[2] = friendBrain;
 		gamers[3] = rightBrain;
-		
+
 		team1 = new GamersTeam(player, friendBrain);
 		team2 = new GamersTeam(leftBrain, rightBrain);
 
@@ -105,25 +111,64 @@ public class Board {
 		display.println("-----");
 		// game loop
 
+		do {
+			for (int i = 0; i < 7; i++) {
+				LinkedList<Gamer> gamersQueue = getGamersQueue(firstGamer);
+				for (int j = 0; j < 4; j++) {
+					// Get next gamer from Queue
+					Gamer gamer = gamersQueue.removeFirst();
+					table[j] = gamer.turn(table, j);
+					cardGamerPairs[j] = new CardGamerPair(gamer, table[j]);
+					display.print(table[j]);
+				}
+				firstGamer = whoBeat(cardGamerPairs);
+				if (team1.haveGamer(firstGamer)) {
+					team1.addBeatCards(table);
+				} else {
+					team2.addBeatCards(table);
+				}
 
-		for (int i = 0; i < 7; i++) {
-			LinkedList<Gamer> gamersQueue = getGamersQueue(firstGamer);
-			for (int j = 0; j < 4; j++) {
-				// Get next gamer from Queue
-				Gamer gamer = gamersQueue.removeFirst();
-				table[j] = gamer.turn(table, j);
-				cardGamerPairs[j] = new CardGamerPair(gamer, table[j]);
-				display.print(table[j]);
 			}
-			firstGamer = whoBeat(cardGamerPairs);
-			if(team1.haveGamer(firstGamer)) {
-				team1.addBeatCards(table);
-			} else {
-				team2.addBeatCards(table);
+			tempPoints = 0;
+			if (team1.getCash() < 60) {
+				tempPoints = 2;
+				if (team1.getCash() < 60) {
+					tempPoints = 4;
+					if (team1.getCash() == 0) {
+						tempPoints = 6;
+					}
+				}
+				if (dublePoint) {
+					dublePoint = false;
+					tempPoints = tempPoints * 2;
+				}
+				team1.addPoints(tempPoints);
+			} else if (team2.getCash() < 60) {
+				tempPoints = 2;
+				if (team2.getCash() < 60) {
+					tempPoints = 4;
+					if (team2.getCash() == 0) {
+						tempPoints = 6;
+					}
+				}
+				if (dublePoint) {
+					dublePoint = false;
+					tempPoints = tempPoints * 2;
+				}
+				team2.addPoints(tempPoints);
 			}
-			
+
+			if (team1.getCash() == 60) {
+				// Следующий Points умножается на 2
+				dublePoint = true;
+			}
+
+		} while (team1.getPoints() < 12 && team2.getPoints() < 12);
+		if (team1.getPoints()>=12) {
+			display.print("Player and Friend player - poor");
+		} else {
+			display.print("Left gamer and Right gamer - poor");
 		}
-
 	}
 
 	/**
@@ -137,6 +182,12 @@ public class Board {
 		gamersCounter = gamer.getId();
 	}
 
+	/**
+	 * 
+	 * @param firstGamer
+	 *            - that who will be at the top of LinkedList
+	 * @return
+	 */
 	private LinkedList<Gamer> getGamersQueue(Gamer firstGamer) {
 		LinkedList<Gamer> gamersQueue = new LinkedList<Gamer>();
 		if (firstGamer.equals(player)) {
@@ -232,11 +283,11 @@ public class Board {
 
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @author kyznecov
-	 *
+	 * 
 	 */
 	private class CardGamerPair {
 
