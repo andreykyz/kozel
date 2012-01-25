@@ -80,6 +80,8 @@ public class WindowSwing extends JFrame implements Display {
 		 menuBar.add(mHelp);
 		 
 		 setJMenuBar(menuBar);
+		 
+		 
 
 	}
 
