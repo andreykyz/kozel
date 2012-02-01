@@ -139,5 +139,6 @@ public abstract class Gamer {
 	public CardBatch getbatchOnHand() {
 		return batchOnHand;
 		
-	}
+	}	
+	
 }
