@@ -9,9 +9,11 @@ public class CheatingType {
 	static public final int OK = 0;
 	static public final int SUIT_CHEAT_CODE = 1;
 	static public final int TRUMP_CHEAT_CODE = 2;
+	static public final int FIRST_TURN_CHEAT_CODE = 3;
 
 	static public final String SUIT_CHEAT = "Do not follow suit.";
 	static public final String TRUMP_CHEAT = "It is forbidden to turn trump.";
+	static public final String FIRST_TURN_CHEAT = "Gamer can't trump setter.";
 	static public final String OTHER_CHEAT = "Do not know cheating.";
 	
 	
@@ -28,6 +30,11 @@ public class CheatingType {
 			break;
 		case TRUMP_CHEAT_CODE:
 			setCheatString(TRUMP_CHEAT);
+			this.setCheatCode(cheatCode);
+			setCheatPoints(4);
+			break;
+		case FIRST_TURN_CHEAT_CODE:
+			setCheatString(FIRST_TURN_CHEAT);
 			this.setCheatCode(cheatCode);
 			setCheatPoints(4);
 			break;
