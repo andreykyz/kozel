@@ -1,12 +1,15 @@
 package ru.devhead.goatgame.display;
 
+import java.awt.Component;
+import java.awt.Graphics;
+
 import javax.swing.ImageIcon;
 
 import ru.devhead.goatgame.logic.Card;
 
 public class CardWrappper extends Card {
 	
-	private ImageIcon _image;
+	private ImageIcon cardImage;
 	private int _x;
 	private int _y;
 
@@ -31,13 +34,13 @@ public class CardWrappper extends Card {
 	// =================================================================
 	// getWidth
 	public int getWidth() {
-		return _image.getIconWidth();
+		return cardImage.getIconWidth();
 	}
 
 	// ================================================================
 	// getHeight
 	public int getHeight() {
-		return _image.getIconHeight();
+		return cardImage.getIconHeight();
 	}
 
 	// =====================================================================
@@ -55,7 +58,7 @@ public class CardWrappper extends Card {
 	// =====================================================================
 	// draw
 	public void draw(Graphics g, Component c) {
-		_image.paintIcon(c, g, _x, _y);
+		cardImage.paintIcon(c, g, _x, _y);
 	}
 
 }

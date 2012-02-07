@@ -18,7 +18,7 @@ public class Console implements Display {
 		step = 0;
 	}
 
-	public void print(Card card) {
+	public void printTurnCard(Card card) {
 		switch (step) {
 		case 0:
 			step++;
@@ -39,20 +39,13 @@ public class Console implements Display {
 			break;
 		}
 	}
-
-	public void print(Card[] card) {
-		for (int i = 0; i < card.length; i++) {
-			print(card[i]);
-		}
-	}
 	
-	public void printSuit(Card card) {
+	public void printTrumpSuit(Card card) {
 		System.out.println(card.getSuitName());
 
 	}
-	
-	
-	public void print(CardBatch batch) {
+		
+	private void print(CardBatch batch) {
 		Iterator<Card> batchIter = batch.iterator();
 		int i = 0;
 		while (batchIter.hasNext()) {
@@ -61,12 +54,38 @@ public class Console implements Display {
 		}
 	}
 
-	public void print(String str) {
+	public void printText(String str) {
 		System.out.print(str);
 	}
 	
-	public void println(String str) {
-		System.out.println(str);
+	@Override
+	public Card getSelectCard() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void printLeft(boolean open, CardBatch batch) {
+		print(batch);
+		
+	}
+
+	@Override
+	public void printTop(boolean open, CardBatch batch) {
+		print(batch);
+		
+	}
+
+	@Override
+	public void printBottom(boolean open, CardBatch batch) {
+		print(batch);
+		
+	}
+
+	@Override
+	public void printRight(boolean open, CardBatch batch) {
+		print(batch);
+		
 	}
 	
 }

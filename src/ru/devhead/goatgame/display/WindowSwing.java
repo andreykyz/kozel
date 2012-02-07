@@ -20,7 +20,7 @@ import ru.devhead.goatgame.logic.CardBatch;
  * @author kyznecov
  * 
  */
-public class WindowSwing extends JFrame implements Display {
+public class WindowSwing extends JFrame {
 
 	/**
 	 * 
@@ -82,79 +82,6 @@ public class WindowSwing extends JFrame implements Display {
 		 setJMenuBar(menuBar);
 		 
 		 
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * ru.devhead.goatgame.display.Display#print(ru.devhead.goatgame.logic.Card)
-	 */
-	@Override
-	public void print(Card card) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * ru.devhead.goatgame.display.Display#print(ru.devhead.goatgame.logic.Card
-	 * [])
-	 */
-	@Override
-	public void print(Card[] card) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * ru.devhead.goatgame.display.Display#printSuit(ru.devhead.goatgame.logic
-	 * .Card)
-	 */
-	@Override
-	public void printSuit(Card card) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * ru.devhead.goatgame.display.Display#print(ru.devhead.goatgame.logic.CardBatch
-	 * )
-	 */
-	@Override
-	public void print(CardBatch batch) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ru.devhead.goatgame.display.Display#print(java.lang.String)
-	 */
-	@Override
-	public void print(String str) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see ru.devhead.goatgame.display.Display#println(java.lang.String)
-	 */
-	@Override
-	public void println(String str) {
-		// TODO Auto-generated method stub
 
 	}
 
