@@ -25,7 +25,7 @@ public class Card {
 			}
 			case CardsNames.SIX_PINOCHELE:
 			{
-				faceName=  "SIX_PINOCHELE";
+				faceName=  "SIX_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.SIX;
 				break;
@@ -53,7 +53,7 @@ public class Card {
 			}
 			case CardsNames.SEVEN_PINOCHELE:
 			{
-				faceName = "SEVEN_PINOCHELE";
+				faceName = "SEVEN_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.SEVEN;
 				break;
@@ -81,7 +81,7 @@ public class Card {
 			}
 			case CardsNames.EIGHT_PINOCHELE:
 			{
-				faceName = "EIGHT_PINOCHELE";
+				faceName = "EIGHT_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.EIGHT;
 				break;
@@ -109,7 +109,7 @@ public class Card {
 			}
 			case CardsNames.NINE_PINOCHELE:
 			{
-				faceName = "NINE_PINOCHELE";
+				faceName = "NINE_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.NINE;
 				break;
@@ -138,7 +138,7 @@ public class Card {
 			}
 			case CardsNames.TEN_PINOCHELE:
 			{
-				faceName = "TEN_PINOCHELE";
+				faceName = "TEN_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.TEN;
 				cost = 10;
@@ -170,7 +170,7 @@ public class Card {
 			}
 			case CardsNames.JACK_PINOCHELE:
 			{
-				faceName = "JACK_PINOCHELE";
+				faceName = "JACK_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.JACK;
 				cost = 2;
@@ -202,7 +202,7 @@ public class Card {
 			}
 			case CardsNames.QUEEN_PINOCHELE:
 			{
-				faceName = "QUEEN_PINOCHELE";
+				faceName = "QUEEN_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.QUEEN;
 				cost = 3;
@@ -234,7 +234,7 @@ public class Card {
 			}
 			case CardsNames.KING_PINOCHELE:
 			{
-				faceName = "KING_PINOCHELE";
+				faceName = "KING_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.KING;
 				cost = 4;
@@ -266,7 +266,7 @@ public class Card {
 			}
 			case CardsNames.ACE_PINOCHELE:
 			{
-				faceName = "ACE_PINOCHELE";
+				faceName = "ACE_SPADE";
 				suitId = CardsNames.PINOCHELE;
 				picture = CardsNames.ACE;
 				cost = 11;
@@ -322,8 +322,20 @@ public class Card {
 		return faceName;
 	}
 	
-	public int getCost(){
+	public int getCost() {
 		return cost;
 	}
-	
+
+	public int hashCode() {
+		return this.getFaceId();
+	}
+
+	public boolean equals(Object obj) {
+		if (this.hashCode() == this.hashCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

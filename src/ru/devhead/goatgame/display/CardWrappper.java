@@ -9,13 +9,21 @@ import ru.devhead.goatgame.logic.Card;
 
 public class CardWrappper extends Card {
 	
-	private ImageIcon cardImage;
+	private ImageIcon faceImage;
+	private ImageIcon backImage;
 	private int _x;
 	private int _y;
 
 	public CardWrappper(int value) {
 		super(value);
-		// TODO Auto-generated constructor stub
+		faceImage = new ImageIcon("cards/" +  this.getFaceName());
+		backImage = new ImageIcon("cards/back/book.gif");
+	}
+	
+	public CardWrappper(Card card) {
+		super(card.getFaceId());
+		faceImage = new ImageIcon("cards/" +  this.getFaceName());
+		backImage = new ImageIcon("cards/back/book.gif");
 	}
 	
 	// ===================================================================
@@ -34,13 +42,13 @@ public class CardWrappper extends Card {
 	// =================================================================
 	// getWidth
 	public int getWidth() {
-		return cardImage.getIconWidth();
+		return faceImage.getIconWidth();
 	}
 
 	// ================================================================
 	// getHeight
 	public int getHeight() {
-		return cardImage.getIconHeight();
+		return faceImage.getIconHeight();
 	}
 
 	// =====================================================================
@@ -58,7 +66,7 @@ public class CardWrappper extends Card {
 	// =====================================================================
 	// draw
 	public void draw(Graphics g, Component c) {
-		cardImage.paintIcon(c, g, _x, _y);
+		faceImage.paintIcon(c, g, _x, _y);
 	}
 
 }
