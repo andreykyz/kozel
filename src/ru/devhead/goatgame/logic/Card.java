@@ -26,7 +26,7 @@ public class Card {
 			case CardsNames.SIX_PINOCHELE:
 			{
 				faceName=  "SIX_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.SIX;
 				break;
 			}
@@ -54,7 +54,7 @@ public class Card {
 			case CardsNames.SEVEN_PINOCHELE:
 			{
 				faceName = "SEVEN_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.SEVEN;
 				break;
 			}
@@ -82,7 +82,7 @@ public class Card {
 			case CardsNames.EIGHT_PINOCHELE:
 			{
 				faceName = "EIGHT_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.EIGHT;
 				break;
 			}
@@ -110,7 +110,7 @@ public class Card {
 			case CardsNames.NINE_PINOCHELE:
 			{
 				faceName = "NINE_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.NINE;
 				break;
 			}
@@ -139,7 +139,7 @@ public class Card {
 			case CardsNames.TEN_PINOCHELE:
 			{
 				faceName = "TEN_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.TEN;
 				cost = 10;
 				break;
@@ -171,7 +171,7 @@ public class Card {
 			case CardsNames.JACK_PINOCHELE:
 			{
 				faceName = "JACK_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.JACK;
 				cost = 2;
 				break;
@@ -203,7 +203,7 @@ public class Card {
 			case CardsNames.QUEEN_PINOCHELE:
 			{
 				faceName = "QUEEN_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.QUEEN;
 				cost = 3;
 				break;
@@ -235,7 +235,7 @@ public class Card {
 			case CardsNames.KING_PINOCHELE:
 			{
 				faceName = "KING_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.KING;
 				cost = 4;
 				break;
@@ -267,7 +267,7 @@ public class Card {
 			case CardsNames.ACE_PINOCHELE:
 			{
 				faceName = "ACE_SPADE";
-				suitId = CardsNames.PINOCHELE;
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.ACE;
 				cost = 11;
 				break;
@@ -312,7 +312,7 @@ public class Card {
 		switch (suitId) {
 		case CardsNames.CROSSES:
 			return "CROSSES";
-		case CardsNames.PINOCHELE:
+		case CardsNames.SPADE:
 			return "PINOCHELE";
 		case CardsNames.HEARTS:
 			return "HEARTS";

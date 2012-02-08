@@ -18,6 +18,9 @@ public class CardBatch extends LinkedList<Card> {
 	
 	static int[] kozelBatch;
 	
+	// fields
+	private boolean visible = true;
+	
 	static{
 		kozelBatch = new int[kozelSize];
 		for (int i = 0;i<kozelBatch.length;i++){
@@ -47,5 +50,13 @@ public class CardBatch extends LinkedList<Card> {
 			dim[j] = true;
 			this.add(new Card(kozelBatch[j]));
 		}
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public boolean isVisible() {
+		return visible;
 	}
 }
