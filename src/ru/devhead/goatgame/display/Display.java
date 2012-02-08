@@ -25,13 +25,13 @@ public interface Display {
 	
 	/**
 	 * 
-	 * @param open true - card is face up and false - card face down
+	 * @param visible true - card is face up and false - card face down
 	 * @param batch 
 	 */
-	public void printLeft(boolean open, CardBatch batch);
-	public void printTop(boolean open, CardBatch batch);
-	public void printBottom(boolean open, CardBatch batch);
-	public void printRight(boolean open, CardBatch batch); 
+	public void printLeft(boolean visible, CardBatch batch);
+	public void printTop(boolean visible, CardBatch batch);
+	public void printBottom(boolean visible, CardBatch batch);
+	public void printRight(boolean visible, CardBatch batch); 
 	
 	public void printText(String line); 
 	
