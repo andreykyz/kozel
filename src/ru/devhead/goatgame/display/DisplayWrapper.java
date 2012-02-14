@@ -33,7 +33,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 	private ImageIcon trumpSuitImg;
 	private Point textPoint;
 
-	private String textLine = "";
+	private String textLine = "New game";
 
 	private CardBatch leftBatch;
 	private CardBatch rightBatch;
@@ -53,12 +53,14 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 
 		turnedCards = new CardWrapper[4];
 		turnedCardsIndex = 0;
-		// Hardcoded right top position and offset is dublesize of image
-		trumpSuitPoint = new Point(this.getWidth()
-				- trumpSuitImg.getIconWidth() * 2,
-				trumpSuitImg.getIconHeight() * 2);
-
-	}
+		
+		trumpSuitImg = new ImageIcon();
+		trumpSuitPoint = new Point(0,0);
+		
+		textPoint = new Point(5, TABLE_HEIGHT - 10);
+		
+	}		
+	
 
 	@Override
 	public void paintComponent(Graphics g) {
@@ -146,6 +148,10 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 			trumpSuitImg = new ImageIcon("cards/SPADE.gif");
 			break;
 		}
+		// Hardcoded right top position and offset is dublesize of image
+		trumpSuitPoint = new Point(this.getWidth()
+				- trumpSuitImg.getIconWidth() * 2,
+				trumpSuitImg.getIconHeight() * 2);
 		this.repaint();
 
 	}

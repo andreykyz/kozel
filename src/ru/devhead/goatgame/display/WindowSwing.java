@@ -17,7 +17,8 @@ import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
 
 /**
- * @author kyznecov
+ * Interface based on swing frame work.
+ * @author Kyznecov Andrey
  * 
  */
 public class WindowSwing extends JFrame {
@@ -79,9 +80,9 @@ public class WindowSwing extends JFrame {
 		 menuBar.add(mFile);
 		 menuBar.add(mHelp);
 		 
-		 setJMenuBar(menuBar);
-		 
-		 
+		 this.setJMenuBar(menuBar);
+		 this.setContentPane(new DisplayWrapper());
+		 this.pack();		 
 
 	}
 
