@@ -1,6 +1,7 @@
 package ru.devhead.goatgame.display;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ComponentEvent;
@@ -24,7 +25,8 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 
 	// constants
 	private static final long serialVersionUID = 1L;
-	private static final Color BACKGROUND_COLOR = Color.GREEN;
+	private static final Color BACKGROUND_COLOUR = Color.GREEN;
+	private static final Color TEXT_COLOUR = Color.BLACK;
 	private static final int TABLE_WIDTH = 800; // Pixels.
 	private static final int TABLE_HEIGHT = 550; // Pixels.
 	
@@ -44,7 +46,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 	private int turnedCardsIndex;
 
 	public DisplayWrapper() {
-		this.setSize(TABLE_WIDTH, TABLE_HEIGHT);
+		setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
 		
 		leftBatch = new CardBatch();
 		rightBatch = new CardBatch();
@@ -59,6 +61,10 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 		
 		textPoint = new Point(5, TABLE_HEIGHT - 10);
 		
+		// ... Add listeners.
+		this.addComponentListener(this);
+		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 	}		
 	
 
@@ -67,10 +73,11 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 		// ... Paint background
 		int width = getWidth();
 		int height = getHeight();
-		g.setColor(BACKGROUND_COLOR);
+		g.setColor(BACKGROUND_COLOUR);
 		g.fillRect(0, 0, width, height);
 		
 		// Draw "say string" on the bottom
+		g.setColor(TEXT_COLOUR);
 		g.drawString(textLine, textPoint.x, textPoint.y);
 
 		// Painting trump suit image
@@ -148,10 +155,6 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 			trumpSuitImg = new ImageIcon("cards/SPADE.gif");
 			break;
 		}
-		// Hardcoded right top position and offset is dublesize of image
-		trumpSuitPoint = new Point(this.getWidth()
-				- trumpSuitImg.getIconWidth() * 2,
-				trumpSuitImg.getIconHeight() * 2);
 		this.repaint();
 
 	}
@@ -253,6 +256,11 @@ public class DisplayWrapper extends JComponent implements ComponentListener, Mou
 
 	@Override
 	public void componentResized(ComponentEvent arg0) {
+		// Hardcoded right top position and offset is dublesize of image
+		trumpSuitPoint = new Point(this.getWidth()
+				- trumpSuitImg.getIconWidth() * 2,
+				trumpSuitImg.getIconHeight() * 2);
+		textPoint = new Point(5, this.getHeight() - 10);
 		this.repaint();		
 	}
 
