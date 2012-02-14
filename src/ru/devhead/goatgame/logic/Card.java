@@ -23,7 +23,7 @@ public class Card {
 				picture = CardsNames.SIX;
 				break;
 			}
-			case CardsNames.SIX_PINOCHELE:
+			case CardsNames.SIX_SPADE:
 			{
 				faceName=  "SIX_SPADE";
 				suitId = CardsNames.SPADE;
@@ -51,7 +51,7 @@ public class Card {
 				picture = CardsNames.SEVEN;
 				break;
 			}
-			case CardsNames.SEVEN_PINOCHELE:
+			case CardsNames.SEVEN_SPADE:
 			{
 				faceName = "SEVEN_SPADE";
 				suitId = CardsNames.SPADE;
@@ -79,7 +79,7 @@ public class Card {
 				picture = CardsNames.EIGHT;
 				break;
 			}
-			case CardsNames.EIGHT_PINOCHELE:
+			case CardsNames.EIGHT_SPADE:
 			{
 				faceName = "EIGHT_SPADE";
 				suitId = CardsNames.SPADE;
@@ -107,7 +107,7 @@ public class Card {
 				picture = CardsNames.NINE;
 				break;
 			}
-			case CardsNames.NINE_PINOCHELE:
+			case CardsNames.NINE_SPADE:
 			{
 				faceName = "NINE_SPADE";
 				suitId = CardsNames.SPADE;
@@ -136,7 +136,7 @@ public class Card {
 				cost = 10;
 				break;
 			}
-			case CardsNames.TEN_PINOCHELE:
+			case CardsNames.TEN_SPADE:
 			{
 				faceName = "TEN_SPADE";
 				suitId = CardsNames.SPADE;
@@ -168,7 +168,7 @@ public class Card {
 				cost = 2;
 				break;
 			}
-			case CardsNames.JACK_PINOCHELE:
+			case CardsNames.JACK_SPADE:
 			{
 				faceName = "JACK_SPADE";
 				suitId = CardsNames.SPADE;
@@ -200,7 +200,7 @@ public class Card {
 				cost = 3;
 				break;
 			}
-			case CardsNames.QUEEN_PINOCHELE:
+			case CardsNames.QUEEN_SPADE:
 			{
 				faceName = "QUEEN_SPADE";
 				suitId = CardsNames.SPADE;
@@ -232,7 +232,7 @@ public class Card {
 				cost = 4;
 				break;
 			}
-			case CardsNames.KING_PINOCHELE:
+			case CardsNames.KING_SPADE:
 			{
 				faceName = "KING_SPADE";
 				suitId = CardsNames.SPADE;
@@ -264,7 +264,7 @@ public class Card {
 				cost = 11;
 				break;
 			}
-			case CardsNames.ACE_PINOCHELE:
+			case CardsNames.ACE_SPADE:
 			{
 				faceName = "ACE_SPADE";
 				suitId = CardsNames.SPADE;
@@ -313,7 +313,7 @@ public class Card {
 		case CardsNames.CROSSES:
 			return "CROSSES";
 		case CardsNames.SPADE:
-			return "PINOCHELE";
+			return "SPADE";
 		case CardsNames.HEARTS:
 			return "HEARTS";
 		case CardsNames.DIAMONDS:
