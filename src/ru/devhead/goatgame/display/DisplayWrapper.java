@@ -9,6 +9,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Iterator;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -129,6 +130,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 			trumpSuitImg = new ImageIcon("cards/SPADE.gif");
 			break;
 		}
+		fixOffsets();
 		this.repaint();
 
 	}
@@ -137,6 +139,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public void printLeft(boolean visible, CardBatch batch) {
 		leftBatch = batch;
 		leftBatch.setVisible(visible);
+		fixOffsets();
 		this.repaint();
 	}
 
@@ -144,6 +147,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public void printTop(boolean visible, CardBatch batch) {
 		topBatch = batch;
 		topBatch.setVisible(visible);
+		fixOffsets();
 		this.repaint();
 	}
 
@@ -151,6 +155,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public void printBottom(boolean visible, CardBatch batch) {
 		bottomBatch = batch;
 		bottomBatch.setVisible(visible);
+		fixOffsets();
 		this.repaint();
 	}
 
@@ -158,12 +163,14 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public void printRight(boolean visible, CardBatch batch) {
 		rightBatch = batch;
 		rightBatch.setVisible(visible);
+		fixOffsets();
 		this.repaint();
 	}
 
 	@Override
 	public void printText(String line) {
 		textLine = line;
+		fixOffsets();
 		this.repaint();
 
 	}
@@ -244,15 +251,15 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	 * Procedure for fix component's position
 	 */
 	private void fixOffsets() {
-		// Hardcoded right top position for current suit
+		// Calculate half-hardcoded right top position for current suit
 		trumpSuitPoint = new Point(this.getWidth()
 				- trumpSuitImg.getIconWidth() * 2,
 				trumpSuitImg.getIconHeight() * 2);
 
-		// Hardcoded position for Text line at down
+		// Calculate half-hardcoded position for Text line at down
 		textPoint = new Point(5, this.getHeight() - 10);
 
-		// Hardcoded offset for turned cards - 5 pixels
+		// Calculate half-hardcoded offset for turned cards - 5 pixels
 		switch (turnedCardsIndex - 1) {
 		case 0:
 			turnedCards[0].moveTo(
@@ -274,5 +281,61 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 			break;
 		}
 
+		// Calculate offset for leftCardBatch, step - 13 pixels, border -25
+		int step = 13;
+		int border = 25;
+		if (leftBatch != null) {
+			Iterator<Card> it = leftBatch.iterator();
+			int CH = ((CardWrapper) leftBatch.getFirst()).getHeight();
+			int y = (getHeight() - (CH + leftBatch.size() * step)) / 2;
+			int x = border;
+			while (it.hasNext()) {
+				CardWrapper cardw = (CardWrapper) it.next();
+				cardw.moveTo(x, y);
+				y = y + step;
+			}
+
+		}
+
+		// Calculate offset for rightCardBatch
+		if (rightBatch != null) {
+			Iterator<Card> it = rightBatch.iterator();
+			int CH = ((CardWrapper) rightBatch.getFirst()).getHeight();
+			int CW = ((CardWrapper) rightBatch.getFirst()).getWidth();
+			int y = (getHeight() - (CH + rightBatch.size() * step)) / 2;
+			int x = getWidth() - (CW + border);
+			while (it.hasNext()) {
+				CardWrapper cardw = (CardWrapper) it.next();
+				cardw.moveTo(x, y);
+				y = y + step;
+			}
+		}
+
+		// Calculate offset for topCardBatch
+		if (topBatch != null) {
+			Iterator<Card> it = topBatch.iterator();
+			int CW = ((CardWrapper) topBatch.getFirst()).getWidth();
+			int y = border;
+			int x = (getWidth() - (CW + topBatch.size() * step)) / 2;
+			while (it.hasNext()) {
+				CardWrapper cardw = (CardWrapper) it.next();
+				cardw.moveTo(x, y);
+				y = y + step;
+			}
+		}
+
+		// Calculate offset for bottomCardBatch
+		if (bottomBatch != null) {
+			Iterator<Card> it = bottomBatch.iterator();
+			int CH = ((CardWrapper) bottomBatch.getFirst()).getHeight();
+			int CW = ((CardWrapper) bottomBatch.getFirst()).getWidth();
+			int y = getHeight() - (CH + border);
+			int x = (getWidth() - (CW + bottomBatch.size() * step)) / 2;
+			while (it.hasNext()) {
+				CardWrapper cardw = (CardWrapper) it.next();
+				cardw.moveTo(x, y);
+				y = y + step;
+			}
+		}
 	}
 }
