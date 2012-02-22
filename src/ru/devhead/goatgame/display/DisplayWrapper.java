@@ -30,11 +30,15 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	private static final Color TEXT_COLOUR = Color.BLACK;
 	private static final int TABLE_WIDTH = 800; // Pixels.
 	private static final int TABLE_HEIGHT = 550; // Pixels.
-
+	// display modes
+	private static final int PC_THINK_MODE = 0x00;
+	private static final int USER_THINK_MODE = 0x01;
+	
 	// fields
 	private Point trumpSuitPoint;
 	private ImageIcon trumpSuitImg;
 	private Point textPoint;
+	private Point mouseClickPoint;
 
 	private String textLine = "Kozel card game";
 
@@ -45,6 +49,11 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 	private CardWrapper[] turnedCards;
 	private int turnedCardsIndex;
+	
+	// modes
+	private int displayMode;
+	
+
 
 	public DisplayWrapper() {
 		setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
@@ -61,7 +70,9 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		trumpSuitPoint = new Point(0, 0);
 
 		textPoint = new Point(5, TABLE_HEIGHT - 10);
-
+		mouseClickPoint = new Point();
+		displayMode = PC_THINK_MODE;
+		
 		// Add listeners ...
 		this.addComponentListener(this);
 		this.addMouseListener(this);
@@ -189,7 +200,15 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		switch (getDisplayMode()) {
+		case USER_THINK_MODE:
+			mouseClickPoint.move(arg0.getX(), arg0.getY());
+			// add find card in playerBatch
+			
+			break;
+		case PC_THINK_MODE:
+			break;
+		}
 
 	}
 
@@ -337,5 +356,19 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 				y = y + step;
 			}
 		}
+	}
+
+	/**
+	 * @return the displayMode
+	 */
+	public synchronized int getDisplayMode() {
+		return displayMode;
+	}
+
+	/**
+	 * @param displayMode the displayMode to set
+	 */
+	public synchronized void setDisplayMode(int displayMode) {
+		this.displayMode = displayMode;
 	}
 }
