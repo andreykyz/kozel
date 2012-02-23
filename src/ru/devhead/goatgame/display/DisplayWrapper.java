@@ -38,20 +38,23 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	private Point trumpSuitPoint;
 	private ImageIcon trumpSuitImg;
 	private Point textPoint;
-	private Point mouseClickPoint;
+	private Point mousePressedPoint;
+	private CardWrapper selectedCard;
 
 	private String textLine = "Kozel card game";
 
 	private CardBatch leftBatch;
 	private CardBatch rightBatch;
 	private CardBatch topBatch;
-	private CardBatch bottomBatch;
+	private CardBatch bottomBatch; //player batch
 
 	private CardWrapper[] turnedCards;
 	private int turnedCardsIndex;
 	
 	// modes
 	private int displayMode;
+	
+	private Object boardThread;
 	
 
 
@@ -70,7 +73,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		trumpSuitPoint = new Point(0, 0);
 
 		textPoint = new Point(5, TABLE_HEIGHT - 10);
-		mouseClickPoint = new Point();
+		mousePressedPoint = new Point();
 		displayMode = PC_THINK_MODE;
 		
 		// Add listeners ...
@@ -219,15 +222,21 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public void mousePressed(MouseEvent arg0) {
 		switch (getDisplayMode()) {
 		case USER_THINK_MODE:
-			mouseClickPoint.move(arg0.getX(), arg0.getY());
+			mousePressedPoint.move(arg0.getX(), arg0.getY());
 			// add find card in playerBatch
-			
+			for (Card testCard : bottomBatch) {
+				if (((CardWrapper) testCard).contains(mousePressedPoint.x,
+						mousePressedPoint.y)) {
+					selectedCard = (CardWrapper) testCard;
+					boardThread.notify();
+					setDisplayMode(PC_THINK_MODE);
+					break;
+				}
+			}
 			break;
 		case PC_THINK_MODE:
 			break;
 		}
-
-
 	}
 
 	@Override
@@ -238,8 +247,18 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 	@Override
 	public Card getSelectCard() {
-		// TODO Auto-generated method stub
-		return null;
+		// call wait until user selecting card
+		try {
+			boardThread.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return selectedCard;
+	}
+
+	public void setBoardThread(Object boardThread) {
+		this.boardThread = boardThread;
 	}
 
 	@Override
