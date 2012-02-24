@@ -18,6 +18,7 @@ import ru.devhead.goatgame.logic.CardBatch;
 
 /**
  * Interface based on swing frame work.
+ * 
  * @author Kyznecov Andrey
  * 
  */
@@ -56,34 +57,42 @@ public class WindowSwing extends JFrame {
 			}
 
 		});
-		 JMenuItem miNewGame = new JMenuItem("New game");
-		 miNewGame.addActionListener(new ActionListener(){
+		JMenuItem miNewGame = new JMenuItem("New game");
+		miNewGame.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			 
-		 });
-		 
-		 JMenu mFile = new JMenu("File");
-		 mFile.setMnemonic(KeyEvent.VK_F);
-		 mFile.add(miNewGame);
-		 mFile.add(miExit);
 
-		 JMenu mHelp = new JMenu("Help");
-		 mHelp.setMnemonic(KeyEvent.VK_H);
-		 mHelp.add(miAbout);
-		 
-		 JMenuBar menuBar = new JMenuBar();
-		 menuBar.add(mFile);
-		 menuBar.add(mHelp);
-		 
-		 this.setJMenuBar(menuBar);
-		 this.setContentPane(new DisplayWrapper());
-		 this.pack();		 
+		});
 
+		JMenu mFile = new JMenu("File");
+		mFile.setMnemonic(KeyEvent.VK_F);
+		mFile.add(miNewGame);
+		mFile.add(miExit);
+
+		JMenu mHelp = new JMenu("Help");
+		mHelp.setMnemonic(KeyEvent.VK_H);
+		mHelp.add(miAbout);
+
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.add(mFile);
+		menuBar.add(mHelp);
+
+		this.setJMenuBar(menuBar);
+		DisplayWrapper disp = new DisplayWrapper();
+		this.setContentPane(disp);
+		this.pack();
+		// for testing start 
+		CardBatch batch = new CardBatch();
+		for (int i = 0; i < CardBatch.kozelSize; i++) {
+			batch.add(new CardWrapper(CardBatch.kozelBatch[i]));
+		}
+		batch.mixCardBatch();
+		disp.printLeft(true, batch);
+		// for testing end
 	}
 
 }

@@ -17,7 +17,7 @@ public class CardBatch extends LinkedList<Card> {
 	public static final int kozelSize = 28;
 	public static final int ExtendedKozelSize = 36;
 
-	static int[] kozelBatch;
+	public static int[] kozelBatch;
 
 	// fields
 	private boolean visible = true;
@@ -30,6 +30,17 @@ public class CardBatch extends LinkedList<Card> {
 			} else {
 				kozelBatch[i] = i + 8;
 			}
+		}
+	}
+
+	/**
+	 * Mix cards.
+	 */
+	public void mixCardBatch() {
+		Random rand = new Random(Calendar.getInstance().getTimeInMillis());
+		for (int i = 0; i < size(); i++) {
+			// get and remote random card from beginning and put at the end
+			add(remove(rand.nextInt(size() - i)));
 		}
 	}
 

@@ -61,11 +61,6 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public DisplayWrapper() {
 		setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
 
-		leftBatch = new CardBatch();
-		rightBatch = new CardBatch();
-		topBatch = new CardBatch();
-		bottomBatch = new CardBatch();
-
 		turnedCards = new CardWrapper[4];
 		turnedCardsIndex = 0;
 
@@ -257,6 +252,10 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		return selectedCard;
 	}
 
+	/**
+	 * You want to set 
+	 * @param boardThread
+	 */
 	public void setBoardThread(Object boardThread) {
 		this.boardThread = boardThread;
 	}
