@@ -226,23 +226,6 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
 		switch (getDisplayMode()) {
 		case USER_THINK_MODE:
 			mousePressedPoint.move(arg0.getX(), arg0.getY());
@@ -260,6 +243,34 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		case PC_THINK_MODE:
 			break;
 		}
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		mousePressedPoint.move(arg0.getX(), arg0.getY());
+		// add find card in playerBatch
+		for (Card testCard : bottomBatch) {
+			if (((CardWrapper) testCard).contains(mousePressedPoint.x,
+					mousePressedPoint.y)) {
+				bottomBatch.remove(testCard);
+//				bottomBatch.addFirst(testCard);
+				break;
+			}
+		}
+		repaint();
+
 	}
 
 	@Override
