@@ -33,7 +33,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	// display modes
 	private static final int PC_THINK_MODE = 0x00;
 	private static final int USER_THINK_MODE = 0x01;
-	
+
 	// fields
 	private Point trumpSuitPoint;
 	private ImageIcon trumpSuitImg;
@@ -46,17 +46,15 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	private CardBatch leftBatch;
 	private CardBatch rightBatch;
 	private CardBatch topBatch;
-	private CardBatch bottomBatch; //player batch
+	private CardBatch bottomBatch; // player batch
 
 	private CardWrapper[] turnedCards;
 	private int turnedCardsIndex;
-	
+
 	// modes
 	private int displayMode;
-	
-	private Object boardThread;
-	
 
+	private Object boardThread;
 
 	public DisplayWrapper() {
 		setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
@@ -70,7 +68,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		textPoint = new Point(5, TABLE_HEIGHT - 10);
 		mousePressedPoint = new Point();
 		displayMode = PC_THINK_MODE;
-		
+
 		// Add listeners ...
 		this.addComponentListener(this);
 		this.addMouseListener(this);
@@ -296,7 +294,8 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	}
 
 	/**
-	 * You want to set 
+	 * You want to set
+	 * 
 	 * @param boardThread
 	 */
 	public void setBoardThread(Object boardThread) {
@@ -333,14 +332,14 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	private void fixOffsets() {
 		// Calculate half-hardcoded right top position for current suit
 		trumpSuitPoint = new Point(this.getWidth()
-				- trumpSuitImg.getIconWidth() * 2,
-				trumpSuitImg.getIconHeight() * 2);
+				- trumpSuitImg.getIconWidth() * 2, trumpSuitImg.getIconHeight());
 
 		// Calculate half-hardcoded position for Text line at down
-		textPoint = new Point(5, this.getHeight() - 10);
+		textPoint = new Point(10, this.getHeight() - 10);
 
 		// Calculate half-hardcoded offset for turned cards - 5 pixels
-		switch (turnedCardsIndex - 1) {
+		for(int i=0;i<turnedCardsIndex;i++){
+		switch (i) {
 		case 0:
 			turnedCards[0].moveTo(
 					this.getWidth() / 2 - (turnedCards[0].getWidth() + 5),
@@ -359,7 +358,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 					this.getWidth() / 2 - (turnedCards[3].getWidth() + 5),
 					this.getHeight() / 2 + 5);
 			break;
-		}
+		}}
 
 		// Calculate offset for leftCardBatch, step - 13 pixels, border -25
 		int step = 13;
@@ -431,7 +430,8 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	}
 
 	/**
-	 * @param displayMode the displayMode to set
+	 * @param displayMode
+	 *            the displayMode to set
 	 */
 	public synchronized void setDisplayMode(int displayMode) {
 		this.displayMode = displayMode;
