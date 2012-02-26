@@ -331,7 +331,7 @@ public class Card {
 	}
 
 	public boolean equals(Object obj) {
-		if (this.hashCode() == this.hashCode()) {
+		if (this.hashCode() == obj.hashCode()) {
 			return true;
 		} else {
 			return false;

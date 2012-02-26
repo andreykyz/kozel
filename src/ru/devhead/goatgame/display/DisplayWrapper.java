@@ -230,9 +230,11 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		case USER_THINK_MODE:
 			mousePressedPoint.move(arg0.getX(), arg0.getY());
 			// add find card in playerBatch
-			for (Card testCard : bottomBatch) {
-				if (((CardWrapper) testCard).contains(mousePressedPoint.x,
-						mousePressedPoint.y)) {
+			Iterator<Card> it = bottomBatch.descendingIterator();
+			CardWrapper testCard;
+			while (it.hasNext()) {
+				testCard = (CardWrapper) it.next();
+				if (testCard.contains(mousePressedPoint.x, mousePressedPoint.y)) {
 					selectedCard = (CardWrapper) testCard;
 					boardThread.notify();
 					setDisplayMode(PC_THINK_MODE);
@@ -261,11 +263,13 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public void mousePressed(MouseEvent arg0) {
 		mousePressedPoint.move(arg0.getX(), arg0.getY());
 		// add find card in playerBatch
-		for (Card testCard : bottomBatch) {
-			if (((CardWrapper) testCard).contains(mousePressedPoint.x,
-					mousePressedPoint.y)) {
+		Iterator<Card> it = bottomBatch.descendingIterator();
+		CardWrapper testCard;
+		while (it.hasNext()) {
+			testCard = (CardWrapper) it.next();
+			if (testCard.contains(mousePressedPoint.x, mousePressedPoint.y)) {
 				bottomBatch.remove(testCard);
-//				bottomBatch.addFirst(testCard);
+				bottomBatch.add(testCard);
 				break;
 			}
 		}
