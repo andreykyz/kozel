@@ -17,7 +17,7 @@ public class CardWrapper extends Card {
 
 	public CardWrapper(int value) {
 		super(value);
-		faceImage = new ImageIcon("cards/" +  this.getFaceName());
+		faceImage = new ImageIcon("cards/" +  this.getFaceName() + ".gif");
 		backImage = new ImageIcon("cards/back/book.gif");
 	}
 	

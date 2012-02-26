@@ -99,6 +99,34 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 			}
 		}
 
+		// Painting batches
+		Iterator<Card> it;
+		// Left batch
+		if (leftBatch != null) {
+			it = leftBatch.iterator();
+			while (it.hasNext()) {
+				((CardWrapper) it.next()).draw(g, this);
+			}
+		}
+		if (rightBatch != null) {
+			it = rightBatch.iterator();
+			while (it.hasNext()) {
+				((CardWrapper) it.next()).draw(g, this);
+			}
+		}
+		if (topBatch != null) {
+			it = topBatch.iterator();
+			while (it.hasNext()) {
+				((CardWrapper) it.next()).draw(g, this);
+			}
+		}
+		if (bottomBatch != null) {
+			it = bottomBatch.iterator();
+			while (it.hasNext()) {
+				((CardWrapper) it.next()).draw(g, this);
+			}
+		}
+
 	}
 
 	@Override
@@ -329,6 +357,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 			while (it.hasNext()) {
 				CardWrapper cardw = (CardWrapper) it.next();
 				cardw.moveTo(x, y);
+				cardw.setVisible(leftBatch.isVisible());
 				y = y + step;
 			}
 
@@ -344,6 +373,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 			while (it.hasNext()) {
 				CardWrapper cardw = (CardWrapper) it.next();
 				cardw.moveTo(x, y);
+				cardw.setVisible(rightBatch.isVisible());
 				y = y + step;
 			}
 		}
@@ -357,7 +387,8 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 			while (it.hasNext()) {
 				CardWrapper cardw = (CardWrapper) it.next();
 				cardw.moveTo(x, y);
-				y = y + step;
+				cardw.setVisible(topBatch.isVisible());
+				x = x + step;
 			}
 		}
 
@@ -371,7 +402,8 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 			while (it.hasNext()) {
 				CardWrapper cardw = (CardWrapper) it.next();
 				cardw.moveTo(x, y);
-				y = y + step;
+				cardw.setVisible(bottomBatch.isVisible());
+				x = x + step;
 			}
 		}
 	}

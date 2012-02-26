@@ -81,18 +81,30 @@ public class WindowSwing extends JFrame {
 		menuBar.add(mFile);
 		menuBar.add(mHelp);
 
-		this.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 		DisplayWrapper disp = new DisplayWrapper();
-		this.setContentPane(disp);
-		this.pack();
+		setContentPane(disp);
+		pack();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
 		// for testing start 
-		CardBatch batch = new CardBatch();
+		CardBatch batch1 = new CardBatch();
 		for (int i = 0; i < CardBatch.kozelSize; i++) {
-			batch.add(new CardWrapper(CardBatch.kozelBatch[i]));
+			batch1.add(new CardWrapper(CardBatch.kozelBatch[i]));
 		}
-		batch.mixCardBatch();
-		disp.printLeft(true, batch);
+		batch1.mixCardBatch();
+		
+		CardBatch batch2 = new CardBatch();
+		for (int i = 0; i < CardBatch.kozelSize; i++) {
+			batch2.add(new CardWrapper(CardBatch.kozelBatch[i]));
+		}
+//		batch2.mixCardBatch();
+		
+		disp.printTop(false, batch1);
+		disp.printBottom(true, batch2);
+		
 		// for testing end
+		
 	}
 
 }
