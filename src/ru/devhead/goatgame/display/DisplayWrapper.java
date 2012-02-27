@@ -338,27 +338,30 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		textPoint = new Point(10, this.getHeight() - 10);
 
 		// Calculate half-hardcoded offset for turned cards - 5 pixels
-		for(int i=0;i<turnedCardsIndex;i++){
-		switch (i) {
-		case 0:
-			turnedCards[0].moveTo(
-					this.getWidth() / 2 - (turnedCards[0].getWidth() + 5),
-					this.getHeight() / 2 - (turnedCards[0].getHeight() + 5));
-			break;
-		case 1:
-			turnedCards[1].moveTo(this.getWidth() / 2 + 5, this.getHeight() / 2
-					- (turnedCards[1].getHeight() + 5));
-			break;
-		case 2:
-			turnedCards[2].moveTo(this.getWidth() / 2 + 5,
-					this.getHeight() / 2 + 5);
-			break;
-		case 3:
-			turnedCards[3].moveTo(
-					this.getWidth() / 2 - (turnedCards[3].getWidth() + 5),
-					this.getHeight() / 2 + 5);
-			break;
-		}}
+		for (int i = 0; i < turnedCardsIndex; i++) {
+			switch (i) {
+			case 0:
+				turnedCards[0]
+						.moveTo(this.getWidth() / 2
+								- (turnedCards[0].getWidth() + 5),
+								this.getHeight() / 2
+										- (turnedCards[0].getHeight() + 5));
+				break;
+			case 1:
+				turnedCards[1].moveTo(this.getWidth() / 2 + 5, this.getHeight()
+						/ 2 - (turnedCards[1].getHeight() + 5));
+				break;
+			case 2:
+				turnedCards[2].moveTo(this.getWidth() / 2 + 5,
+						this.getHeight() / 2 + 5);
+				break;
+			case 3:
+				turnedCards[3].moveTo(
+						this.getWidth() / 2 - (turnedCards[3].getWidth() + 5),
+						this.getHeight() / 2 + 5);
+				break;
+			}
+		}
 
 		// Calculate offset for leftCardBatch, step - 13 pixels, border -25
 		int step = 13;
