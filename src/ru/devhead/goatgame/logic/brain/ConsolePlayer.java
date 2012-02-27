@@ -16,17 +16,16 @@ public class ConsolePlayer extends Gamer {
 	public ConsolePlayer(Display display, int id){
 		super(id);
 		this.display = display; 
-//		this.batchOnHand = new CardBatch();
 	}
 	
 	@Override
 	public Card turn(Card[] table, int stepNum) {
 		Scanner scan = new Scanner(System.in);
-		display.print(batchOnHand);
+		display.printBottom(true, batchOnHand);
 		System.out.println("");
 		for (int i=0;i<stepNum;i++){
 			System.out.print("" + i + ":");
-			display.print(table[i]);
+			display.printTurnCard(table[i]);
 		}
 		System.out.println("");
 		System.out.println("Введите номер карты:");
@@ -36,7 +35,7 @@ public class ConsolePlayer extends Gamer {
 	@Override
 	public int assignTrump() {
 		System.out.println("");
-		display.print(batchOnHand);
+		display.printBottom(true, batchOnHand);
 		Scanner scan = new Scanner(System.in);
 		System.out.println("");
 		System.out.println("3 Крести");

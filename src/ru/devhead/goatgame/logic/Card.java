@@ -23,10 +23,10 @@ public class Card {
 				picture = CardsNames.SIX;
 				break;
 			}
-			case CardsNames.SIX_PINOCHELE:
+			case CardsNames.SIX_SPADE:
 			{
-				faceName=  "SIX_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName=  "SIX_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.SIX;
 				break;
 			}
@@ -51,10 +51,10 @@ public class Card {
 				picture = CardsNames.SEVEN;
 				break;
 			}
-			case CardsNames.SEVEN_PINOCHELE:
+			case CardsNames.SEVEN_SPADE:
 			{
-				faceName = "SEVEN_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName = "SEVEN_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.SEVEN;
 				break;
 			}
@@ -79,10 +79,10 @@ public class Card {
 				picture = CardsNames.EIGHT;
 				break;
 			}
-			case CardsNames.EIGHT_PINOCHELE:
+			case CardsNames.EIGHT_SPADE:
 			{
-				faceName = "EIGHT_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName = "EIGHT_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.EIGHT;
 				break;
 			}
@@ -107,10 +107,10 @@ public class Card {
 				picture = CardsNames.NINE;
 				break;
 			}
-			case CardsNames.NINE_PINOCHELE:
+			case CardsNames.NINE_SPADE:
 			{
-				faceName = "NINE_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName = "NINE_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.NINE;
 				break;
 			}
@@ -136,10 +136,10 @@ public class Card {
 				cost = 10;
 				break;
 			}
-			case CardsNames.TEN_PINOCHELE:
+			case CardsNames.TEN_SPADE:
 			{
-				faceName = "TEN_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName = "TEN_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.TEN;
 				cost = 10;
 				break;
@@ -168,10 +168,10 @@ public class Card {
 				cost = 2;
 				break;
 			}
-			case CardsNames.JACK_PINOCHELE:
+			case CardsNames.JACK_SPADE:
 			{
-				faceName = "JACK_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName = "JACK_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.JACK;
 				cost = 2;
 				break;
@@ -200,10 +200,10 @@ public class Card {
 				cost = 3;
 				break;
 			}
-			case CardsNames.QUEEN_PINOCHELE:
+			case CardsNames.QUEEN_SPADE:
 			{
-				faceName = "QUEEN_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName = "QUEEN_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.QUEEN;
 				cost = 3;
 				break;
@@ -232,10 +232,10 @@ public class Card {
 				cost = 4;
 				break;
 			}
-			case CardsNames.KING_PINOCHELE:
+			case CardsNames.KING_SPADE:
 			{
-				faceName = "KING_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName = "KING_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.KING;
 				cost = 4;
 				break;
@@ -264,10 +264,10 @@ public class Card {
 				cost = 11;
 				break;
 			}
-			case CardsNames.ACE_PINOCHELE:
+			case CardsNames.ACE_SPADE:
 			{
-				faceName = "ACE_PINOCHELE";
-				suitId = CardsNames.PINOCHELE;
+				faceName = "ACE_SPADE";
+				suitId = CardsNames.SPADE;
 				picture = CardsNames.ACE;
 				cost = 11;
 				break;
@@ -312,8 +312,8 @@ public class Card {
 		switch (suitId) {
 		case CardsNames.CROSSES:
 			return "CROSSES";
-		case CardsNames.PINOCHELE:
-			return "PINOCHELE";
+		case CardsNames.SPADE:
+			return "SPADE";
 		case CardsNames.HEARTS:
 			return "HEARTS";
 		case CardsNames.DIAMONDS:
@@ -322,8 +322,20 @@ public class Card {
 		return faceName;
 	}
 	
-	public int getCost(){
+	public int getCost() {
 		return cost;
 	}
-	
+
+	public int hashCode() {
+		return this.getFaceId();
+	}
+
+	public boolean equals(Object obj) {
+		if (this.hashCode() == obj.hashCode()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 }

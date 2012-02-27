@@ -43,7 +43,7 @@ public class Board {
 		Display display = new Console();
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
-		display.print(batchForGame);
+		display.printBottom(true, batchForGame);
 
 		table = new Card[4];
 		cardGamerPairs = new CardGamerPair[4];
@@ -104,12 +104,12 @@ public class Board {
 		leftBrain.setTrump(trump);
 		friendBrain.setTrump(trump);
 		rightBrain.setTrump(trump);
-		display.println("-----");
-		display.printSuit(new Card(trump));
-		display.println("-----");
+		display.printText("-----");
+		display.printTrumpSuit(new Card(trump));
+		display.printText("-----");
 
-		display.print("Start game!!!");
-		display.println("-----");
+		display.printText("Start game!!!");
+		display.printText("-----");
 		// game loop
 
 		do {
@@ -120,7 +120,7 @@ public class Board {
 					Gamer gamer = gamersQueue.removeFirst();
 					table[j] = gamer.turn(table, j);
 					cardGamerPairs[j] = new CardGamerPair(gamer, table[j]);
-					display.print(table[j]);
+					display.printTurnCard(table[j]);
 				}
 				firstGamer = whoBeat(cardGamerPairs);
 				if (team1.haveGamer(firstGamer)) {
@@ -166,9 +166,9 @@ public class Board {
 
 		} while (team1.getPoints() < 12 && team2.getPoints() < 12);
 		if (team1.getPoints()>=12) {
-			display.print("Player and Friend player - poor");
+			display.printText("Player and Friend player - poor");
 		} else {
-			display.print("Left gamer and Right gamer - poor");
+			display.printText("Left gamer and Right gamer - poor");
 		}
 	}
 
