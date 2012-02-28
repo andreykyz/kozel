@@ -2,9 +2,9 @@ package ru.devhead.goatgame.logic;
 
 import java.util.LinkedList;
 
-import ru.devhead.goatgame.display.Console;
+import ru.devhead.goatgame.display.DisplayWrapper;
 import ru.devhead.goatgame.display.Display;
-import ru.devhead.goatgame.logic.brain.ConsolePlayer;
+import ru.devhead.goatgame.logic.brain.Player;
 import ru.devhead.goatgame.logic.brain.Gamer;
 import ru.devhead.goatgame.logic.brain.GamersTeam;
 import ru.devhead.goatgame.logic.brain.StupidBumpkin;
@@ -40,7 +40,7 @@ public class Board {
 
 	public Board() {
 
-		Display display = new Console();
+		Display display = new DisplayWrapper();
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
 		display.printBottom(true, batchForGame);
@@ -50,13 +50,13 @@ public class Board {
 		// LinkedList
 
 		// Создание виртуальных игроков и колоды для пользователя
-		player = new ConsolePlayer(display, 0);
+		player = new Player(display, 0);
 		player.setName("Player");
-		leftBrain = new StupidBumpkin(1);
+		leftBrain = new StupidBumpkin(null, 1);
 		leftBrain.setName("Left Brain");
-		friendBrain = new StupidBumpkin(2);
+		friendBrain = new StupidBumpkin(null, 2);
 		friendBrain.setName("Friend Brain");
-		rightBrain = new StupidBumpkin(3);
+		rightBrain = new StupidBumpkin(null, 3);
 		rightBrain.setName("Right Brain");
 
 		gamers = new Gamer[4];
