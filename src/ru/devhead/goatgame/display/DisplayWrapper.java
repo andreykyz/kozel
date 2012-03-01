@@ -30,9 +30,13 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	private static final Color TEXT_COLOUR = Color.BLACK;
 	private static final int TABLE_WIDTH = 800; // Pixels.
 	private static final int TABLE_HEIGHT = 550; // Pixels.
+	
+	// modes
+	private int displayMode;
 	// display modes
 	private static final int PC_THINK_MODE = 0x00;
-	private static final int USER_THINK_MODE = 0x01;
+	private static final int USER_CARD_SELECT_MODE = 0x01;
+	private static final int USER_SUIT_SELECT_MODE = 0x02;
 
 	// fields
 	private Point trumpSuitPoint;
@@ -51,8 +55,6 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	private CardWrapper[] turnedCards;
 	private int turnedCardsIndex;
 
-	// modes
-	private int displayMode;
 
 	private Object boardThread;
 
@@ -225,7 +227,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		switch (getDisplayMode()) {
-		case USER_THINK_MODE:
+		case USER_CARD_SELECT_MODE:
 			mousePressedPoint.move(arg0.getX(), arg0.getY());
 			// add find card in playerBatch
 			Iterator<Card> it = bottomBatch.descendingIterator();
@@ -285,6 +287,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public Card getSelectCard() {
 		// call wait until user selecting card
 		try {
+			setDisplayMode(USER_CARD_SELECT_MODE);
 			boardThread.wait();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -438,5 +441,18 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	 */
 	public synchronized void setDisplayMode(int displayMode) {
 		this.displayMode = displayMode;
+	}
+
+	//доделать
+	@Override
+	public int getSelectSuit() {
+		try {
+			setDisplayMode(USER_SUIT_SELECT_MODE);
+			boardThread.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }
