@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import org.apache.log4j.Logger;
 
+import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardsNames;
 
@@ -15,9 +16,8 @@ import ru.devhead.goatgame.logic.CardsNames;
  */
 public class StupidBumpkin extends Gamer {
 
-	public StupidBumpkin(int id) {
-		super(id);
-		// TODO Auto-generated constructor stub
+	public StupidBumpkin(Display display, int id) {
+		super(display, id);
 	}
 
 	private static Logger logger = Logger.getLogger(Gamer.class);

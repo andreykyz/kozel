@@ -8,14 +8,13 @@ import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.Card;
 
 
-public class ConsolePlayer extends Gamer {
+public class Player extends Gamer {
 
 	Display display;
 	private static Logger logger = Logger.getLogger(Gamer.class);
 	
-	public ConsolePlayer(Display display, int id){
-		super(id);
-		this.display = display; 
+	public Player(Display display, int id){
+		super(display, id);
 	}
 	
 	@Override
@@ -34,17 +33,7 @@ public class ConsolePlayer extends Gamer {
 
 	@Override
 	public int assignTrump() {
-		System.out.println("");
-		display.printBottom(true, batchOnHand);
-		Scanner scan = new Scanner(System.in);
-		System.out.println("");
-		System.out.println("3 Крести");
-		System.out.println("2 Пики");
-		System.out.println("1 Черви");
-		System.out.println("0 Буби");
-		System.out.println("Введите номер масти:");
-		System.out.println("");
-		return scan.nextInt();
+			return display.getSelectSuit();
 	}
 
 }

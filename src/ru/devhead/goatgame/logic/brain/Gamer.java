@@ -2,6 +2,7 @@ package ru.devhead.goatgame.logic.brain;
 
 import org.apache.log4j.Logger;
 
+import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
 import ru.devhead.goatgame.logic.CardsNames;
@@ -13,6 +14,7 @@ public abstract class Gamer {
 	int trump;
 	int id;
 	String name;
+	Display display;
 	
 	public String getName() {
 		return name;
@@ -28,19 +30,10 @@ public abstract class Gamer {
 
 	private static Logger logger = Logger.getLogger(Gamer.class);
 		
-	/**
-	 * 
-	 * @param batchOnHand
-	 *            - Generated batch
-	 */
-	Gamer(CardBatch batchOnHand) {
-		this.batchOnHand = batchOnHand;
-
-	}
-
-	Gamer(int id) {
+	Gamer(Display display, int id) {
 		this.batchOnHand = new CardBatch();
 		this.id = id;
+		this.display = display;
 	}
 
 	public void pushCard(Card card) {

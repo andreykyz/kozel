@@ -1,6 +1,7 @@
 package ru.devhead.goatgame.display;
 
 import java.util.Iterator;
+import java.util.Scanner;
 
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
@@ -45,12 +46,14 @@ public class Console implements Display {
 
 	}
 		
-	private void print(CardBatch batch) {
-		Iterator<Card> batchIter = batch.iterator();
-		int i = 0;
-		while (batchIter.hasNext()) {
-			System.out.println(i + " " + batchIter.next().getFaceName());
-			i++;
+	private void print(boolean visible, CardBatch batch) {
+		if (visible) {
+			Iterator<Card> batchIter = batch.iterator();
+			int i = 0;
+			while (batchIter.hasNext()) {
+				System.out.println(i + " " + batchIter.next().getFaceName());
+				i++;
+			}
 		}
 	}
 
@@ -63,29 +66,44 @@ public class Console implements Display {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 	@Override
-	public void printLeft(boolean open, CardBatch batch) {
-		print(batch);
-		
-	}
-
-	@Override
-	public void printTop(boolean open, CardBatch batch) {
-		print(batch);
-		
-	}
-
-	@Override
-	public void printBottom(boolean open, CardBatch batch) {
-		print(batch);
-		
-	}
-
-	@Override
-	public void printRight(boolean open, CardBatch batch) {
-		print(batch);
-		
+	public int getSelectSuit() {
+		System.out.println("");
+		Scanner scan = new Scanner(System.in);
+		System.out.println("");
+		System.out.println("3 Крести");
+		System.out.println("2 Пики");
+		System.out.println("1 Черви");
+		System.out.println("0 Буби");
+		System.out.println("Введите номер масти:");
+		System.out.println("");
+		return scan.nextInt();
 	}
 	
+	@Override
+	public void printLeft(boolean visible, CardBatch batch) {
+		print(visible, batch);
+		
+	}
+
+	@Override
+	public void printTop(boolean visible, CardBatch batch) {
+		print(visible, batch);
+		
+	}
+
+	@Override
+	public void printBottom(boolean visible, CardBatch batch) {
+		print(visible, batch);
+		
+	}
+
+	@Override
+	public void printRight(boolean visible, CardBatch batch) {
+		print(visible, batch);
+		
+	}
+
+
 }
