@@ -2,6 +2,7 @@ package ru.devhead.goatgame.logic.brain;
 
 import org.apache.log4j.Logger;
 
+import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
 import ru.devhead.goatgame.logic.CardsNames;
@@ -136,5 +137,6 @@ public abstract class Gamer {
 	public CardBatch getbatchOnHand() {
 		return batchOnHand;
 		
-	}
+	}	
+	
 }

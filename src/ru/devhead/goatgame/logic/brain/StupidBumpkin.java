@@ -18,8 +18,8 @@ public class StupidBumpkin extends Gamer {
 
 	private static Logger logger = Logger.getLogger(Gamer.class);
 
-	public StupidBumpkin(Display display, int i) {
-		super(display, i);
+	public StupidBumpkin(Display display, int id) {
+		super(display, id);
 	}
 
 	@Override
