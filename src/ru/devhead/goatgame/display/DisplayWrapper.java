@@ -446,13 +446,30 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	//доделать
 	@Override
 	public int getSelectSuit() {
+		/*
 		try {
 			setDisplayMode(USER_SUIT_SELECT_MODE);
 			boardThread.wait();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
+		// for a while use only bubi
 		return 0;
 	}
+	
+	/**
+	 * Window fo select Suit by user(player)
+	 * @author kyznecov
+	 *
+	 */
+	private class SuitChooser extends JComponent {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+	}
+	
 }

@@ -3,7 +3,6 @@ package ru.devhead.goatgame.logic;
 import java.util.LinkedList;
 
 import ru.devhead.goatgame.display.Display;
-import ru.devhead.goatgame.logic.AbstractBoard.CardGamerPair;
 import ru.devhead.goatgame.logic.brain.Gamer;
 import ru.devhead.goatgame.logic.brain.GamersTeam;
 import ru.devhead.goatgame.logic.brain.Player;
@@ -17,7 +16,6 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 	}
 	public void StartGame() {
 
-//		Display display = new DisplayWrapper();
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
 		display.printBottom(true, batchForGame);

@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
+import ru.devhead.goatgame.logic.SimpleBoard;
 
 /**
  * Interface based on swing frame work.
@@ -34,6 +35,7 @@ public class WindowSwing extends JFrame {
 	final String EMAIL = "andreykyz@gmail.com";
 
 	JFrame frame;
+	DisplayWrapper disp;
 
 	public WindowSwing() {
 		frame = this;
@@ -57,15 +59,30 @@ public class WindowSwing extends JFrame {
 			}
 
 		});
+		
+		disp = new DisplayWrapper();
+
 		JMenuItem miNewGame = new JMenuItem("New game");
 		miNewGame.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				SimpleBoard board = new SimpleBoard(disp);
+				new Thread(board);
+			
 			}
+			
+		});
 
+		JMenuItem miNewCheaterGame = new JMenuItem("New cheater game");
+		miNewCheaterGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				SimpleBoard board = new SimpleBoard(disp);
+				new Thread(board);
+			
+			}
+			
 		});
 
 		JMenu mFile = new JMenu("File");
@@ -80,10 +97,9 @@ public class WindowSwing extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(mFile);
 		menuBar.add(mHelp);
-
-		setJMenuBar(menuBar);
-		DisplayWrapper disp = new DisplayWrapper();
 		setContentPane(disp);
+		setJMenuBar(menuBar);
+		
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
