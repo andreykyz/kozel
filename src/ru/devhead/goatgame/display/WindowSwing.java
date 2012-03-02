@@ -87,30 +87,7 @@ public class WindowSwing extends JFrame {
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
-		// for testing start 
-		CardBatch batch1 = new CardBatch();
-		for (int i = 0; i < 7; i++) {
-			batch1.add(new CardWrapper(CardBatch.kozelBatch[i]));
-		}
-		batch1.mixCardBatch();
-		
-		CardBatch batch2 = new CardBatch();
-		for (int i = 0; i < 7; i++) {
-			batch2.add(new CardWrapper(CardBatch.kozelBatch[i]));
-		}
-		batch2.mixCardBatch();
-		disp.printTrumpSuit(new CardWrapper(15));
-//		disp.printTop(false, batch1);
-		disp.printLeft(false, batch1);
-		disp.printRight(false, batch2);
-		
-		disp.printTurnCard(new CardWrapper(15));
-		disp.printTurnCard(new CardWrapper(18));
-		disp.printTurnCard(new CardWrapper(25));
-//		disp.printTurnCard(new CardWrapper(26));
-//		disp.printTurnCard(new CardWrapper(28));
-		
-		// for testing end
+
 		
 	}
 
