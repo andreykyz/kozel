@@ -19,16 +19,9 @@ public class Player extends Gamer {
 	
 	@Override
 	public Card turn(Card[] table, int stepNum) {
-		Scanner scan = new Scanner(System.in);
-		display.printBottom(true, batchOnHand);
-		System.out.println("");
-		for (int i=0;i<stepNum;i++){
-			System.out.print("" + i + ":");
-			display.printTurnCard(table[i]);
-		}
-		System.out.println("");
-		System.out.println("Введите номер карты:");
-		return batchOnHand.remove(scan.nextInt());
+		Card card = display.getSelectCard();
+		batchOnHand.remove(card);
+		return card;
 	}
 
 	@Override

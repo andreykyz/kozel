@@ -68,7 +68,7 @@ public class WindowSwing extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SimpleBoard board = new SimpleBoard(disp);
-				new Thread(board);
+				new Thread(board).start();
 			
 			}
 			
@@ -79,7 +79,7 @@ public class WindowSwing extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				SimpleBoard board = new SimpleBoard(disp);
-				new Thread(board);
+				new Thread(board).start();
 			
 			}
 			
