@@ -2,6 +2,7 @@ package ru.devhead.goatgame.display;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ComponentEvent;
@@ -11,8 +12,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Iterator;
 
+import javax.swing.AbstractButton;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
@@ -449,30 +453,57 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 	//доделать
 	@Override
-	public synchronized int getSelectSuit() {
-		/*
-		try {
-			setDisplayMode(USER_SUIT_SELECT_MODE);
-			boardThread.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
+	public int getSelectSuit() {
+		synchronized (boardThread) {
+			try {
+				setDisplayMode(USER_SUIT_SELECT_MODE);
+				boardThread.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		// for a while use only bubi
 		return 0;
 	}
 	
 	/**
-	 * Window fo select Suit by user(player)
+	 * Window for select Suit by user(player)
 	 * @author kyznecov
 	 *
 	 */
-	private class SuitChooser extends JComponent {
+	//Доделать
+	private class SuitChooser extends JPanel implements Runnable {
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+
+		public SuitChooser() {
+			JButton diamonsButton = new JButton(new ImageIcon(
+					"cards/DIAMONDS.gif"));
+			diamonsButton.setHorizontalAlignment(AbstractButton.CENTER);
+			JButton heartsButton = new JButton(
+					new ImageIcon("cards/HEARTS.gif"));
+			heartsButton.setHorizontalAlignment(AbstractButton.CENTER);
+			JButton spadeButton = new JButton(new ImageIcon("cards/SPADE.gif"));
+			spadeButton.setHorizontalAlignment(AbstractButton.CENTER);
+			JButton crossesButton = new JButton(new ImageIcon(
+					"cards/CROSSES.gif"));
+			crossesButton.setHorizontalAlignment(AbstractButton.CENTER);
+			add(diamonsButton);
+			add(heartsButton);
+			add(spadeButton);
+			add(crossesButton);
+
+		}
+
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			
+		}
 
 	}
 	
