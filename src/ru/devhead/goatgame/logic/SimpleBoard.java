@@ -2,6 +2,7 @@ package ru.devhead.goatgame.logic;
 
 import java.util.LinkedList;
 
+import ru.devhead.goatgame.display.CardWrapper;
 import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.brain.Gamer;
 import ru.devhead.goatgame.logic.brain.GamersTeam;
@@ -14,11 +15,11 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		super(display);
 		// TODO Auto-generated constructor stub
 	}
-	public void StartGame() {
+	private void StartGame() {
 
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
-		display.printBottom(true, batchForGame);
+//		display.printBottom(true, batchForGame);
 
 		table = new Card[4];
 		cardGamerPairs = new CardGamerPair[4];
@@ -51,7 +52,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 				trump = player.assignTrump();
 				setFirstGamer(player);
 			}
-			player.pushCard(batchForGame.get(i++));
+			player.pushCard(new CardWrapper(batchForGame.get(i++)));
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
 				leftBrain.setTrumpSetterFlag(true);
 				rightBrain.setTrumpSetterFlag(true);
@@ -59,21 +60,21 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 				setFirstGamer(leftBrain);
 
 			}
-			leftBrain.pushCard(batchForGame.get(i++));
+			leftBrain.pushCard(new CardWrapper(batchForGame.get(i++)));
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
 				player.setTrumpSetterFlag(true);
 				friendBrain.setTrumpSetterFlag(true);
 				trump = friendBrain.assignTrump();
 				setFirstGamer(friendBrain);
 			}
-			friendBrain.pushCard(batchForGame.get(i++));
+			friendBrain.pushCard(new CardWrapper(batchForGame.get(i++)));
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
 				leftBrain.setTrumpSetterFlag(true);
 				rightBrain.setTrumpSetterFlag(true);
 				trump = rightBrain.assignTrump();
 				setFirstGamer(rightBrain);
 			}
-			rightBrain.pushCard(batchForGame.get(i));
+			rightBrain.pushCard(new CardWrapper(batchForGame.get(i)));
 
 		}
 		leftBrain.setTrump(trump);
@@ -85,6 +86,11 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 
 		display.printText("Start game!!!");
 		display.printText("-----");
+		
+		display.printBottom(true, player.getbatchOnHand());
+		display.printLeft(false, leftBrain.getbatchOnHand());
+		display.printTop(false, friendBrain.getbatchOnHand());
+		display.printRight(false, rightBrain.getbatchOnHand());
 		// game loop
 
 		do {
@@ -140,7 +146,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 			}
 
 		} while (team1.getPoints() < 12 && team2.getPoints() < 12);
-		if (team1.getPoints()>=12) {
+		if (team1.getPoints() >= 12) {
 			display.printText("Player and Friend player - poor");
 		} else {
 			display.printText("Left gamer and Right gamer - poor");
@@ -149,7 +155,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		StartGame();
 
 	}
 

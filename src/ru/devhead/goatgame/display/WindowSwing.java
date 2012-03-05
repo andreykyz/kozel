@@ -36,7 +36,9 @@ public class WindowSwing extends JFrame {
 
 	JFrame frame;
 	DisplayWrapper disp;
-
+	SimpleBoard board;
+	Thread boardThread;
+	
 	public WindowSwing() {
 		frame = this;
 		JMenuItem miExit = new JMenuItem("Exit");
@@ -67,7 +69,7 @@ public class WindowSwing extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SimpleBoard board = new SimpleBoard(disp);
+				board = new SimpleBoard(disp);
 				new Thread(board).start();
 			
 			}
@@ -78,7 +80,7 @@ public class WindowSwing extends JFrame {
 		miNewCheaterGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				SimpleBoard board = new SimpleBoard(disp);
+				board = new SimpleBoard(disp);
 				new Thread(board).start();
 			
 			}
@@ -88,6 +90,8 @@ public class WindowSwing extends JFrame {
 		JMenu mFile = new JMenu("File");
 		mFile.setMnemonic(KeyEvent.VK_F);
 		mFile.add(miNewGame);
+		mFile.add(miNewCheaterGame);
+		mFile.addSeparator();
 		mFile.add(miExit);
 
 		JMenu mHelp = new JMenu("Help");
@@ -102,7 +106,11 @@ public class WindowSwing extends JFrame {
 		
 		pack();
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		board = new SimpleBoard(disp);
+		Thread boardThread = new Thread(board);
+		disp.setBoardThread(boardThread);
+		boardThread.setName("Board thread");
+		boardThread.start();
 
 		
 	}

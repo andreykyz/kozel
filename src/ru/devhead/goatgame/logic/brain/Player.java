@@ -10,7 +10,7 @@ import ru.devhead.goatgame.logic.Card;
 
 public class Player extends Gamer {
 
-	Display display;
+	
 	private static Logger logger = Logger.getLogger(Gamer.class);
 	
 	public Player(Display display, int id){

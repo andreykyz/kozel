@@ -236,7 +236,9 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 				testCard = (CardWrapper) it.next();
 				if (testCard.contains(mousePressedPoint.x, mousePressedPoint.y)) {
 					selectedCard = (CardWrapper) testCard;
-					boardThread.notify();
+					synchronized (boardThread) {
+						boardThread.notify();
+					}
 					setDisplayMode(PC_THINK_MODE);
 					break;
 				}
@@ -284,14 +286,16 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	}
 
 	@Override
-	public Card getSelectCard() {
-		// call wait until user selecting card
-		try {
-			setDisplayMode(USER_CARD_SELECT_MODE);
-			boardThread.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public  Card getSelectCard() {
+		synchronized (boardThread) {
+			try {
+				setDisplayMode(USER_CARD_SELECT_MODE);
+				// call wait until user is selecting card
+				boardThread.wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return selectedCard;
 	}
@@ -445,7 +449,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 	//доделать
 	@Override
-	public int getSelectSuit() {
+	public synchronized int getSelectSuit() {
 		/*
 		try {
 			setDisplayMode(USER_SUIT_SELECT_MODE);
