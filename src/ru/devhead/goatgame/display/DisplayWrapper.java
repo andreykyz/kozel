@@ -376,6 +376,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 		// Calculate offset for leftCardBatch, step - 13 pixels, border -25
 		int step = 13;
+		int stepW = getWidth() > 400 ? (getWidth() - 400) / 13 + 20 : 20;
 		int border = 25;
 		if (leftBatch != null) {
 			Iterator<Card> it = leftBatch.iterator();
@@ -422,16 +423,18 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 		// Calculate offset for bottomCardBatch
 		if (bottomBatch != null) {
+			stepW = stepW > ((CardWrapper) bottomBatch.getFirst()).getWidth() + 13 ? ((CardWrapper) bottomBatch
+					.getFirst()).getWidth() + 13 : stepW;
 			Iterator<Card> it = bottomBatch.iterator();
 			int CH = ((CardWrapper) bottomBatch.getFirst()).getHeight();
 			int CW = ((CardWrapper) bottomBatch.getFirst()).getWidth();
 			int y = getHeight() - (CH + border);
-			int x = (getWidth() - (CW + bottomBatch.size() * step)) / 2;
+			int x = (getWidth() - (CW + bottomBatch.size() * stepW)) / 2;
 			while (it.hasNext()) {
 				CardWrapper cardw = (CardWrapper) it.next();
 				cardw.moveTo(x, y);
 				cardw.setVisible(bottomBatch.isVisible());
-				x = x + step;
+				x = x + stepW;
 			}
 		}
 	}
