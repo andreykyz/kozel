@@ -106,30 +106,34 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		// Painting batches
 		Iterator<Card> it;
 		// Left batch
-		if (leftBatch != null) {
+		
+		if (leftBatch != null) {synchronized(leftBatch){
 			it = leftBatch.iterator();
 			while (it.hasNext()) {
 				((CardWrapper) it.next()).draw(g, this);
 			}
-		}
-		if (rightBatch != null) {
+		}}
+		
+		if (rightBatch != null) {synchronized(rightBatch){
 			it = rightBatch.iterator();
 			while (it.hasNext()) {
 				((CardWrapper) it.next()).draw(g, this);
 			}
-		}
-		if (topBatch != null) {
+		}}
+		
+		if (topBatch != null) {synchronized(topBatch){
 			it = topBatch.iterator();
 			while (it.hasNext()) {
 				((CardWrapper) it.next()).draw(g, this);
 			}
-		}
-		if (bottomBatch != null) {
+		}}
+		
+		if (bottomBatch != null) {synchronized(bottomBatch){
 			it = bottomBatch.iterator();
 			while (it.hasNext()) {
 				((CardWrapper) it.next()).draw(g, this);
 			}
-		}
+		}}
 
 	}
 

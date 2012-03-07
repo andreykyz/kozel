@@ -62,29 +62,31 @@ public class WindowSwing extends JFrame {
 
 		});
 		
-		disp = new DisplayWrapper();
 
+		
 		JMenuItem miNewGame = new JMenuItem("New game");
 		miNewGame.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				disp = new DisplayWrapper();
 				board = new SimpleBoard(disp);
-				new Thread(board).start();
-			
+				Thread boardThread = new Thread(board);
+				disp.setBoardThread(boardThread);
+				boardThread.setName("Board thread");
+				boardThread.start();
+				frame.setContentPane(disp);
+				frame.pack();				
 			}
-			
+
 		});
 
 		JMenuItem miNewCheaterGame = new JMenuItem("New cheater game");
 		miNewCheaterGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				board = new SimpleBoard(disp);
-				new Thread(board).start();
-			
+				//Доделать
 			}
-			
 		});
 
 		JMenu mFile = new JMenu("File");
@@ -101,16 +103,11 @@ public class WindowSwing extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.add(mFile);
 		menuBar.add(mHelp);
-		setContentPane(disp);
 		setJMenuBar(menuBar);
-		
 		pack();
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		board = new SimpleBoard(disp);
-		Thread boardThread = new Thread(board);
-		disp.setBoardThread(boardThread);
-		boardThread.setName("Board thread");
-		boardThread.start();
+
 
 		
 	}
