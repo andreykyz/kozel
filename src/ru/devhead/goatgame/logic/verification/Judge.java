@@ -23,7 +23,7 @@ public class Judge {
 		this.trumpSetter = trumpSetter;
 	}
 
-	// WARNING Работает не правильно, нужно проверить
+	// WARNING должно работыть правильно, но нужно протестировать
 	public CheatingType checkTurn(Card firstCard, Card turnCard, Gamer gamer) {
 		Iterator<Card> iterBatchOnHand;
 		// 1 Если первый ход был по козырю

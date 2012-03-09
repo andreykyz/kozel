@@ -36,7 +36,7 @@ public class CardBatch extends LinkedList<Card> {
 	/**
 	 * Mix cards.
 	 */
-	public void mixCardBatch() {
+	public synchronized void mixCardBatch() {
 		Random rand = new Random(Calendar.getInstance().getTimeInMillis());
 		for (int i = 0; i < size(); i++) {
 			// get and remote random card from beginning and put at the end
@@ -47,7 +47,7 @@ public class CardBatch extends LinkedList<Card> {
 	/**
 	 * Method fill batch random values.
 	 */
-	public void fillCardBatch() {
+	public synchronized void fillCardBatch() {
 		fillCardBatch(kozelSize);
 	}
 
@@ -56,7 +56,7 @@ public class CardBatch extends LinkedList<Card> {
 	 * 
 	 * @param batchSize
 	 */
-	public void fillCardBatch(int batchSize) {
+	public synchronized void fillCardBatch(int batchSize) {
 		boolean[] dim = new boolean[batchSize];
 		int j;
 		Random rand = new Random(Calendar.getInstance().getTimeInMillis());

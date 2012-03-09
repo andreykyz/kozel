@@ -3,10 +3,8 @@ package ru.devhead.goatgame.logic;
 import java.util.LinkedList;
 
 import ru.devhead.goatgame.display.Display;
-import ru.devhead.goatgame.logic.brain.Player;
 import ru.devhead.goatgame.logic.brain.Gamer;
 import ru.devhead.goatgame.logic.brain.GamersTeam;
-import ru.devhead.goatgame.logic.brain.StupidBumpkin;
 
 /**
  * @author kyznecov

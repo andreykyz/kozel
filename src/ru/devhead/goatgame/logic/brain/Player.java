@@ -11,7 +11,7 @@ import ru.devhead.goatgame.logic.Card;
 public class Player extends Gamer {
 
 	
-	private static Logger logger = Logger.getLogger(Gamer.class);
+	private static Logger logger = Logger.getLogger(Player.class);
 	
 	public Player(Display display, int id){
 		super(display, id);
@@ -20,7 +20,9 @@ public class Player extends Gamer {
 	@Override
 	public Card turn(Card[] table, int stepNum) {
 		Card card = display.getSelectCard();
-		batchOnHand.remove(card);
+		synchronized (batchOnHand) {
+			batchOnHand.remove(card);
+		}
 		return card;
 	}
 
