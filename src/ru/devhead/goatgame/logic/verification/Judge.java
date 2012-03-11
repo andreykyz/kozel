@@ -112,7 +112,7 @@ public class Judge {
 	 * @param turnCard
 	 * @param gamer
 	 */
-	public void checkTurnTE(Card turnCard, Gamer gamer) {
+	public void checkTurn(Card turnCard, Gamer gamer) {
 
 	}
 

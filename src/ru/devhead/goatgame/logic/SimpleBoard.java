@@ -8,6 +8,8 @@ import ru.devhead.goatgame.logic.brain.Gamer;
 import ru.devhead.goatgame.logic.brain.GamersTeam;
 import ru.devhead.goatgame.logic.brain.Player;
 import ru.devhead.goatgame.logic.brain.StupidBumpkin;
+import ru.devhead.goatgame.logic.verification.CheatingType;
+import ru.devhead.goatgame.logic.verification.Judge;
 
 public class SimpleBoard extends AbstractBoard implements Runnable {
 
@@ -15,11 +17,12 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		super(display);
 		// TODO Auto-generated constructor stub
 	}
+
 	private void StartGame() {
 
 		CardBatch batchForGame = new CardBatch();
 		batchForGame.fillCardBatch();
-//		display.printBottom(true, batchForGame);
+		// display.printBottom(true, batchForGame);
 
 		table = new Card[4];
 		cardGamerPairs = new CardGamerPair[4];
@@ -56,6 +59,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
 				leftBrain.setTrumpSetterFlag(true);
 				rightBrain.setTrumpSetterFlag(true);
+				display.printText("Please assign trump");
 				trump = leftBrain.assignTrump();
 				setFirstGamer(leftBrain);
 
@@ -80,26 +84,45 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		leftBrain.setTrump(trump);
 		friendBrain.setTrump(trump);
 		rightBrain.setTrump(trump);
-		display.printText("-----");
-		display.printTrumpSuit(new Card(trump));
-		display.printText("-----");
 
+		display.printTrumpSuit(new Card(trump));
 		display.printText("Start game!!!");
-		display.printText("-----");
-		
 		display.printBottom(true, player.getbatchOnHand());
 		display.printLeft(false, leftBrain.getbatchOnHand());
 		display.printTop(false, friendBrain.getbatchOnHand());
 		display.printRight(false, rightBrain.getbatchOnHand());
+		Judge judge;
+		Gamer gamer;
 		// game loop
-
 		do {
+			if (team1.getGamer1().getTrumpSetterFlag()) {
+				judge = new Judge(new Card(trump), team1);
+			} else {
+				judge = new Judge(new Card(trump), team2);
+			}
+			// loop for one deal
 			for (int i = 0; i < 7; i++) {
 				LinkedList<Gamer> gamersQueue = getGamersQueue(firstGamer);
+				// loop for everyone's turn
 				for (int j = 0; j < 4; j++) {
 					// Get next gamer from Queue
-					Gamer gamer = gamersQueue.removeFirst();
+					gamer = gamersQueue.removeFirst();
 					table[j] = gamer.turn(table, j);
+					// Check rules
+					if (j == 0) {
+						if (judge.firstCardCheck(table[j], gamer)
+								.getCheatCode() != CheatingType.OK) {
+							gamer.pushCard(table[j]);
+							j--;
+						}
+					} else {
+						if (judge.checkTurn(table[1], table[j], gamer)
+								.getCheatCode() != CheatingType.OK) {
+							gamer.pushCard(table[j]);
+							j--;
+						}
+
+					}
 					cardGamerPairs[j] = new CardGamerPair(gamer, table[j]);
 					display.printTurnCard(table[j]);
 				}
@@ -109,7 +132,10 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 				} else {
 					team2.addBeatCards(table);
 				}
-
+				display.printText("You - " + team1.getPoints() + "/12"
+						+ " Cash - " + team1.getCash() + " : Opponent - "
+						+ team2.getPoints() + "/12" + " Cash - "
+						+ team2.getCash());
 			}
 			tempPoints = 0;
 			if (team1.getCash() < 60) {
@@ -144,7 +170,9 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 				// Следующий Points умножается на 2
 				dublePoint = true;
 			}
-
+			display.printText("You - " + team1.getPoints() + "/12" + " Cash - "
+					+ team1.getCash() + " : Opponent - " + team2.getPoints()
+					+ "/12" + " Cash - " + team2.getCash());
 		} while (team1.getPoints() < 12 && team2.getPoints() < 12);
 		if (team1.getPoints() >= 12) {
 			display.printText("Player and Friend player - poor");
