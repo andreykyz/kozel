@@ -44,15 +44,16 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		gamers[2] = friendBrain;
 		gamers[3] = rightBrain;
 
-		team1 = new GamersTeam(player, friendBrain);
-		team2 = new GamersTeam(leftBrain, rightBrain);
+		playerTeam = new GamersTeam(player, friendBrain);
+		computerTeam = new GamersTeam(leftBrain, rightBrain);
 
-		// Первая раздача колоды
+		// First batch deal
 		for (int i = 0; i < batchForGame.size(); i++) {
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
 				player.setTrumpSetterFlag(true);
 				friendBrain.setTrumpSetterFlag(true);
 				trump = player.assignTrump();
+				trumpSetterGamer = player;
 				setFirstGamer(player);
 			}
 			player.pushCard(new CardWrapper(batchForGame.get(i++)));
@@ -61,6 +62,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 				rightBrain.setTrumpSetterFlag(true);
 				display.printText("Please assign trump");
 				trump = leftBrain.assignTrump();
+				trumpSetterGamer = leftBrain;
 				setFirstGamer(leftBrain);
 
 			}
@@ -69,6 +71,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 				player.setTrumpSetterFlag(true);
 				friendBrain.setTrumpSetterFlag(true);
 				trump = friendBrain.assignTrump();
+				trumpSetterGamer = friendBrain;
 				setFirstGamer(friendBrain);
 			}
 			friendBrain.pushCard(new CardWrapper(batchForGame.get(i++)));
@@ -76,6 +79,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 				leftBrain.setTrumpSetterFlag(true);
 				rightBrain.setTrumpSetterFlag(true);
 				trump = rightBrain.assignTrump();
+				trumpSetterGamer = rightBrain;
 				setFirstGamer(rightBrain);
 			}
 			rightBrain.pushCard(new CardWrapper(batchForGame.get(i)));
@@ -95,10 +99,10 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		Gamer gamer;
 		// game loop
 		do {
-			if (team1.getGamer1().getTrumpSetterFlag()) {
-				judge = new Judge(new Card(trump), team1);
+			if (playerTeam.getGamer1().getTrumpSetterFlag()) {
+				judge = new Judge(new Card(trump), playerTeam);
 			} else {
-				judge = new Judge(new Card(trump), team2);
+				judge = new Judge(new Card(trump), computerTeam);
 			}
 			// loop for one deal
 			for (int i = 0; i < 7; i++) {
@@ -127,22 +131,22 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 					display.printTurnCard(table[j]);
 				}
 				firstGamer = whoBeat(cardGamerPairs);
-				if (team1.haveGamer(firstGamer)) {
-					team1.addBeatCards(table);
+				if (playerTeam.haveGamer(firstGamer)) {
+					playerTeam.addBeatCards(table);
 				} else {
-					team2.addBeatCards(table);
+					computerTeam.addBeatCards(table);
 				}
-				display.printText("You - " + team1.getPoints() + "/12"
-						+ " Cash - " + team1.getCash() + " : Opponent - "
-						+ team2.getPoints() + "/12" + " Cash - "
-						+ team2.getCash());
+				display.printText("You - " + playerTeam.getPoints() + "/12"
+						+ " Cash - " + playerTeam.getCash() + " : Opponent - "
+						+ computerTeam.getPoints() + "/12" + " Cash - "
+						+ computerTeam.getCash());
 			}
 			tempPoints = 0;
-			if (team1.getCash() < 60) {
+			if (playerTeam.getCash() < 60) {
 				tempPoints = 2;
-				if (team1.getCash() < 60) {
+				if (playerTeam.getCash() < 60) {
 					tempPoints = 4;
-					if (team1.getCash() == 0) {
+					if (playerTeam.getCash() == 0) {
 						tempPoints = 6;
 					}
 				}
@@ -150,12 +154,12 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 					dublePoint = false;
 					tempPoints = tempPoints * 2;
 				}
-				team1.addPoints(tempPoints);
-			} else if (team2.getCash() < 60) {
+				playerTeam.addPoints(tempPoints);
+			} else if (computerTeam.getCash() < 60) {
 				tempPoints = 2;
-				if (team2.getCash() < 60) {
+				if (computerTeam.getCash() < 60) {
 					tempPoints = 4;
-					if (team2.getCash() == 0) {
+					if (computerTeam.getCash() == 0) {
 						tempPoints = 6;
 					}
 				}
@@ -163,18 +167,20 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 					dublePoint = false;
 					tempPoints = tempPoints * 2;
 				}
-				team2.addPoints(tempPoints);
+				computerTeam.addPoints(tempPoints);
 			}
+			
+			
 
-			if (team1.getCash() == 60) {
-				// Следующий Points умножается на 2
+			if (playerTeam.getCash() == 60) {
+				// Next Points doubling
 				dublePoint = true;
 			}
-			display.printText("You - " + team1.getPoints() + "/12" + " Cash - "
-					+ team1.getCash() + " : Opponent - " + team2.getPoints()
-					+ "/12" + " Cash - " + team2.getCash());
-		} while (team1.getPoints() < 12 && team2.getPoints() < 12);
-		if (team1.getPoints() >= 12) {
+			display.printText("You - " + playerTeam.getPoints() + "/12" + " Cash - "
+					+ playerTeam.getCash() + " : Opponent - " + computerTeam.getPoints()
+					+ "/12" + " Cash - " + computerTeam.getCash());
+		} while (playerTeam.getPoints() < 12 && computerTeam.getPoints() < 12);
+		if (playerTeam.getPoints() >= 12) {
 			display.printText("Player and Friend player - poor");
 		} else {
 			display.printText("Left gamer and Right gamer - poor");

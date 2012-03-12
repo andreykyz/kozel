@@ -21,6 +21,7 @@ public abstract class AbstractBoard  {
 	boolean dublePoint = false;
 	int tempPoints = 0;
 
+	Gamer trumpSetterGamer;
 	Gamer firstGamer;
 	Gamer gamers[];
 	int gamersCounter;
@@ -32,8 +33,8 @@ public abstract class AbstractBoard  {
 	Gamer leftBrain;
 	Gamer friendBrain;
 	Gamer rightBrain;
-	GamersTeam team1;
-	GamersTeam team2;
+	GamersTeam playerTeam;
+	GamersTeam computerTeam;
 	
 	Display display;
 
