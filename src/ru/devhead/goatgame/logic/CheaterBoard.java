@@ -9,4 +9,10 @@ public class CheaterBoard extends AbstractBoard {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	CardBatch getMixBatch() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

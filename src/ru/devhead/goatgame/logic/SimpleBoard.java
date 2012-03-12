@@ -17,11 +17,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 
 	public SimpleBoard(Display display) {
 		super(display);
-		batchForGame = new CardBatch();
-		for (int i = 0; i < CardBatch.kozelBatch.length; i++) {
-			batchForGame.add(new CardWrapper(i));
-		}
-		batchForGame.mixCardBatch();
+		batchForGame = getMixBatch();
 		table = new Card[4];
 		cardGamerPairs = new CardGamerPair[4];
 
@@ -45,6 +41,10 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		computerTeam = new GamersTeam(leftBrain, rightBrain);
 		
 		// First batch deal
+		trumpSetterGamer = dealCardBatch(batchForGame);
+		trump = trumpSetterGamer.assignTrump();
+		setFirstTurnGamer(trumpSetterGamer);
+		/*
 		for (int i = 0; i < batchForGame.size(); i++) {
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
 				player.setTrumpSetterFlag(true);
@@ -81,7 +81,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 			}
 			rightBrain.pushCard(new CardWrapper(batchForGame.get(i)));
 
-		}
+		}*/
 		leftBrain.setTrump(trump);
 		friendBrain.setTrump(trump);
 		rightBrain.setTrump(trump);
@@ -108,7 +108,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 			}
 			// loop for one deal
 			for (int i = 0; i < 7; i++) {
-				LinkedList<Gamer> gamersQueue = getGamersQueue(firstGamer);
+				LinkedList<Gamer> gamersQueue = getGamersQueue(firstTurnGamer);
 				// loop for everyone's turn
 				for (int j = 0; j < 4; j++) {
 					// Get next gamer from Queue
@@ -132,8 +132,8 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 					cardGamerPairs[j] = new CardGamerPair(gamer, table[j]);
 					display.printTurnCard(table[j]);
 				}
-				firstGamer = whoBeat(cardGamerPairs);
-				if (playerTeam.haveGamer(firstGamer)) {
+				firstTurnGamer = whoBeat(cardGamerPairs);
+				if (playerTeam.haveGamer(firstTurnGamer)) {
 					playerTeam.addBeatCards(table);
 				} else {
 					computerTeam.addBeatCards(table);
@@ -173,7 +173,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 			}
 			
 			trumpSetterGamer = getNextTrumpSetter(trumpSetterGamer);
-			setFirstGamer(trumpSetterGamer);
+			setFirstTurnGamer(trumpSetterGamer);
 
 			if (playerTeam.getCash() == 60) {
 				// Next Points doubling
@@ -194,6 +194,16 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 	public void run() {
 		StartGame();
 
+	}
+
+	@Override
+	CardBatch getMixBatch() {
+		CardBatch batchForGame = new CardBatch();
+		for (int i = 0; i < CardBatch.kozelBatch.length; i++) {
+			batchForGame.add(new CardWrapper(i));
+		}
+		batchForGame.mixCardBatch();
+		return batchForGame;
 	}
 	
 	

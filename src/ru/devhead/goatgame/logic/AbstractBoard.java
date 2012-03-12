@@ -22,7 +22,7 @@ public abstract class AbstractBoard  {
 	int tempPoints = 0;
 
 	Gamer trumpSetterGamer;
-	Gamer firstGamer;
+	Gamer firstTurnGamer;
 	Gamer gamers[];
 	int gamersCounter;
 
@@ -50,8 +50,8 @@ public abstract class AbstractBoard  {
 	 * @param gamer
 	 *            - who turn first
 	 */
-	protected void setFirstGamer(Gamer gamer) {
-		firstGamer = gamer;
+	protected void setFirstTurnGamer(Gamer gamer) {
+		firstTurnGamer = gamer;
 		gamersCounter = gamer.getId();
 	}
 
@@ -94,17 +94,25 @@ public abstract class AbstractBoard  {
 	/**
 	 * Procedure for deal batch for game
 	 * @param cardBatch - batch for game
-	 * @return trumpSetterGamer
+	 * @return trumpSetterGamer - who have Jack crosses
 	 */
 	protected Gamer dealCardBatch(CardBatch batchForGame) {
+		Card card;
+		Gamer trumpSetterGamer = null;
 		LinkedList<Gamer> gamers = getGamersQueue(player);
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 4; j++) {
-				gamers.get(j).pushCard(batchForGame.remove());
+				card = batchForGame.remove();
+				if (card.getFaceId() == CardsNames.JACK_CROSSES) {
+					trumpSetterGamer = gamers.get(j);
+				}
+				gamers.get(j).pushCard(card);
 			}
 		}
-		return firstGamer;
+		return trumpSetterGamer;
 	}
+	
+	abstract CardBatch getMixBatch();
 
 	protected Gamer whoBeat(CardGamerPair[] cgPairs) {
 		Card vinCard = cgPairs[0].getCard();
