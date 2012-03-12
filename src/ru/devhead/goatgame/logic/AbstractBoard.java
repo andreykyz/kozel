@@ -86,6 +86,25 @@ public abstract class AbstractBoard  {
 		}
 		return gamersQueue;
 	}
+	
+	protected Gamer getNextTrumpSetter(Gamer oldTrumpSetter) {
+		return getGamersQueue(oldTrumpSetter).get(1);
+	}
+	
+	/**
+	 * Procedure for deal batch for game
+	 * @param cardBatch - batch for game
+	 * @return trumpSetterGamer
+	 */
+	protected Gamer dealCardBatch(CardBatch batchForGame) {
+		LinkedList<Gamer> gamers = getGamersQueue(player);
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 4; j++) {
+				gamers.get(j).pushCard(batchForGame.remove());
+			}
+		}
+		return firstGamer;
+	}
 
 	protected Gamer whoBeat(CardGamerPair[] cgPairs) {
 		Card vinCard = cgPairs[0].getCard();

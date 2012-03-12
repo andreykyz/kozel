@@ -13,22 +13,19 @@ import ru.devhead.goatgame.logic.verification.Judge;
 
 public class SimpleBoard extends AbstractBoard implements Runnable {
 
+	private CardBatch batchForGame;
+
 	public SimpleBoard(Display display) {
 		super(display);
-		// TODO Auto-generated constructor stub
-	}
-
-	private void StartGame() {
-
-		CardBatch batchForGame = new CardBatch();
-		batchForGame.fillCardBatch();
-		// display.printBottom(true, batchForGame);
-
+		batchForGame = new CardBatch();
+		for (int i = 0; i < CardBatch.kozelBatch.length; i++) {
+			batchForGame.add(new CardWrapper(i));
+		}
+		batchForGame.mixCardBatch();
 		table = new Card[4];
 		cardGamerPairs = new CardGamerPair[4];
-		// LinkedList
 
-		// Создание виртуальных игроков и колоды для пользователя
+		// Making virtual gamers and ...
 		player = new Player(display, 0);
 		player.setName("Player");
 		leftBrain = new StupidBumpkin(null, 1);
@@ -46,7 +43,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 
 		playerTeam = new GamersTeam(player, friendBrain);
 		computerTeam = new GamersTeam(leftBrain, rightBrain);
-
+		
 		// First batch deal
 		for (int i = 0; i < batchForGame.size(); i++) {
 			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
@@ -88,6 +85,11 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		leftBrain.setTrump(trump);
 		friendBrain.setTrump(trump);
 		rightBrain.setTrump(trump);
+	}
+
+	private void StartGame() {
+
+
 
 		display.printTrumpSuit(new Card(trump));
 		display.printText("Start game!!!");
@@ -170,7 +172,8 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 				computerTeam.addPoints(tempPoints);
 			}
 			
-			
+			trumpSetterGamer = getNextTrumpSetter(trumpSetterGamer);
+			setFirstGamer(trumpSetterGamer);
 
 			if (playerTeam.getCash() == 60) {
 				// Next Points doubling
@@ -192,5 +195,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		StartGame();
 
 	}
+	
+	
 
 }
