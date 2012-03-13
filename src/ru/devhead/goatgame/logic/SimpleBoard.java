@@ -17,10 +17,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 
 	public SimpleBoard(Display display) {
 		super(display);
-		batchForGame = getMixBatch();
-		table = new Card[4];
-		cardGamerPairs = new CardGamerPair[4];
-
+		
 		// Making virtual gamers and ...
 		player = new Player(display, 0);
 		player.setName("Player");
@@ -36,6 +33,10 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		gamers[1] = leftBrain;
 		gamers[2] = friendBrain;
 		gamers[3] = rightBrain;
+		
+		batchForGame = getMixBatch();
+		table = new Card[4];
+		cardGamerPairs = new CardGamerPair[4];
 
 		playerTeam = new GamersTeam(player, friendBrain);
 		computerTeam = new GamersTeam(leftBrain, rightBrain);
@@ -44,52 +45,25 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		trumpSetterGamer = dealCardBatch(batchForGame);
 		trump = trumpSetterGamer.assignTrump();
 		setFirstTurnGamer(trumpSetterGamer);
-		/*
-		for (int i = 0; i < batchForGame.size(); i++) {
-			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
-				player.setTrumpSetterFlag(true);
-				friendBrain.setTrumpSetterFlag(true);
-				trump = player.assignTrump();
-				trumpSetterGamer = player;
-				setFirstGamer(player);
-			}
-			player.pushCard(new CardWrapper(batchForGame.get(i++)));
-			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
-				leftBrain.setTrumpSetterFlag(true);
-				rightBrain.setTrumpSetterFlag(true);
-				display.printText("Please assign trump");
-				trump = leftBrain.assignTrump();
-				trumpSetterGamer = leftBrain;
-				setFirstGamer(leftBrain);
-
-			}
-			leftBrain.pushCard(new CardWrapper(batchForGame.get(i++)));
-			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
-				player.setTrumpSetterFlag(true);
-				friendBrain.setTrumpSetterFlag(true);
-				trump = friendBrain.assignTrump();
-				trumpSetterGamer = friendBrain;
-				setFirstGamer(friendBrain);
-			}
-			friendBrain.pushCard(new CardWrapper(batchForGame.get(i++)));
-			if (batchForGame.get(i).getFaceId() == CardsNames.JACK_CROSSES) {
-				leftBrain.setTrumpSetterFlag(true);
-				rightBrain.setTrumpSetterFlag(true);
-				trump = rightBrain.assignTrump();
-				trumpSetterGamer = rightBrain;
-				setFirstGamer(rightBrain);
-			}
-			rightBrain.pushCard(new CardWrapper(batchForGame.get(i)));
-
-		}*/
+		if (playerTeam.haveGamer(trumpSetterGamer)) {
+			playerTeam.getGamer1().setTrumpSetterFlag(true);
+			playerTeam.getGamer2().setTrumpSetterFlag(true);
+			computerTeam.getGamer1().setTrumpSetterFlag(false);
+			computerTeam.getGamer2().setTrumpSetterFlag(false);
+		} else {
+			playerTeam.getGamer1().setTrumpSetterFlag(false);
+			playerTeam.getGamer2().setTrumpSetterFlag(false);
+			computerTeam.getGamer1().setTrumpSetterFlag(true);
+			computerTeam.getGamer2().setTrumpSetterFlag(true);
+		}
+		player.setTrump(trump);
 		leftBrain.setTrump(trump);
 		friendBrain.setTrump(trump);
 		rightBrain.setTrump(trump);
+		
 	}
 
 	private void StartGame() {
-
-
 
 		display.printTrumpSuit(new Card(trump));
 		display.printText("Start game!!!");
@@ -175,6 +149,13 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 			trumpSetterGamer = getNextTrumpSetter(trumpSetterGamer);
 			setFirstTurnGamer(trumpSetterGamer);
 
+			batchForGame = getMixBatch();
+			trump = dealCardBatch(batchForGame, trumpSetterGamer);
+			player.setTrump(trump);
+			leftBrain.setTrump(trump);
+			friendBrain.setTrump(trump);
+			rightBrain.setTrump(trump);
+			
 			if (playerTeam.getCash() == 60) {
 				// Next Points doubling
 				dublePoint = true;

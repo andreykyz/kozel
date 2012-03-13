@@ -11,7 +11,6 @@ public class CardWrapper extends Card {
 	
 	private ImageIcon faceImage;
 	private ImageIcon backImage;
-	private boolean visible = true;
 	private int _x;
 	private int _y;
 
@@ -73,14 +72,6 @@ public class CardWrapper extends Card {
 			// face down
 			backImage.paintIcon(c, g, _x, _y);
 		}
-	}
-
-	public void setVisible(boolean visible) {
-		this.visible = visible;
-	}
-
-	public boolean isVisible() {
-		return visible;
 	}
 
 }

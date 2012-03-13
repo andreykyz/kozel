@@ -6,7 +6,6 @@ import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
 import ru.devhead.goatgame.logic.CardsNames;
-import ru.devhead.goatgame.display.Display;
 
 public abstract class Gamer {
 	CardBatch batchOnHand;

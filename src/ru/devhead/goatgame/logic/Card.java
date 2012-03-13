@@ -8,7 +8,7 @@ public class Card {
 	private int cost = 0;
 //	String suitName;
 	private int picture;
-	
+	protected boolean visible = true;
 
 
 	public Card(int value)
@@ -336,6 +336,14 @@ public class Card {
 		} else {
 			return false;
 		}
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public boolean isVisible() {
+		return visible;
 	}
 
 }

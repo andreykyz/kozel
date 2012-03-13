@@ -30,5 +30,10 @@ public class Player extends Gamer {
 	public int assignTrump() {
 			return display.getSelectSuit();
 	}
+	
+	public void pushCard(Card card) {
+		card.setVisible(true);
+		batchOnHand.add(card);
+	}
 
 }

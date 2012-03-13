@@ -103,6 +103,7 @@ public abstract class AbstractBoard  {
 		for (int i = 0; i < 7; i++) {
 			for (int j = 0; j < 4; j++) {
 				card = batchForGame.remove();
+				card.setVisible(false);
 				if (card.getFaceId() == CardsNames.JACK_CROSSES) {
 					trumpSetterGamer = gamers.get(j);
 				}
@@ -110,6 +111,42 @@ public abstract class AbstractBoard  {
 			}
 		}
 		return trumpSetterGamer;
+	}
+	/**
+	 * Procedure for second and next deal batch for game
+	 * @param cardBatch - batch for game
+	 * @param trumpSetterGamer - gamer, who will open card and set trump
+	 * @return trump - first open card
+	 */
+	protected int dealCardBatch(CardBatch batchForGame, Gamer trumpSetterGamer) {
+		Card card;
+		int trump = CardsNames.DIAMONDS;
+		boolean isTrumpSet = false;
+		LinkedList<Gamer> gamers = getGamersQueue(trumpSetterGamer);
+		for (int i = 0; i < 7; i++) {
+			for (int j = 0; j < 4; j++) {
+				card = batchForGame.remove();
+				if (isTrumpSet) {
+					card.setVisible(false);
+					gamers.get(j).pushCard(card);
+				} else {
+					card.setVisible(true);
+					gamers.get(0).pushCard(card);
+					if (Gamer.isSuperTrump(card)) {
+						gamers.get(1).pushCard(batchForGame.remove());
+						gamers.get(2).pushCard(batchForGame.remove());
+						gamers.get(3).pushCard(batchForGame.remove());
+						i++;
+						j--;
+					} else {
+						isTrumpSet = true;
+						trump = card.getSuitId();
+					}
+				}
+
+			}
+		}
+		return trump;
 	}
 	
 	abstract CardBatch getMixBatch();

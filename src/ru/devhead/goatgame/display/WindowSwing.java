@@ -13,8 +13,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
-import ru.devhead.goatgame.logic.Card;
-import ru.devhead.goatgame.logic.CardBatch;
 import ru.devhead.goatgame.logic.SimpleBoard;
 
 /**
