@@ -85,7 +85,7 @@ public class StupidBumpkin extends Gamer {
 		logger.debug("assignTrump()");
 		for (int i = 0; i < batchOnHand.size(); i++) {
 			if (!isSuperTrump(batchOnHand.get(i))) {
-				logger.debug(batchOnHand.get(i).getFaceName());
+				logger.debug(batchOnHand.get(i).getName());
 				
 				setTrump(batchOnHand.get(i).getSuitId());
 				setTrumpSetterFlag(true);

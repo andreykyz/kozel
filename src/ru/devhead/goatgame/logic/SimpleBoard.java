@@ -65,7 +65,7 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 
 	private void StartGame() {
 
-		display.printTrumpSuit(new Card(trump));
+		display.printTrumpSuit(new SimpleCard(trump));
 		display.printText("Start game!!!");
 		display.printBottom(true, player.getbatchOnHand());
 		display.printLeft(false, leftBrain.getbatchOnHand());
@@ -76,9 +76,9 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		// game loop
 		do {
 			if (playerTeam.getGamer1().getTrumpSetterFlag()) {
-				judge = new Judge(new Card(trump), playerTeam);
+				judge = new Judge(new SimpleCard(trump), playerTeam);
 			} else {
-				judge = new Judge(new Card(trump), computerTeam);
+				judge = new Judge(new SimpleCard(trump), computerTeam);
 			}
 			// loop for one deal
 			for (int i = 0; i < 7; i++) {

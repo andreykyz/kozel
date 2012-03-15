@@ -56,6 +56,7 @@ public class CardBatch extends LinkedList<Card> {
 	 * 
 	 * @param batchSize
 	 */
+	@Deprecated
 	public synchronized void fillCardBatch(int batchSize) {
 		boolean[] dim = new boolean[batchSize];
 		int j;
@@ -69,7 +70,7 @@ public class CardBatch extends LinkedList<Card> {
 				j = rand.nextInt(batchSize);
 			} while (dim[j]);
 			dim[j] = true;
-			this.add(new Card(kozelBatch[j]));
+			this.add(new SimpleCard(kozelBatch[j]));
 		}
 	}
 

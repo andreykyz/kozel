@@ -104,7 +104,7 @@ public abstract class AbstractBoard  {
 			for (int j = 0; j < 4; j++) {
 				card = batchForGame.remove();
 				card.setVisible(false);
-				if (card.getFaceId() == CardsNames.JACK_CROSSES) {
+				if (card.getId() == CardsNames.JACK_CROSSES) {
 					trumpSetterGamer = gamers.get(j);
 				}
 				gamers.get(j).pushCard(card);
@@ -180,7 +180,7 @@ public abstract class AbstractBoard  {
 			if (Gamer.IsItTrump(card2, trump)) {
 				if (Gamer.isSuperTrump(card1)) {
 					if (Gamer.isSuperTrump(card2)) {
-						if (card1.getFaceId() > card2.getFaceId()) {
+						if (card1.getId() > card2.getId()) {
 							return card1;
 						} else {
 							return card2;
@@ -192,7 +192,7 @@ public abstract class AbstractBoard  {
 					if (Gamer.isSuperTrump(card2)) {
 						return card2;
 					} else {
-						if (card1.getFaceId() > card2.getFaceId()) {
+						if (card1.getId() > card2.getId()) {
 							return card1;
 						} else {
 							return card2;
@@ -205,7 +205,7 @@ public abstract class AbstractBoard  {
 		} else {
 			if (card1.getSuitId() == firstCard.getSuitId()) {
 				if (card2.getSuitId() == firstCard.getSuitId()) {
-					if (card1.getFaceId() > card2.getFaceId()) {
+					if (card1.getId() > card2.getId()) {
 						return card1;
 					} else {
 						return card2;

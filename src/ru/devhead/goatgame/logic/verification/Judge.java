@@ -72,7 +72,7 @@ public class Judge {
 					iterBatchOnHand = gamer.getbatchOnHand().iterator();
 					while (iterBatchOnHand.hasNext()) {
 						// если у него найдется карта с мастю как у заходной, то ошибка
-						if(Gamer.suitTest(iterBatchOnHand.next(), firstCard.getFaceId())){
+						if(Gamer.suitTest(iterBatchOnHand.next(), firstCard.getId())){
 							return new CheatingType(CheatingType.SUIT_CHEAT_CODE);
 						}
 

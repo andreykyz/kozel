@@ -6,8 +6,9 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 import ru.devhead.goatgame.logic.Card;
+import ru.devhead.goatgame.logic.SimpleCard;
 
-public class CardWrapper extends Card {
+public class CardWrapper extends SimpleCard {
 	
 	private ImageIcon faceImage;
 	private ImageIcon backImage;
@@ -16,13 +17,13 @@ public class CardWrapper extends Card {
 
 	public CardWrapper(int value) {
 		super(value);
-		faceImage = new ImageIcon("cards/" +  this.getFaceName() + ".gif");
+		faceImage = new ImageIcon("cards/" +  this.getName() + ".gif");
 		backImage = new ImageIcon("cards/back/book.gif");
 	}
 	
 	public CardWrapper(Card card) {
-		super(card.getFaceId());
-		faceImage = new ImageIcon("cards/" +  this.getFaceName() + ".gif");
+		super(card.getId());
+		faceImage = new ImageIcon("cards/" +  this.getName() + ".gif");
 		backImage = new ImageIcon("cards/back/book.gif");
 	}
 	
