@@ -46,7 +46,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	private ImageIcon trumpSuitImg;
 	private Point textPoint;
 	private Point mousePressedPoint;
-	private CardWrapper selectedCard;
+	private Card selectedCard;
 
 	private String textLine = "Kozel card game";
 
@@ -55,7 +55,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	private CardBatch topBatch;
 	private CardBatch bottomBatch; // player batch
 
-	private CardWrapper[] turnedCards;
+	private Card[] turnedCards;
 	private int turnedCardsIndex;
 
 	private Object boardThread;
@@ -63,7 +63,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 	public DisplayWrapper() {
 		setPreferredSize(new Dimension(TABLE_WIDTH, TABLE_HEIGHT));
 
-		turnedCards = new CardWrapper[4];
+		turnedCards = new Card[4];
 		turnedCardsIndex = 0;
 
 		trumpSuitImg = new ImageIcon();
@@ -97,7 +97,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		// Painting turned cards on the center
 		for (int i = 0; i < 4; i++) {
 			if (turnedCards[i] != null) {
-				turnedCards[i].draw(g, this);
+				((CardWrapper) turnedCards[i]).draw(g, this);
 			}
 		}
 
@@ -153,7 +153,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 					turnedCards[2] = null;
 					turnedCards[3] = null;
 				}
-				turnedCards[turnedCardsIndex++] = new CardWrapper(card);
+				turnedCards[turnedCardsIndex++] = card;
 				turnedCards[turnedCardsIndex - 1].setVisible(true);
 				fixOffsets();
 			} else {
@@ -247,11 +247,11 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 			mousePressedPoint.move(arg0.getX(), arg0.getY());
 			// add find card in playerBatch
 			Iterator<Card> it = bottomBatch.descendingIterator();
-			CardWrapper testCard;
+			Card testCard;
 			while (it.hasNext()) {
-				testCard = (CardWrapper) it.next();
+				testCard = it.next();
 				if (testCard.contains(mousePressedPoint.x, mousePressedPoint.y)) {
-					selectedCard = (CardWrapper) testCard;
+					selectedCard = testCard;
 					synchronized (boardThread) {
 						boardThread.notify();
 						setDisplayMode(PC_THINK_MODE);
@@ -282,9 +282,9 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		mousePressedPoint.move(arg0.getX(), arg0.getY());
 		// add find card in playerBatch
 		Iterator<Card> it = bottomBatch.descendingIterator();
-		CardWrapper testCard;
+		Card testCard;
 		while (it.hasNext()) {
-			testCard = (CardWrapper) it.next();
+			testCard = it.next();
 			if (testCard.contains(mousePressedPoint.x, mousePressedPoint.y)) {
 				bottomBatch.remove(testCard);
 				bottomBatch.add(testCard);
@@ -397,11 +397,11 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		if (leftBatch != null) {
 			synchronized (leftBatch) {
 				Iterator<Card> it = leftBatch.iterator();
-				int CH = ((CardWrapper) leftBatch.getFirst()).getHeight();
+				int CH = (leftBatch.getFirst()).getHeight();
 				int y = (getHeight() - (CH + leftBatch.size() * step)) / 2;
 				int x = border;
 				while (it.hasNext()) {
-					CardWrapper cardw = (CardWrapper) it.next();
+					Card cardw = it.next();
 					cardw.moveTo(x, y);
 					cardw.setVisible(leftBatch.isVisible());
 					y = y + step;
@@ -414,12 +414,12 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		if (rightBatch != null) {
 			synchronized (rightBatch) {
 				Iterator<Card> it = rightBatch.iterator();
-				int CH = ((CardWrapper) rightBatch.getFirst()).getHeight();
-				int CW = ((CardWrapper) rightBatch.getFirst()).getWidth();
+				int CH = (rightBatch.getFirst()).getHeight();
+				int CW = (rightBatch.getFirst()).getWidth();
 				int y = (getHeight() - (CH + rightBatch.size() * step)) / 2;
 				int x = getWidth() - (CW + border);
 				while (it.hasNext()) {
-					CardWrapper cardw = (CardWrapper) it.next();
+					Card cardw = it.next();
 					cardw.moveTo(x, y);
 					cardw.setVisible(rightBatch.isVisible());
 					y = y + step;
@@ -431,11 +431,11 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		if (topBatch != null) {
 			synchronized (topBatch) {
 				Iterator<Card> it = topBatch.iterator();
-				int CW = ((CardWrapper) topBatch.getFirst()).getWidth();
+				int CW = (topBatch.getFirst()).getWidth();
 				int y = border;
 				int x = (getWidth() - (CW + topBatch.size() * step)) / 2;
 				while (it.hasNext()) {
-					CardWrapper cardw = (CardWrapper) it.next();
+					Card cardw = it.next();
 					cardw.moveTo(x, y);
 					cardw.setVisible(topBatch.isVisible());
 					x = x + step;
@@ -446,16 +446,16 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		// Calculate offset for bottomCardBatch
 		if (bottomBatch != null) {
 			synchronized (bottomBatch) {
-				stepW = stepW > ((CardWrapper) bottomBatch.getFirst())
-						.getWidth() + 13 ? ((CardWrapper) bottomBatch
+				stepW = stepW > (bottomBatch.getFirst())
+						.getWidth() + 13 ? (bottomBatch
 						.getFirst()).getWidth() + 13 : stepW;
 				Iterator<Card> it = bottomBatch.iterator();
-				int CH = ((CardWrapper) bottomBatch.getFirst()).getHeight();
-				int CW = ((CardWrapper) bottomBatch.getFirst()).getWidth();
+				int CH = (bottomBatch.getFirst()).getHeight();
+				int CW = (bottomBatch.getFirst()).getWidth();
 				int y = getHeight() - (CH + border);
 				int x = (getWidth() - (CW + bottomBatch.size() * stepW)) / 2;
 				while (it.hasNext()) {
-					CardWrapper cardw = (CardWrapper) it.next();
+					Card cardw = it.next();
 					cardw.moveTo(x, y);
 					cardw.setVisible(bottomBatch.isVisible());
 					x = x + stepW;

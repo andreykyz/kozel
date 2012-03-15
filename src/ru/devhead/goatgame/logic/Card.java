@@ -52,7 +52,7 @@ public interface Card {
 	 * @return true if card visible
 	 */
 	public boolean isVisible();
-/*
+
 	public void moveTo(int x, int y);
 
 	public boolean contains(int x, int y);
@@ -65,5 +65,5 @@ public interface Card {
 	
 	public int getY();
 	
-	public void draw(Graphics g, Component c);*/
+//	public void draw(Graphics g, Component c);
 }

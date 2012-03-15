@@ -29,6 +29,7 @@ public class CardWrapper extends SimpleCard {
 	
 	// ===================================================================
 	// moveTo
+	@Override
 	public void moveTo(int x, int y) {
 		_x = x;
 		_y = y;
@@ -36,30 +37,35 @@ public class CardWrapper extends SimpleCard {
 
 	// =================================================================
 	// contains
+	@Override
 	public boolean contains(int x, int y) {
 		return (x > _x && x < (_x + getWidth()) && y > _y && y < (_y + getHeight()));
 	}
 
 	// =================================================================
 	// getWidth
+	@Override
 	public int getWidth() {
 		return faceImage.getIconWidth();
 	}
 
 	// ================================================================
 	// getHeight
+	@Override
 	public int getHeight() {
 		return faceImage.getIconHeight();
 	}
 
 	// =====================================================================
 	// getX
+	@Override
 	public int getX() {
 		return _x;
 	}
 
 	// =====================================================================
 	// getY
+	@Override
 	public int getY() {
 		return _x;
 	}
