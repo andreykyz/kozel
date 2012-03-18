@@ -81,4 +81,8 @@ public class CardBatch extends LinkedList<Card> {
 	public boolean isVisible() {
 		return visible;
 	}
+
+	public synchronized int sizeSync() {
+		return size();
+	}
 }

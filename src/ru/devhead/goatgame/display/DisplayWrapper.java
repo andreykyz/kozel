@@ -394,7 +394,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		int step = 13;
 		int stepW = getWidth() > 400 ? (getWidth() - 400) / 13 + 20 : 20;
 		int border = 25;
-		if (leftBatch != null) {
+		if (leftBatch != null & leftBatch.sizeSync() > 0) {
 			synchronized (leftBatch) {
 				Iterator<Card> it = leftBatch.iterator();
 				int CH = (leftBatch.getFirst()).getHeight();
@@ -411,7 +411,8 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		}
 
 		// Calculate offset for rightCardBatch
-		if (rightBatch != null) {
+
+		if (rightBatch != null & rightBatch.sizeSync() > 0) {
 			synchronized (rightBatch) {
 				Iterator<Card> it = rightBatch.iterator();
 				int CH = (rightBatch.getFirst()).getHeight();
@@ -428,7 +429,7 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		}
 
 		// Calculate offset for topCardBatch
-		if (topBatch != null) {
+		if (topBatch != null & topBatch.sizeSync() > 0) {
 			synchronized (topBatch) {
 				Iterator<Card> it = topBatch.iterator();
 				int CW = (topBatch.getFirst()).getWidth();
@@ -444,10 +445,9 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		}
 
 		// Calculate offset for bottomCardBatch
-		if (bottomBatch != null) {
+		if (bottomBatch != null & bottomBatch.sizeSync() > 0) {
 			synchronized (bottomBatch) {
-				stepW = stepW > (bottomBatch.getFirst())
-						.getWidth() + 13 ? (bottomBatch
+				stepW = stepW > (bottomBatch.getFirst()).getWidth() + 13 ? (bottomBatch
 						.getFirst()).getWidth() + 13 : stepW;
 				Iterator<Card> it = bottomBatch.iterator();
 				int CH = (bottomBatch.getFirst()).getHeight();
