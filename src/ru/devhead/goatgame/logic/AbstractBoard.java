@@ -92,7 +92,7 @@ public abstract class AbstractBoard  {
 	}
 	
 	/**
-	 * Procedure for deal batch for game
+	 * Procedure for deal first batch for game
 	 * @param cardBatch - batch for game
 	 * @return trumpSetterGamer - who have Jack crosses
 	 */

@@ -29,10 +29,10 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 	// constants
 	private static final long serialVersionUID = 1L;
-	private static final Color BACKGROUND_COLOUR = Color.GREEN;
-	private static final Color TEXT_COLOUR = Color.BLACK;
-	private static final int TABLE_WIDTH = 800; // Pixels.
-	private static final int TABLE_HEIGHT = 550; // Pixels.
+	static final Color BACKGROUND_COLOUR = Color.GREEN;
+	static final Color TEXT_COLOUR = Color.BLACK;
+	static final int TABLE_WIDTH = 800; // Pixels.
+	static final int TABLE_HEIGHT = 550; // Pixels.
 
 	// modes
 	private int displayMode;
@@ -394,17 +394,19 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 		int step = 13;
 		int stepW = getWidth() > 400 ? (getWidth() - 400) / 13 + 20 : 20;
 		int border = 25;
-		if (leftBatch != null & leftBatch.sizeSync() > 0) {
-			synchronized (leftBatch) {
-				Iterator<Card> it = leftBatch.iterator();
-				int CH = (leftBatch.getFirst()).getHeight();
-				int y = (getHeight() - (CH + leftBatch.size() * step)) / 2;
-				int x = border;
-				while (it.hasNext()) {
-					Card cardw = it.next();
-					cardw.moveTo(x, y);
-					cardw.setVisible(leftBatch.isVisible());
-					y = y + step;
+		if (leftBatch != null) {
+			if (leftBatch.sizeSync() > 0) {
+				synchronized (leftBatch) {
+					Iterator<Card> it = leftBatch.iterator();
+					int CH = (leftBatch.getFirst()).getHeight();
+					int y = (getHeight() - (CH + leftBatch.size() * step)) / 2;
+					int x = border;
+					while (it.hasNext()) {
+						Card cardw = it.next();
+						cardw.moveTo(x, y);
+						cardw.setVisible(leftBatch.isVisible());
+						y = y + step;
+					}
 				}
 			}
 
@@ -412,53 +414,59 @@ public class DisplayWrapper extends JComponent implements ComponentListener,
 
 		// Calculate offset for rightCardBatch
 
-		if (rightBatch != null & rightBatch.sizeSync() > 0) {
-			synchronized (rightBatch) {
-				Iterator<Card> it = rightBatch.iterator();
-				int CH = (rightBatch.getFirst()).getHeight();
-				int CW = (rightBatch.getFirst()).getWidth();
-				int y = (getHeight() - (CH + rightBatch.size() * step)) / 2;
-				int x = getWidth() - (CW + border);
-				while (it.hasNext()) {
-					Card cardw = it.next();
-					cardw.moveTo(x, y);
-					cardw.setVisible(rightBatch.isVisible());
-					y = y + step;
+		if (rightBatch != null) {
+			if (rightBatch.sizeSync() > 0) {
+				synchronized (rightBatch) {
+					Iterator<Card> it = rightBatch.iterator();
+					int CH = (rightBatch.getFirst()).getHeight();
+					int CW = (rightBatch.getFirst()).getWidth();
+					int y = (getHeight() - (CH + rightBatch.size() * step)) / 2;
+					int x = getWidth() - (CW + border);
+					while (it.hasNext()) {
+						Card cardw = it.next();
+						cardw.moveTo(x, y);
+						cardw.setVisible(rightBatch.isVisible());
+						y = y + step;
+					}
 				}
 			}
 		}
 
 		// Calculate offset for topCardBatch
-		if (topBatch != null & topBatch.sizeSync() > 0) {
-			synchronized (topBatch) {
-				Iterator<Card> it = topBatch.iterator();
-				int CW = (topBatch.getFirst()).getWidth();
-				int y = border;
-				int x = (getWidth() - (CW + topBatch.size() * step)) / 2;
-				while (it.hasNext()) {
-					Card cardw = it.next();
-					cardw.moveTo(x, y);
-					cardw.setVisible(topBatch.isVisible());
-					x = x + step;
+		if (topBatch != null) {
+			if (topBatch.sizeSync() > 0) {
+				synchronized (topBatch) {
+					Iterator<Card> it = topBatch.iterator();
+					int CW = (topBatch.getFirst()).getWidth();
+					int y = border;
+					int x = (getWidth() - (CW + topBatch.size() * step)) / 2;
+					while (it.hasNext()) {
+						Card cardw = it.next();
+						cardw.moveTo(x, y);
+						cardw.setVisible(topBatch.isVisible());
+						x = x + step;
+					}
 				}
 			}
 		}
 
 		// Calculate offset for bottomCardBatch
-		if (bottomBatch != null & bottomBatch.sizeSync() > 0) {
-			synchronized (bottomBatch) {
-				stepW = stepW > (bottomBatch.getFirst()).getWidth() + 13 ? (bottomBatch
-						.getFirst()).getWidth() + 13 : stepW;
-				Iterator<Card> it = bottomBatch.iterator();
-				int CH = (bottomBatch.getFirst()).getHeight();
-				int CW = (bottomBatch.getFirst()).getWidth();
-				int y = getHeight() - (CH + border);
-				int x = (getWidth() - (CW + bottomBatch.size() * stepW)) / 2;
-				while (it.hasNext()) {
-					Card cardw = it.next();
-					cardw.moveTo(x, y);
-					cardw.setVisible(bottomBatch.isVisible());
-					x = x + stepW;
+		if (bottomBatch != null) {
+			if (bottomBatch.sizeSync() > 0) {
+				synchronized (bottomBatch) {
+					stepW = stepW > (bottomBatch.getFirst()).getWidth() + 13 ? (bottomBatch
+							.getFirst()).getWidth() + 13 : stepW;
+					Iterator<Card> it = bottomBatch.iterator();
+					int CH = (bottomBatch.getFirst()).getHeight();
+					int CW = (bottomBatch.getFirst()).getWidth();
+					int y = getHeight() - (CH + border);
+					int x = (getWidth() - (CW + bottomBatch.size() * stepW)) / 2;
+					while (it.hasNext()) {
+						Card cardw = it.next();
+						cardw.moveTo(x, y);
+						cardw.setVisible(bottomBatch.isVisible());
+						x = x + stepW;
+					}
 				}
 			}
 		}

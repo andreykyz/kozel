@@ -61,16 +61,17 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 		friendBrain.setTrump(trump);
 		rightBrain.setTrump(trump);
 		
-	}
-
-	private void StartGame() {
-
 		display.printTrumpSuit(new SimpleCard(trump));
 		display.printText("Start game!!!");
 		display.printBottom(true, player.getbatchOnHand());
 		display.printLeft(false, leftBrain.getbatchOnHand());
 		display.printTop(false, friendBrain.getbatchOnHand());
 		display.printRight(false, rightBrain.getbatchOnHand());
+	}
+
+	private void StartGame() {
+
+
 		Judge judge;
 		Gamer gamer;
 		// game loop
@@ -89,16 +90,18 @@ public class SimpleBoard extends AbstractBoard implements Runnable {
 					gamer = gamersQueue.removeFirst();
 					table[j] = gamer.turn(table, j);
 					// Check rules
-					if (j == 0) {
+					if (j == 0 & i == 0) {
 						if (judge.firstCardCheck(table[j], gamer)
 								.getCheatCode() != CheatingType.OK) {
 							gamer.pushCard(table[j]);
+							gamersQueue.addFirst(gamer);
 							j--;
 						}
 					} else {
-						if (judge.checkTurn(table[1], table[j], gamer)
+						if (judge.checkTurn(table[0], table[j], gamer)
 								.getCheatCode() != CheatingType.OK) {
 							gamer.pushCard(table[j]);
+							gamersQueue.addFirst(gamer);
 							j--;
 						}
 

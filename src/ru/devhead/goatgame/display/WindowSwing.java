@@ -3,15 +3,18 @@
  */
 package ru.devhead.goatgame.display;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import ru.devhead.goatgame.logic.SimpleBoard;
 
@@ -102,6 +105,7 @@ public class WindowSwing extends JFrame {
 		menuBar.add(mFile);
 		menuBar.add(mHelp);
 		setJMenuBar(menuBar);
+		setPreferredSize(new Dimension(DisplayWrapper.TABLE_WIDTH, DisplayWrapper.TABLE_HEIGHT));
 		pack();
 		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
