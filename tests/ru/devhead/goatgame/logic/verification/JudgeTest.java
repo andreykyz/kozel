@@ -2,6 +2,7 @@ package ru.devhead.goatgame.logic.verification;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collection;
@@ -32,21 +33,21 @@ public class JudgeTest {
 	private String testData;
 	private static Random rnd;
 	
-	public JudgeTest(int iteration, String testData) {
+	public JudgeTest(int iteration) {
 		this.iteration = iteration;
-		this.testData = testData;
+		//this.testData = testData;
 	}
 
 	@Parameters
-	 public static Collection<Object[]> data() {
-		Object[][] data = new Object[][] { { 1,"fsdf" }, { 2,"fsdfsdfsdf" }, { 3,"fssdfsdfdf" }, {4,"fsfsdfsddf" } };
-	//	for (int j = 0; j < data[0].length; j++) {
-			//data[0][j] = 1;
-		//}
-		return Arrays.asList(data);
-	 }
+	public static Collection<Object[]> data() {
+		ArrayList<Object[]> list = new ArrayList<Object[]>();
+		for (int i = 0; i < 100; i++) {
+			list.add(new Integer[]{1});
+		}
 
-	
+		return list;
+	}
+
 	@BeforeClass
 	public static void setUpBefore() {
 		
@@ -62,18 +63,6 @@ public class JudgeTest {
 	
 	}
 	
-	@Ignore
-	@Test
-	public void testCheckTurnCardCardGamer() {
-		fail("Not yet implemented");
-	}
-
-	@Ignore
-	@Before
-	public void setUpFirstCardCheck() {
-
-	}
-
 	@Test
 	public void testFirstCardCheck() {
 		Judge judge = new Judge(new SimpleCard(3), gamersTeam);
@@ -83,10 +72,4 @@ public class JudgeTest {
 		assertTrue("ff", test);
 	}
 	
-	@Ignore
-	@Test
-	public void testCheckTurnCardGamer() {
-		fail("Not yet implemented");
-	}
-
 }
