@@ -24,6 +24,12 @@ public interface Display {
 	public Card getSelectCard();
 	
 	/**
+	 * Method for feedback with user
+	 * @return suit selected by user
+	 */
+	public int getSelectSuit();
+	
+	/**
 	 * Method print batch on the left
 	 * @param visible true - card is face up and false - card face down
 	 * @param batch - which contain printing cards 

@@ -3,21 +3,24 @@
  */
 package ru.devhead.goatgame.display;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
-import ru.devhead.goatgame.logic.Card;
-import ru.devhead.goatgame.logic.CardBatch;
+import ru.devhead.goatgame.logic.SimpleBoard;
 
 /**
  * Interface based on swing frame work.
+ * 
  * @author Kyznecov Andrey
  * 
  */
@@ -33,7 +36,10 @@ public class WindowSwing extends JFrame {
 	final String EMAIL = "andreykyz@gmail.com";
 
 	JFrame frame;
-
+	DisplayWrapper disp;
+	SimpleBoard board;
+	Thread boardThread;
+	
 	public WindowSwing() {
 		frame = this;
 		JMenuItem miExit = new JMenuItem("Exit");
@@ -56,34 +62,56 @@ public class WindowSwing extends JFrame {
 			}
 
 		});
-		 JMenuItem miNewGame = new JMenuItem("New game");
-		 miNewGame.addActionListener(new ActionListener(){
+		
+
+		
+		JMenuItem miNewGame = new JMenuItem("New game");
+		miNewGame.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				disp = new DisplayWrapper();
+				board = new SimpleBoard(disp);
+				Thread boardThread = new Thread(board);
+				disp.setBoardThread(boardThread);
+				boardThread.setName("Board thread");
+				boardThread.start();
+				frame.setContentPane(disp);
+				frame.pack();				
 			}
-			 
-		 });
-		 
-		 JMenu mFile = new JMenu("File");
-		 mFile.setMnemonic(KeyEvent.VK_F);
-		 mFile.add(miNewGame);
-		 mFile.add(miExit);
 
-		 JMenu mHelp = new JMenu("Help");
-		 mHelp.setMnemonic(KeyEvent.VK_H);
-		 mHelp.add(miAbout);
-		 
-		 JMenuBar menuBar = new JMenuBar();
-		 menuBar.add(mFile);
-		 menuBar.add(mHelp);
-		 
-		 this.setJMenuBar(menuBar);
-		 this.setContentPane(new DisplayWrapper());
-		 this.pack();		 
+		});
 
+		JMenuItem miNewCheaterGame = new JMenuItem("New cheater game");
+		miNewCheaterGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				//Доделать
+			}
+		});
+
+		JMenu mFile = new JMenu("File");
+		mFile.setMnemonic(KeyEvent.VK_F);
+		mFile.add(miNewGame);
+		mFile.add(miNewCheaterGame);
+		mFile.addSeparator();
+		mFile.add(miExit);
+
+		JMenu mHelp = new JMenu("Help");
+		mHelp.setMnemonic(KeyEvent.VK_H);
+		mHelp.add(miAbout);
+
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.add(mFile);
+		menuBar.add(mHelp);
+		setJMenuBar(menuBar);
+		setPreferredSize(new Dimension(DisplayWrapper.TABLE_WIDTH, DisplayWrapper.TABLE_HEIGHT));
+		pack();
+		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+
+		
 	}
 
 }

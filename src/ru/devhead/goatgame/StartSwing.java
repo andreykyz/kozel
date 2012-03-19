@@ -8,7 +8,7 @@ public class StartSwing {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		new WindowSwing();
+		new WindowSwing().setVisible(true);
 
 	}
 

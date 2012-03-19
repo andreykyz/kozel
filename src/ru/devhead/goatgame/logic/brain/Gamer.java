@@ -2,9 +2,11 @@ package ru.devhead.goatgame.logic.brain;
 
 import org.apache.log4j.Logger;
 
+import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardBatch;
 import ru.devhead.goatgame.logic.CardsNames;
+import ru.devhead.goatgame.logic.SimpleCard;
 
 public abstract class Gamer {
 	CardBatch batchOnHand;
@@ -13,6 +15,7 @@ public abstract class Gamer {
 	int trump;
 	int id;
 	String name;
+	Display display;
 	
 	public String getName() {
 		return name;
@@ -28,19 +31,14 @@ public abstract class Gamer {
 
 	private static Logger logger = Logger.getLogger(Gamer.class);
 		
-	/**
-	 * 
-	 * @param batchOnHand
-	 *            - Generated batch
-	 */
-	Gamer(CardBatch batchOnHand) {
-		this.batchOnHand = batchOnHand;
-
+	public Gamer() {
+		// stumb
 	}
 
-	Gamer(int id) {
+	public Gamer(Display display, int id) {
 		this.batchOnHand = new CardBatch();
 		this.id = id;
+		this.display = display;
 	}
 
 	public void pushCard(Card card) {
@@ -60,7 +58,7 @@ public abstract class Gamer {
 	 */
 	public static boolean IsItTrump(Card card, int trump) {
 		logger.debug("Call IsItTrump(Card card, int trump");
-		logger.debug("Card = " + card.getFaceName() + "Trump = " + new Card(trump).getSuitName());
+		logger.debug("Card = " + card.getName() + "Trump = " + new SimpleCard(trump).getSuitName());
 
 		if ((card.getSuitId() == trump) | isSuperTrump(card)) {
 			logger.trace("Return true");
@@ -81,7 +79,7 @@ public abstract class Gamer {
 	 */
 	public static boolean suitTest(Card card, int suit) {
 		logger.debug("Call suitTest(Card card, int suit");
-		logger.debug("Card = " + card.getFaceName() + "Trump = " + new Card(suit).getSuitName());
+		logger.debug("Card = " + card.getName() + "Trump = " + new SimpleCard(suit).getSuitName());
 		
 		if ((card.getSuitId() == suit) & (!isSuperTrump(card))) {
 			logger.trace("Return true");
@@ -105,9 +103,9 @@ public abstract class Gamer {
 	 */
 	public static boolean isSuperTrump(Card card) {
 		logger.debug("Call suitTest(Card card, int suit");
-		logger.debug("Card = " + card.getFaceName());
+		logger.debug("Card = " + card.getName());
 		
-		if ((card.getFaceId() == CardsNames.SIX_CROSSES)
+		if ((card.getId() == CardsNames.SIX_CROSSES)
 				| (card.getPicture() == CardsNames.JACK)
 				| (card.getPicture() == CardsNames.QUEEN)) {
 			logger.trace("Return true");
@@ -139,5 +137,6 @@ public abstract class Gamer {
 	public CardBatch getbatchOnHand() {
 		return batchOnHand;
 		
-	}
+	}	
+	
 }
