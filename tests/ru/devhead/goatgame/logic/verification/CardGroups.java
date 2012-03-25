@@ -6,14 +6,15 @@ import ru.devhead.goatgame.logic.SimpleCard;
 
 public class CardGroups {
 
-	private int trump;
-
 	static public Card[] SuperTrumps;
 	// then no super trump card.
 	static public Card[] DiamondsCard;
 	static public Card[] HeartsCard;
 	static public Card[] SpadeCard;
 	static public Card[] CrossesCard;
+	static public Card[] notSuperTrumps;
+	static public Object[][] trumpAndTrumpSuitPairs;
+	static public Object[][] noTrumpAndTrumpSuit;
 
 	static int[] SuperTrumpId = { CardsNames.SIX_CROSSES,
 			CardsNames.JACK_DIAMONDS, CardsNames.JACK_HEARTS,
@@ -30,11 +31,12 @@ public class CardGroups {
 	static public int[] SpadeCardId = { CardsNames.SIX_SPADE,
 			CardsNames.NINE_SPADE, CardsNames.TEN_SPADE, CardsNames.KING_SPADE,
 			CardsNames.ACE_SPADE };
-	// Without SIX_CROSSES
+	// without SIX_CROSSES
 	static public int[] CrossesCardId = { CardsNames.NINE_CROSSES,
 			CardsNames.TEN_CROSSES, CardsNames.KING_CROSSES,
 			CardsNames.ACE_CROSSES };
 
+	// fill card groups
 	static {
 		SuperTrumps = new Card[SuperTrumpId.length];
 		for (int i = 0; i < SuperTrumps.length; i++) {
@@ -56,48 +58,80 @@ public class CardGroups {
 		for (int i = 0; i < CrossesCard.length; i++) {
 			CrossesCard[i] = new SimpleCard(CrossesCardId[i]);
 		}
-	}
 
-	public CardGroups() {
-		// default trump is DIAMONDS
-		setTrump(CardsNames.DIAMONDS);
-	}
+		// fill notSuperTrump
+		notSuperTrumps = new Card[28 - SuperTrumps.length];
+		for (int i = 0; i < DiamondsCard.length; i++) {
+			notSuperTrumps[i] = DiamondsCard[i];
+		}
+		for (int i = 0; i < HeartsCard.length; i++) {
+			notSuperTrumps[i + DiamondsCard.length] = HeartsCard[i];
+		}
+		for (int i = 0; i < SpadeCard.length; i++) {
+			notSuperTrumps[i + DiamondsCard.length + HeartsCard.length] = SpadeCard[i];
+		}
+		for (int i = 0; i < CrossesCard.length; i++) {
+			notSuperTrumps[i + DiamondsCard.length + HeartsCard.length
+					+ SpadeCard.length] = CrossesCard[i];
+		}
 
-	public CardGroups(int trump) {
-		setTrump(trump);
+		// fill trumpAndTrumpSuit
+		int dataLength = SuperTrumps.length * 4 + DiamondsCard.length
+				+ HeartsCard.length + SpadeCard.length + CrossesCard.length;
+		trumpAndTrumpSuitPairs = new Object[dataLength][2];
+		// first for diamonds
+		dataLength = DiamondsCard.length;
+		int dataLengthStart = 0;
+		for (int i = dataLengthStart; i < dataLength; i++) {
+			trumpAndTrumpSuitPairs[i][0] = DiamondsCard[i];
+			trumpAndTrumpSuitPairs[i][1] = CardsNames.DIAMONDS;
+		}
+		dataLengthStart = dataLength;
+		dataLength = dataLengthStart + SuperTrumps.length;
+		for (int i = dataLengthStart; i < dataLength; i++) {
+			trumpAndTrumpSuitPairs[i][0] = SuperTrumps[i];
+			trumpAndTrumpSuitPairs[i][1] = CardsNames.DIAMONDS;
+		}
+		// fill hearts
+		dataLengthStart = dataLength;
+		dataLength = dataLengthStart + HeartsCard.length;
+		for (int i = dataLengthStart; i < dataLength; i++) {
+			trumpAndTrumpSuitPairs[i][0] = HeartsCard[i];
+			trumpAndTrumpSuitPairs[i][1] = CardsNames.HEARTS;
+		}
+		dataLengthStart = dataLength;
+		dataLength = dataLengthStart + SuperTrumps.length;
+		for (int i = dataLengthStart; i < dataLength; i++) {
+			trumpAndTrumpSuitPairs[i][0] = SuperTrumps[i];
+			trumpAndTrumpSuitPairs[i][1] = CardsNames.HEARTS;
+		}
+		// fill spade
+		dataLengthStart = dataLength;
+		dataLength = dataLengthStart + SpadeCard.length;
+		for (int i = dataLengthStart; i < dataLength; i++) {
+			trumpAndTrumpSuitPairs[i][0] = SpadeCard[i];
+			trumpAndTrumpSuitPairs[i][1] = CardsNames.SPADE;
+		}
+		dataLengthStart = dataLength;
+		dataLength = dataLengthStart + SuperTrumps.length;
+		for (int i = dataLengthStart; i < dataLength; i++) {
+			trumpAndTrumpSuitPairs[i][0] = SuperTrumps[i];
+			trumpAndTrumpSuitPairs[i][1] = CardsNames.SPADE;
+		}
+		// fill crosses
+		dataLengthStart = dataLength;
+		dataLength = dataLengthStart + CrossesCard.length;
+		for (int i = dataLengthStart; i < dataLength; i++) {
+			trumpAndTrumpSuitPairs[i][0] = CrossesCard[i];
+			trumpAndTrumpSuitPairs[i][1] = CardsNames.CROSSES;
+		}
+		dataLengthStart = dataLength;
+		dataLength = dataLengthStart + SuperTrumps.length;
+		for (int i = dataLengthStart; i < dataLength; i++) {
+			trumpAndTrumpSuitPairs[i][0] = SuperTrumps[i];
+			trumpAndTrumpSuitPairs[i][1] = CardsNames.CROSSES;
+		}
+		// fill noTrumpAndTrumpSuit
+		// Доделать
 	}
-
-	/**
-	 * @return the trump
-	 */
-	public int getTrump() {
-		return trump;
-	}
-
-	/**
-	 * @param trump
-	 *            the trump to set
-	 */
-	public void setTrump(int trump) {
-		this.trump = trump;
-	}
-	
-	Card[] getTrumps(){
-		switch(getTrump()){
-		case CardsNames.DIAMONDS:{
-			return DiamondsCard;
-		}
-		case CardsNames.HEARTS:{
-			return HeartsCard;
-		}
-		case CardsNames.SPADE:{
-			return SpadeCard;
-		}
-		case CardsNames.CROSSES:{
-			return CrossesCard;
-		}
-		}
-		return null;
-	}
-
 }
