@@ -140,17 +140,18 @@ public class CardGroups {
 		int trump;
 		dataLength = 0;
 		dataLengthStart = 0;
-		List<Object[]> tempList = new ArrayList<Object[]>();
-		List<Card> notSuperTrumpsList = Arrays.asList(notSuperTrumps); 
+		List<Object[]> noTrumpAndTrumpSuitPairsList = new ArrayList<Object[]>();
+		List<Card> notSuperTrumpsList = Arrays.asList(notSuperTrumps);
 		for (trump = 0; trump < 4; trump++) {
 			Iterator<Card> it = notSuperTrumpsList.iterator();
 			while (it.hasNext()) {
 				Card card = it.next();
 				if (card.getSuitId() != trump) {
 					Object obj[] = new Object[] { card, trump };
-					tempList.add(obj);
+					noTrumpAndTrumpSuitPairsList.add(obj);
 				}
 			}
 		}
+		noTrumpAndTrumpSuitPairs = (Object[][]) noTrumpAndTrumpSuitPairsList.toArray();
 	}
 }

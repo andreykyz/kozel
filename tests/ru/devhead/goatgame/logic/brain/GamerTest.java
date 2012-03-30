@@ -28,14 +28,24 @@ public class GamerTest {
 		return data;
 	}
 
-	@Test
-	public void IsItTrump() {
-		throw new RuntimeException("Test not implemented");
+	@DataProvider
+	public Object[][] trumpAndTrumpSuitPairs() {
+		return CardGroups.trumpAndTrumpSuitPairs;
+	}
+	
+	@DataProvider
+	public Object[][] noTrumpAndTrumpSuitPairs() {
+		return CardGroups.noTrumpAndTrumpSuitPairs;
 	}
 
-	@Test
-	public void IsNotItTrump() {
-		throw new RuntimeException("Test not implemented");
+	@Test(dataProvider = "trumpAndTrumpSuitPairs")
+	public void IsItTrump(Card card, int trump) {
+		assertTrue(Gamer.IsItTrump(card, trump), "isTrump " + card.getName());
+	}
+
+	@Test(dataProvider = "noTrumpAndTrumpSuitPairs")
+	public void IsNotItTrump(Card card, int trump) {
+		assertTrue(Gamer.IsItTrump(card, trump), "isNotTrump " + card.getName());
 	}
 
 	@Test(dataProvider = "superTrumps")
@@ -45,7 +55,7 @@ public class GamerTest {
 
 	@Test(dataProvider = "notSuperTrumps")
 	public void isNotSuperTrump(Card card) {
-		assertFalse(Gamer.isSuperTrump(card), "isSuperTrump " + card.getName());
+		assertFalse(Gamer.isSuperTrump(card), "isNotSuperTrump " + card.getName());
 	}
 
 	@Test
