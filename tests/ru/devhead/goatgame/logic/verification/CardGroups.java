@@ -1,5 +1,10 @@
 package ru.devhead.goatgame.logic.verification;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 import ru.devhead.goatgame.logic.Card;
 import ru.devhead.goatgame.logic.CardsNames;
 import ru.devhead.goatgame.logic.SimpleCard;
@@ -14,7 +19,7 @@ public class CardGroups {
 	static public Card[] CrossesCard;
 	static public Card[] notSuperTrumps;
 	static public Object[][] trumpAndTrumpSuitPairs;
-	static public Object[][] noTrumpAndTrumpSuit;
+	static public Object[][] noTrumpAndTrumpSuitPairs;
 
 	static int[] SuperTrumpId = { CardsNames.SIX_CROSSES,
 			CardsNames.JACK_DIAMONDS, CardsNames.JACK_HEARTS,
@@ -132,6 +137,20 @@ public class CardGroups {
 			trumpAndTrumpSuitPairs[i][1] = CardsNames.CROSSES;
 		}
 		// fill noTrumpAndTrumpSuit
-		// Доделать
+		int trump;
+		dataLength = 0;
+		dataLengthStart = 0;
+		List<Object[]> tempList = new ArrayList<Object[]>();
+		List<Card> notSuperTrumpsList = Arrays.asList(notSuperTrumps); 
+		for (trump = 0; trump < 4; trump++) {
+			Iterator<Card> it = notSuperTrumpsList.iterator();
+			while (it.hasNext()) {
+				Card card = it.next();
+				if (card.getSuitId() != trump) {
+					Object obj[] = new Object[] { card, trump };
+					tempList.add(obj);
+				}
+			}
+		}
 	}
 }
