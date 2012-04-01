@@ -1,6 +1,8 @@
 package ru.devhead.goatgame.logic.brain;
 
 import static org.testng.Assert.*;
+
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 
@@ -9,6 +11,11 @@ import ru.devhead.goatgame.logic.verification.CardGroups;
 
 @Test
 public class GamerTest {
+	
+	@BeforeClass
+	public void setUp() {
+		CardGroups.init();
+	}
 
 	@DataProvider
 	public Object[][] superTrumps() {
@@ -45,7 +52,7 @@ public class GamerTest {
 
 	@Test(dataProvider = "noTrumpAndTrumpSuitPairs")
 	public void IsNotItTrump(Card card, int trump) {
-		assertTrue(Gamer.IsItTrump(card, trump), "isNotTrump " + card.getName());
+		assertFalse(Gamer.IsItTrump(card, trump), "isNotTrump " + card.getName());
 	}
 
 	@Test(dataProvider = "superTrumps")
@@ -60,6 +67,7 @@ public class GamerTest {
 
 	@Test
 	public void suitTest() {
+		//Доделать
 		throw new RuntimeException("Test not implemented");
 	}
 }

@@ -42,7 +42,7 @@ public class CardGroups {
 			CardsNames.ACE_CROSSES };
 
 	// fill card groups
-	static {
+	static public void init() {
 		SuperTrumps = new Card[SuperTrumpId.length];
 		for (int i = 0; i < SuperTrumps.length; i++) {
 			SuperTrumps[i] = new SimpleCard(SuperTrumpId[i]);
@@ -81,67 +81,28 @@ public class CardGroups {
 		}
 
 		// fill trumpAndTrumpSuit
-		int dataLength = SuperTrumps.length * 4 + DiamondsCard.length
-				+ HeartsCard.length + SpadeCard.length + CrossesCard.length;
-		trumpAndTrumpSuitPairs = new Object[dataLength][2];
-		// first for diamonds
-		dataLength = DiamondsCard.length;
-		int dataLengthStart = 0;
-		for (int i = dataLengthStart; i < dataLength; i++) {
-			trumpAndTrumpSuitPairs[i][0] = DiamondsCard[i];
-			trumpAndTrumpSuitPairs[i][1] = CardsNames.DIAMONDS;
-		}
-		dataLengthStart = dataLength;
-		dataLength = dataLengthStart + SuperTrumps.length;
-		for (int i = dataLengthStart; i < dataLength; i++) {
-			trumpAndTrumpSuitPairs[i][0] = SuperTrumps[i];
-			trumpAndTrumpSuitPairs[i][1] = CardsNames.DIAMONDS;
-		}
-		// fill hearts
-		dataLengthStart = dataLength;
-		dataLength = dataLengthStart + HeartsCard.length;
-		for (int i = dataLengthStart; i < dataLength; i++) {
-			trumpAndTrumpSuitPairs[i][0] = HeartsCard[i];
-			trumpAndTrumpSuitPairs[i][1] = CardsNames.HEARTS;
-		}
-		dataLengthStart = dataLength;
-		dataLength = dataLengthStart + SuperTrumps.length;
-		for (int i = dataLengthStart; i < dataLength; i++) {
-			trumpAndTrumpSuitPairs[i][0] = SuperTrumps[i];
-			trumpAndTrumpSuitPairs[i][1] = CardsNames.HEARTS;
-		}
-		// fill spade
-		dataLengthStart = dataLength;
-		dataLength = dataLengthStart + SpadeCard.length;
-		for (int i = dataLengthStart; i < dataLength; i++) {
-			trumpAndTrumpSuitPairs[i][0] = SpadeCard[i];
-			trumpAndTrumpSuitPairs[i][1] = CardsNames.SPADE;
-		}
-		dataLengthStart = dataLength;
-		dataLength = dataLengthStart + SuperTrumps.length;
-		for (int i = dataLengthStart; i < dataLength; i++) {
-			trumpAndTrumpSuitPairs[i][0] = SuperTrumps[i];
-			trumpAndTrumpSuitPairs[i][1] = CardsNames.SPADE;
-		}
-		// fill crosses
-		dataLengthStart = dataLength;
-		dataLength = dataLengthStart + CrossesCard.length;
-		for (int i = dataLengthStart; i < dataLength; i++) {
-			trumpAndTrumpSuitPairs[i][0] = CrossesCard[i];
-			trumpAndTrumpSuitPairs[i][1] = CardsNames.CROSSES;
-		}
-		dataLengthStart = dataLength;
-		dataLength = dataLengthStart + SuperTrumps.length;
-		for (int i = dataLengthStart; i < dataLength; i++) {
-			trumpAndTrumpSuitPairs[i][0] = SuperTrumps[i];
-			trumpAndTrumpSuitPairs[i][1] = CardsNames.CROSSES;
-		}
-		// fill noTrumpAndTrumpSuit
 		int trump;
-		dataLength = 0;
-		dataLengthStart = 0;
-		List<Object[]> noTrumpAndTrumpSuitPairsList = new ArrayList<Object[]>();
+		List<Object[]> trumpAndTrumpSuitPairsList = new ArrayList<Object[]>();
 		List<Card> notSuperTrumpsList = Arrays.asList(notSuperTrumps);
+		List<Card> SuperTrumpsList = Arrays.asList(SuperTrumps);
+		for (trump = 0; trump < 4; trump++) {
+			Iterator<Card> it = notSuperTrumpsList.iterator();
+			while (it.hasNext()) {
+				Card card = it.next();
+				if (card.getSuitId() == trump) {
+					trumpAndTrumpSuitPairsList.add(new Object[] { card, trump });
+				}
+			}
+			it = SuperTrumpsList.iterator();
+			while (it.hasNext()) {
+				Card card = it.next();
+				trumpAndTrumpSuitPairsList.add(new Object[] { card, trump });
+			}
+		}
+		trumpAndTrumpSuitPairs = trumpAndTrumpSuitPairsList.toArray(new Object[trumpAndTrumpSuitPairsList.size()][2]);
+		// fill noTrumpAndTrumpSuit
+		List<Object[]> noTrumpAndTrumpSuitPairsList = new ArrayList<Object[]>();
+		// List<Card> notSuperTrumpsList = Arrays.asList(notSuperTrumps);
 		for (trump = 0; trump < 4; trump++) {
 			Iterator<Card> it = notSuperTrumpsList.iterator();
 			while (it.hasNext()) {
@@ -152,6 +113,6 @@ public class CardGroups {
 				}
 			}
 		}
-		noTrumpAndTrumpSuitPairs = (Object[][]) noTrumpAndTrumpSuitPairsList.toArray();
+		noTrumpAndTrumpSuitPairs = noTrumpAndTrumpSuitPairsList.toArray(new Object[noTrumpAndTrumpSuitPairsList.size()][2]);
 	}
 }
