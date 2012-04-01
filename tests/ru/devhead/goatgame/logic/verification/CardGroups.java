@@ -20,8 +20,6 @@ public class CardGroups {
 	static public Card[] notSuperTrumps;
 	static public Object[][] trumpAndTrumpSuitPairs;
 	static public Object[][] noTrumpAndTrumpSuitPairs;
-	static public Object[][] CardAndSuitPairs;
-	static public Object[][] CardAndNoSuitPairs;
 
 	static int[] SuperTrumpId = { CardsNames.SIX_CROSSES,
 			CardsNames.JACK_DIAMONDS, CardsNames.JACK_HEARTS,
@@ -116,8 +114,5 @@ public class CardGroups {
 			}
 		}
 		noTrumpAndTrumpSuitPairs = noTrumpAndTrumpSuitPairsList.toArray(new Object[noTrumpAndTrumpSuitPairsList.size()][2]);
-		
-		List<Object[]> CardAndSuitPairsList = new ArrayList<Object[]>();
-		
 	}
 }

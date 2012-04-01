@@ -23,7 +23,16 @@ public class Judge {
 		this.trumpSetter = trumpSetter;
 	}
 
-	// WARNING должно работыть правильно, но нужно протестировать
+	/**
+	 * WARNING должно работать правильно, но нужно протестировать
+	 * 
+	 *
+	 * @param firstCard
+	 * @param turnCard
+	 * @param gamer
+	 * @return 
+	 */
+
 	public CheatingType checkTurn(Card firstCard, Card turnCard, Gamer gamer) {
 		Iterator<Card> iterBatchOnHand;
 		// 1 Если первый ход был по козырю
@@ -85,7 +94,12 @@ public class Judge {
 		return new CheatingType(CheatingType.OK);
 
 	}
-	
+	/**
+	 * Method for checking first turn 
+	 * @param firstCard - card which has turned the gamer
+	 * @param gamer - who has turned card
+	 * @return
+	 */
 	public CheatingType firstCardCheck(Card firstCard, Gamer gamer) {
 		Iterator<Card> iterBatchOnHand;
 		//Если игрок пошёл по козырю
