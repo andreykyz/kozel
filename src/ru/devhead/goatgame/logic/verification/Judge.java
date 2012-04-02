@@ -14,11 +14,17 @@ import ru.devhead.goatgame.logic.brain.GamersTeam;
  */
 public class Judge {
 
-	Card trump;
+	private int trump;
 	GamersTeam trumpSetter;
 	GamersTeam otherTeam;
-
+	
+	@Deprecated
 	public Judge(Card trump, GamersTeam trumpSetter) {
+		this.trump = trump.getSuitId();
+		this.trumpSetter = trumpSetter;
+	}
+
+	public Judge(int trump, GamersTeam trumpSetter) {
 		this.trump = trump;
 		this.trumpSetter = trumpSetter;
 	}
@@ -36,10 +42,10 @@ public class Judge {
 	public CheatingType checkTurn(Card firstCard, Card turnCard, Gamer gamer) {
 		Iterator<Card> iterBatchOnHand;
 		// 1 Если первый ход был по козырю
-		if (Gamer.IsItTrump(firstCard, trump.getSuitId())) {
+		if (Gamer.IsItTrump(firstCard, trump)) {
 			// if first card is trump
 			// Если первый ход по козырю
-			if (!Gamer.IsItTrump(turnCard, trump.getSuitId())) {
+			if (!Gamer.IsItTrump(turnCard, trump)) {
 				// and gamer turned card isn't trump
 				// и игрок пошел не козырем, то
 				iterBatchOnHand = gamer.getbatchOnHand().iterator();
@@ -57,7 +63,7 @@ public class Judge {
 			// if first card isn't trump
 			// 2 Если первый ход был не по козырю
 		} else {
-			if (Gamer.IsItTrump(turnCard, trump.getSuitId())) {
+			if (Gamer.IsItTrump(turnCard, trump)) {
 				// and gamer turned trump
 				// и игрок пошел по козырю
 				iterBatchOnHand = gamer.getbatchOnHand().iterator();
@@ -103,13 +109,13 @@ public class Judge {
 	public CheatingType firstCardCheck(Card firstCard, Gamer gamer) {
 		Iterator<Card> iterBatchOnHand;
 		//Если игрок пошёл по козырю
-		if (Gamer.IsItTrump(firstCard, trump.getSuitId())) {
-			// И если не его команда назнаячала козырь
+		if (Gamer.IsItTrump(firstCard, trump)) {
+			// И если не его команда назначала козырь
 			if (!gamer.getTrumpSetterFlag()) {
 				iterBatchOnHand = gamer.getbatchOnHand().iterator();
 				while(iterBatchOnHand.hasNext()) {
 					// У него не может быть обычных карт(не козырей)
-					if (!Gamer.IsItTrump(firstCard, trump.getSuitId())){
+					if (!Gamer.IsItTrump(firstCard, trump)){
 						//т.е. Если у него есть обычная карта, то ошибка
 						return new CheatingType(CheatingType.FIRST_TURN_CHEAT_CODE);
 					}
@@ -128,6 +134,10 @@ public class Judge {
 	 */
 	public void checkTurn(Card turnCard, Gamer gamer) {
 
+	}
+	
+	public void setTrump(int trump) {
+		this.trump = trump;
 	}
 
 }
