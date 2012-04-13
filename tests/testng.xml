@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Kozel game test suit">
+  <test name="Brain">
+    <classes>
+       <class name="ru.devhead.goatgame.logic.brain.GamerTest" />
+    </classes>
+  </test>
+  <test name="Verification">
+    <classes>
+       <class name="ru.devhead.goatgame.logic.verification.JudgeTest" />
+    </classes>
+  </test>
+</suite>

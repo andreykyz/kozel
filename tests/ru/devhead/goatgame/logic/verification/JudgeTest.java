@@ -63,12 +63,8 @@ public class JudgeTest {
 		judge = new Judge(trump, gamersTeamTrumpSetter);
 	}
 
-	@BeforeTest
-	public void beforeTest() {
-	}
-//Добавить проверку пользователей по наличию карт
 	@Test(dataProvider = "forTestFirstCardCheck")
-	public void testFirstCardCheckTrue() {
+	public void testFirstCardCheckTrue(Object obj) {
 		Card card;
 		boolean assertFlag = false;
 		int randInt;
@@ -177,7 +173,7 @@ public class JudgeTest {
 	}
 
 	@Test(dataProvider = "forTestFirstCardCheck")
-	public void testFirstCardCheckFalse() {
+	public void testFirstCardCheckFalse(Object obj) {
 		// trump or superTrump + NotTrumpSetter
 		int randInt = rnd.nextInt(CardGroups.trumpAndTrumpSuitPairs.length);
 		Card card = (Card) CardGroups.trumpAndTrumpSuitPairs[randInt][0];
