@@ -1,17 +1,11 @@
 package ru.devhead.goatgame.logic.brain;
 
-import java.util.Scanner;
-
-import org.apache.log4j.Logger;
-
 import ru.devhead.goatgame.display.Display;
 import ru.devhead.goatgame.logic.Card;
 
 
 public class Player extends Gamer {
 
-	
-	private static Logger logger = Logger.getLogger(Player.class);
 	
 	public Player(Display display, int id){
 		super(display, id);
